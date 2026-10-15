@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    public void OnNewGame() { }
+    public void OnNewGame()
+    {
+        SceneManager.LoadScene("ChapterSelect");
+    }
     public void OnContinue() { /* làm ở Phase Save/Load */ }
     public void OnSettings() { /* mở panel Cài đặt, làm sau */ }
     public void OnHowToPlay() { /* mở panel Hướng dẫn, làm sau */ }

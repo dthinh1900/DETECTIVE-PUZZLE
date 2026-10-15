@@ -265,8 +265,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -7762385351110418400, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
-    m_PressedSprite: {fileID: -2198346170569762702, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
+    m_HighlightedSprite: {fileID: -2198346170569762702, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
+    m_PressedSprite: {fileID: -7762385351110418400, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
     m_SelectedSprite: {fileID: 2107098046199501501, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
     m_DisabledSprite: {fileID: -8124117069607775654, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
   m_AnimationTriggers:
@@ -938,8 +938,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
-    m_PressedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_HighlightedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_PressedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_SelectedSprite: {fileID: 6167790754670647696, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_DisabledSprite: {fileID: 7405435139005704258, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
   m_AnimationTriggers:
@@ -955,7 +955,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1968304440}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: OnNewGame
+        m_MethodName: OnContinue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1071,8 +1071,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
-    m_PressedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_HighlightedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_PressedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_SelectedSprite: {fileID: 6167790754670647696, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_DisabledSprite: {fileID: 7405435139005704258, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
   m_AnimationTriggers:
@@ -1088,7 +1088,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1968304440}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: OnNewGame
+        m_MethodName: OnExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1203,8 +1203,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 5230399334936925811, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
-    m_PressedSprite: {fileID: 1817401020750814892, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
+    m_HighlightedSprite: {fileID: 1817401020750814892, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
+    m_PressedSprite: {fileID: 5230399334936925811, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
     m_SelectedSprite: {fileID: -6625516515408537593, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
     m_DisabledSprite: {fileID: 4916003595109132380, guid: 5fce29126601f644a85a2a7e17baf63a, type: 3}
   m_AnimationTriggers:
@@ -1561,8 +1561,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
-    m_PressedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_HighlightedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_PressedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_SelectedSprite: {fileID: 6167790754670647696, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_DisabledSprite: {fileID: 7405435139005704258, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
   m_AnimationTriggers:
@@ -1578,7 +1578,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1968304440}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: OnNewGame
+        m_MethodName: OnSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1886,8 +1886,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
-    m_PressedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_HighlightedSprite: {fileID: -4743992063612170589, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
+    m_PressedSprite: {fileID: -2714056337236703719, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_SelectedSprite: {fileID: 6167790754670647696, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
     m_DisabledSprite: {fileID: 7405435139005704258, guid: c081b7909d993f54fbb1412955e4862e, type: 3}
   m_AnimationTriggers:
