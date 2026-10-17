@@ -1,0 +1,168 @@
+{
+  "dialogues": [
+    {
+      "speaker": "ChatGPT",
+      "text": "Đúng là 1 cơn bão lớn mà. Mãi mới có thể về nhà vậy mà xe lại hỏng."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Đường đường là 1 thám tử chả lẽ nay lại phải ngủ giữa rừng sao?!"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Ồ, có một chiếc xe đang tới! MÌnh đúng là quá may mắn mà! Làm ơn giúp tôi với...!"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Wao, là 1 cô gái!"
+    },
+    {
+      "speaker": "Giang",
+      "text": "Chào anh, có vẻ anh đang gặp rắc rối nhỉ! Xung quanh đây không có nhà dân nào đâu. Anh có thể đến nhà nghỉ của tôi nếu muốn?"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Cảm ơn cô vì đã cho giúp tôi. Nhà cô ở trong rừng này nghe có vẻ bất tiện nhỉ, xung quanh cũng không có ai, sao cô không mua 1 căn nhà trong thành phố! "
+    },
+    {
+      "speaker": "Giang",
+      "text": "Thật ra đây là căn nhà cũ của tôi, lâu lâu tôi mới ghé qua thôi. Hôm nay anh gặp may đấy, tôi tính ghé siêu thi mua đồ nếu không chắc anh..."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Haha, mà gần đây có siêu thị hả!"
+    },
+    {
+      "speaker": "Giang",
+      "text": "Siêu thị nằm trong thành phố cơ. Mà muốn vào thành phố thì phải đi qua cây cầu phía trước. Tiếc là cơn bão vừa rồi đã làm sập cây cầu."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Hả?! Cầu sập rồi sao? Vậy chẳng phải chúng ta bị mắc kẹt ở đây à?"
+    },
+    {
+      "speaker": "Giang",
+      "text": "Anh không cần lo quá. Tôi đã liên hệ với cơ quan chức năng rồi. Họ nói sẽ tìm cách giải quyết, chậm nhất là 3 ngày!"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Tuyệt thật... Xe hỏng, đường về bị chặn, giờ còn phải ở lại một nơi hẻo lánh tận vài ngày."
+    },
+    {
+      "speaker": "Giang",
+      "text": "À quên nói với anh là tôi còn 1 vài người bạn ở nhà nghỉ nữa. Cũng sắp đến nơi rồi, tý tôi giới thiệu sau cho anh nha."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "À vâng không sao đâu."
+    },
+    {
+      "speaker": "Bảo",
+      "text": "Ồ chị Giang về rồi kìa."
+    },
+    {
+      "speaker": "Chi",
+      "text": "Bả đi nhanh vậy sao? Mới đi được một lúc mà!"
+    },
+    {
+      "speaker": "Dũng",
+      "text": "Chắc chị ấy quên đồ thôi."
+    },
+    {
+      "speaker": "Chi",
+      "text": "Ủa, khoan đã... Bả chở trai về kia!"
+    },
+    {
+      "speaker": "Hải",
+      "text": "Hả?! Đâu, đâu? Xem với!"
+    },
+    {
+      "speaker": "Giang",
+      "text": "Chị về rồi đây! Mà cầu sập nên chị không mua được gì đâu. À, đây là... Anh tên gì ấy nhỉ?"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Chào mọi người, tôi là ChatGPT, một thám tử. Xe tôi bị hỏng giữa rừng nên đành xin đến đây tá túc vài ngày."
+    },
+    {
+      "speaker": "Chi",
+      "text": "Ohhh! Vậy mà tôi cứ tưởng anh là người yêu của bả cơ!"
+    },
+    {
+      "speaker": "Dũng",
+      "text": "Thôi đi, Chi! Đừng có nói linh tinh nữa!"
+    },
+    {
+      "speaker": "Dũng",
+      "text": "Chào anh, Anh đến đúng lúc thật đấy. Bọn tôi đang tính vào rừng kiếm chút đồ ăn cho mấy ngày tới."
+    },
+    {
+      "speaker": "Hải",
+      "text": "Đúng đấy! Quanh đây có nhiều gà rừng, chim với nấm lắm. Chỉ cần chịu khó tìm một chút là có đồ ăn ngay."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Vậy à? Nghe cũng thú vị đấy. Chờ tôi cất đồ rồi đi!"
+    },
+    {
+      "speaker": "Giang",
+      "text": "À, trên tầng 2 còn phóng cuối hành lang trống đó anh ở đó nhá!"
+    },
+    {
+      "speaker": "Bảo",
+      "text": "Vậy trong lúc chờ tôi và Dũng sẽ đi lấy cung tên để đi săn!"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Ohh, mọi người có cung tên sao!"
+    },
+    {
+      "speaker": "Bảo",
+      "text": "Tất nhiên tôi là tuyển thủ bắn cung mà! Để tôi biểu diễn cho anh xem!"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Wao anh bắn chuẩn vậy."
+    },
+    {
+      "speaker": "Dũng",
+      "text": "Anh đừng khen câu ta, không câu ta lại giở chứng khoe khoang đó."
+    },
+    {
+      "speaker": "Bảo",
+      "text": "Tôi đâu có..."
+    },
+    {
+      "speaker": "Hải",
+      "text": "Được rồi, thu tên đi thôi không đợi Bảo chắc đến tối"
+    },
+    {
+      "speaker": "Bảo",
+      "text": "Thôi không cần thu đâu, đi nhanh ko muộn! Tên thì nào rảnh thu sau"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Chúng tôi đi sâu vào rừng và săn được vài con gà. Nhưng chẳng bao lâu, mây đen kéo đến, mưa bắt đầu trút xuống."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Chúng tôi vội vàng chạy về nhà nghỉ, trước khi cơn mưa trở nên dữ dội hơn."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Vừa trở về nhà nghỉ, điện thoại của tất cả chúng tôi đồng loạt nhận được một tin nhắn từ số lạ."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Hỡi những kẻ đã đẩy ta vào đường cùng của bóng tối, ta sẽ tổ chức một trò chơi mật, giải thưởng là mạng của các ngươi. Mật thư ta đã gửi đến cửa nhà các ngươi, hãy cố mà giữ mạng của mình!"
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Chuông cửa bất ngờ vang lên. Tôi bước ra mở cửa và phát hiện một phong thư bí ẩn được đặt ngay trước thềm."
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Mọi người đều cho rằng đó chỉ là một trò đùa. Chẳng ai tỏ ra quá lo lắng. Sau đó, mỗi người trở về phòng để tắm rửa và thay đồ. Nhưng tôi có linh cảm rằng chuyện này chưa kết thúc. Hồi 1 bắt đầu."
+    }
+  ]
+}

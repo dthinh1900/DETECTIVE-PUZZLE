@@ -11,8 +11,7 @@ public class ChapterSelectController : MonoBehaviour
 
     public void OnSelectChapter1()
     {
-        Debug.Log("Đã chọn Chương 1");
-        // Chuyển sang Intro vụ án ở Ngày 16.
+        SceneManager.LoadScene("CaseIntro");
     }
 
     public void OnSelectChapter2()

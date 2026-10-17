@@ -1,0 +1,326 @@
+fileFormatVersion: 2
+guid: 1e9c85a5e6e8d4e4387455a1e5b6b7a8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -950812758933369186
+    second: khungthoai_0
+  - first:
+      213: 2438228061446307727
+    second: khungthoai_1
+  - first:
+      213: -6627101655562934970
+    second: khungthoai_2
+  - first:
+      213: 66451962909436564
+    second: khungthoai_3
+  - first:
+      213: 8445112717575845995
+    second: khungthoai_4
+  - first:
+      213: -3426028568210481534
+    second: khungthoai_5
+  - first:
+      213: -3346872076570753190
+    second: khungthoai_6
+  - first:
+      213: -7227495777249579408
+    second: khungthoai_7
+  - first:
+      213: 6208362241910386126
+    second: khungthoai_8
+  - first:
+      213: 2239751426612290168
+    second: khungthoai_9
+  - first:
+      213: -6469316674891427335
+    second: khungthoai_10
+  - first:
+      213: 218812320858632355
+    second: khungthoai_11
+  - first:
+      213: -5439953032634651713
+    second: khungthoai_12
+  - first:
+      213: 3264927412188503352
+    second: khungthoai_13
+  - first:
+      213: -7738353636571092262
+    second: khungthoai_14
+  - first:
+      213: 3825859788260159788
+    second: khungthoai_15
+  - first:
+      213: 905730406298095707
+    second: khungthoai_16
+  - first:
+      213: -421185932191248108
+    second: khungthoai_17
+  - first:
+      213: 1699964490067105491
+    second: khungthoai_18
+  - first:
+      213: 3383748457006561403
+    second: khungthoai_19
+  - first:
+      213: -1808715835616302355
+    second: khungthoai_20
+  - first:
+      213: -8423049428504476619
+    second: khungthoai_21
+  - first:
+      213: -5817287444369569967
+    second: khungthoai_22
+  - first:
+      213: 5710860006582963431
+    second: khungthoai_23
+  - first:
+      213: 1203678959652864602
+    second: khungthoai_24
+  - first:
+      213: 865960587497268510
+    second: khungthoai_25
+  - first:
+      213: 1492126470776131758
+    second: khungthoai_26
+  - first:
+      213: 2959682909633705733
+    second: khungthoai_27
+  - first:
+      213: -341165331075651076
+    second: khungthoai_28
+  - first:
+      213: 471034953927384531
+    second: khungthoai_29
+  - first:
+      213: 5930285907097840711
+    second: khungthoai_30
+  - first:
+      213: -1345174987107855541
+    second: khungthoai_31
+  - first:
+      213: -6762324893649281099
+    second: khungthoai_32
+  - first:
+      213: 7067611957864703476
+    second: khungthoai_33
+  - first:
+      213: -7114432131211000100
+    second: khungthoai_34
+  - first:
+      213: -7282469393785822565
+    second: khungthoai_35
+  - first:
+      213: 7429360143151560304
+    second: khungthoai_36
+  - first:
+      213: 1615555229782819443
+    second: khungthoai_37
+  - first:
+      213: 4082333644394085565
+    second: khungthoai_38
+  - first:
+      213: 2321100735638047512
+    second: khungthoai_39
+  - first:
+      213: 75635967882023586
+    second: khungthoai_40
+  - first:
+      213: 7085472761181332674
+    second: khungthoai_41
+  - first:
+      213: -3789396759657832232
+    second: khungthoai_42
+  - first:
+      213: 5875336088665850514
+    second: khungthoai_43
+  - first:
+      213: 3969428068248813153
+    second: khungthoai_44
+  - first:
+      213: 7784633084630062946
+    second: khungthoai_45
+  - first:
+      213: -95706672709819793
+    second: khungthoai_46
+  - first:
+      213: 194027509877205606
+    second: khungthoai_47
+  - first:
+      213: -3901022003909568051
+    second: khungthoai_48
+  - first:
+      213: 7610947451624558722
+    second: khungthoai_49
+  - first:
+      213: -6493623303013086419
+    second: khungthoai_50
+  - first:
+      213: 4940455766944748052
+    second: khungthoai_51
+  - first:
+      213: -1831288666960622837
+    second: khungthoai_52
+  - first:
+      213: 4101306433420889729
+    second: khungthoai_53
+  - first:
+      213: 3067721826775656314
+    second: khungthoai_54
+  - first:
+      213: 9000819925626855478
+    second: khungthoai_55
+  - first:
+      213: -4695740198021739401
+    second: khungthoai_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: khungthoai_0
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 152
+        width: 1473
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9e0ed755d80ec2f0800000000000000
+      internalID: -950812758933369186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 028263f40a6221c45a9e8e76dde785e8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1774.0,"y":887.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      khungthoai_0: -950812758933369186
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

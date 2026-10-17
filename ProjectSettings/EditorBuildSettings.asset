@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChapterSelect.unity
     guid: 46f565c1a4ca1e145b5bdaf5249afdd3
+  - enabled: 1
+    path: Assets/Scenes/CaseIntro.unity
+    guid: d65a43379abdfa34793997a776ce1796
+  - enabled: 1
+    path: Assets/Scenes/Investigation.unity
+    guid: 80afce2b052aa0144b4662291153c02e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
