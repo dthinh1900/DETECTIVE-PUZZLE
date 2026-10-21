@@ -1,0 +1,50 @@
+﻿{
+  "characters": [
+    {
+      "characterId": "Bảo",
+      "questions": [
+        {
+          "questionText": "Anh đã ở đâu khi vụ án xảy ra?",
+          "answerText": "Tôi ở phòng khách vào thời điểm đó."
+        },
+        {
+          "questionText": "Anh có quen nạn nhân không?",
+          "answerText": "Tôi đã quen nạn nhân nhiều năm."
+        },
+        {
+          "questionText": "Anh có nghe thấy tiếng động gì không?",
+          "answerText": "Tôi nghe thấy tiếng động từ tầng trên."
+        },
+        {
+          "questionText": "Anh gặp nạn nhân lần cuối khi nào?",
+          "answerText": "Tôi gặp nạn nhân vào buổi chiều."
+        }
+      ]
+    },
+    {
+      "characterId": "Chi",
+      "questions": [
+        {
+          "questionText": "Lần cuối cô gặp nạn nhân là khi nào?",
+          "answerText": "Tôi gặp nạn nhân vào buổi chiều."
+        },
+        {
+          "questionText": "Cô có thấy ai đi vào phòng không?",
+          "answerText": "Tôi thấy một người đi về phía hành lang."
+        }
+      ]
+    },
+    {
+      "characterId": "Dũng",
+      "questions": []
+    },
+    {
+      "characterId": "Giang",
+      "questions": []
+    },
+    {
+      "characterId": "Hải",
+      "questions": []
+    }
+  ]
+}

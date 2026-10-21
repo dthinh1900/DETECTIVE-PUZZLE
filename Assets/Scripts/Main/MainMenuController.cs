@@ -3,15 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    public GameObject settingPanel;
+    public GameObject collectionPanel;
+    public GameObject guidePanel;
     public void OnNewGame()
     {
         SceneManager.LoadScene("ChapterSelect");
     }
-    public void OnContinue() { /* làm ở Phase Save/Load */ }
-    public void OnSettings() { /* mở panel Cài đặt, làm sau */ }
-    public void OnHowToPlay() { /* mở panel Hướng dẫn, làm sau */ }
-    public void OnCollection() { /* mở panel Sưu tầm, làm ở Phase 11 */ }
+    public void OnContinue() {          settingPanel.SetActive(true);}
+    public void OnSettings() {          settingPanel.SetActive(true);    }
+    public void OnHowToPlay() {         guidePanel.SetActive(true); }
+    public void OnCollection() {        collectionPanel.SetActive(true); }
 
+    public void OffPanel() {       
+        settingPanel.SetActive(false);
+        guidePanel.SetActive(false);
+        collectionPanel.SetActive(false);
+    }
     public void OnExit()
     {
         #if UNITY_EDITOR

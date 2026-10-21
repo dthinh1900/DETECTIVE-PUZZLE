@@ -1,0 +1,268 @@
+fileFormatVersion: 2
+guid: 9b0577a6deadfae4c8e5524861843592
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -614889076552964408
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_0"
+  - first:
+      213: 5693585875867836867
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_1"
+  - first:
+      213: 323257951171800121
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_2"
+  - first:
+      213: -2780080634698630520
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_3"
+  - first:
+      213: 3044172826779689712
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_4"
+  - first:
+      213: 7789097870297103278
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_5"
+  - first:
+      213: 94412886999763407
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_6"
+  - first:
+      213: -5971866972379899006
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_7"
+  - first:
+      213: 4350327065308792672
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_8"
+  - first:
+      213: -42909911886797413
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_9"
+  - first:
+      213: 8466171423047816764
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_10"
+  - first:
+      213: 4503123764828724271
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_11"
+  - first:
+      213: 4875172356316669270
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_12"
+  - first:
+      213: 1978625276651346889
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_13"
+  - first:
+      213: 8647202171627342472
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_14"
+  - first:
+      213: -2771576147418194352
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_15"
+  - first:
+      213: 8159020498422867853
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_16"
+  - first:
+      213: -3942056223594418308
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_17"
+  - first:
+      213: 5911158183107807824
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_18"
+  - first:
+      213: -1060925587711681458
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_19"
+  - first:
+      213: 5825964925826425239
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_20"
+  - first:
+      213: 849155420761268585
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_21"
+  - first:
+      213: -6385586978605908771
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_22"
+  - first:
+      213: 9082890712330762558
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_23"
+  - first:
+      213: -6470119035382650815
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_24"
+  - first:
+      213: 4911840444715044615
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_25"
+  - first:
+      213: -1114413729875118643
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_26"
+  - first:
+      213: 8077393216845623037
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_27"
+  - first:
+      213: 4992303093484108348
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_28"
+  - first:
+      213: 6867807770404995199
+    second: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_29"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_0"
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 216
+        width: 1033
+        height: 308
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c6eac784a97777f0800000000000000
+      internalID: -614889076552964408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_1"
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 241
+        width: 862
+        height: 305
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f9958771ab1c924ab186d8f1f87d8f1
+      internalID: 5693585875867836867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ee7af2e596235af4ba86fdeea99a7540
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":2172.0,"y":724.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_0": -614889076552964408
+      "Nh\xE3n ch\u1EEF pixel H\u01B0\u1EDBng d\u1EABn v\xE0 S\u01B0u t\u1EA7m_1": 5693585875867836867
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

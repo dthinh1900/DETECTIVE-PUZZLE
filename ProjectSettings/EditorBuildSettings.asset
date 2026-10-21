@@ -17,6 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Investigation.unity
     guid: 80afce2b052aa0144b4662291153c02e
+  - enabled: 1
+    path: Assets/Scenes/Investigation/Explore.unity
+    guid: 6b6c5d10cfa466d41836a1584e376d6e
+  - enabled: 1
+    path: Assets/Scenes/Investigation/Interrogate.unity
+    guid: 39fdde6f02097b648818f13a3175782c
+  - enabled: 1
+    path: Assets/Scenes/Investigation/Story.unity
+    guid: 623d6f1d6a980c24dacaa9c4a4511dd5
+  - enabled: 1
+    path: Assets/Scenes/Investigation/CaseFile.unity
+    guid: 7d490cb4ec7a7784fa3508e168b03835
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

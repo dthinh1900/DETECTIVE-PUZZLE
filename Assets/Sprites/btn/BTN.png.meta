@@ -1,37 +1,16 @@
 fileFormatVersion: 2
-guid: 5fce29126601f644a85a2a7e17baf63a
+guid: 5dccb06fc999b0b49b6d26eb7b883f75
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5230399334936925811
-    second: SL_0
+      213: -2538533019411605505
+    second: BTN_0
   - first:
-      213: 1817401020750814892
-    second: SL_1
+      213: 1670906578029223075
+    second: BTN_1
   - first:
-      213: -6625516515408537593
-    second: SL_2
-  - first:
-      213: 4916003595109132380
-    second: SL_3
-  - first:
-      213: -4297449658967657959
-    second: SL_4
-  - first:
-      213: -1992854424092581858
-    second: SL_5
-  - first:
-      213: -7762385351110418400
-    second: SL_6
-  - first:
-      213: -2198346170569762702
-    second: SL_7
-  - first:
-      213: 2107098046199501501
-    second: SL_8
-  - first:
-      213: -8124117069607775654
-    second: SL_9
+      213: 5596703467246347568
+    second: BTN_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -140,123 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SL_0
+      name: BTN_0
       rect:
         serializedVersion: 2
-        x: 317
-        y: 543
-        width: 298
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 376da58bb7c169840800000000000000
-      internalID: 5230399334936925811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SL_1
-      rect:
-        serializedVersion: 2
-        x: 620
-        y: 543
-        width: 298
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: caed8407994b83910800000000000000
-      internalID: 1817401020750814892
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SL_2
-      rect:
-        serializedVersion: 2
-        x: 922
-        y: 543
-        width: 298
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 708179d25df6d04a0800000000000000
-      internalID: -6625516515408537593
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SL_3
-      rect:
-        serializedVersion: 2
-        x: 1223
-        y: 543
-        width: 298
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c58e5014937293440800000000000000
-      internalID: 4916003595109132380
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SL_4
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 149
-        width: 298
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 912fb15dd446c54c0800000000000000
-      internalID: -4297449658967657959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SL_5
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 543
-        width: 298
-        height: 338
+        x: 27
+        y: 1146
+        width: 968
+        height: 227
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e1065eab575f754e0800000000000000
-      internalID: -1992854424092581858
+      spriteID: ff71f572ba155ccd0800000000000000
+      internalID: -2538533019411605505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SL_6
+      name: BTN_1
       rect:
         serializedVersion: 2
-        x: 318
-        y: 149
-        width: 298
-        height: 338
+        x: 27
+        y: 918
+        width: 968
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0202e5966a7764490800000000000000
-      internalID: -7762385351110418400
+      spriteID: 3ac9b4c0ea0403710800000000000000
+      internalID: 1670906578029223075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SL_7
+      name: BTN_2
       rect:
         serializedVersion: 2
-        x: 620
-        y: 149
-        width: 298
-        height: 338
+        x: 396
+        y: 1144
+        width: 12
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,52 +178,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 27859d12ec7ed71e0800000000000000
-      internalID: -2198346170569762702
+      spriteID: 0356a6e962c7bad40800000000000000
+      internalID: 5596703467246347568
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SL_8
+      name: BTN_3
       rect:
         serializedVersion: 2
-        x: 923
-        y: 149
-        width: 298
-        height: 338
+        x: 27
+        y: 689
+        width: 968
+        height: 229
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: db214a6528aed3d10800000000000000
-      internalID: 2107098046199501501
+      spriteID: c529ff44a20b8314dac8af479640a346
+      internalID: -2104042258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SL_9
+      name: BTN_4
       rect:
         serializedVersion: 2
-        x: 1225
-        y: 149
-        width: 298
-        height: 338
+        x: 27
+        y: 457
+        width: 968
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a5257509196514f80800000000000000
-      internalID: -8124117069607775654
+      spriteID: 1d9d03a2a46c9bb46a60afb26651eb3b
+      internalID: -1054052593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BTN_5
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 219
+        width: 968
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a5a93a695137c4448ee91a909b4396c
+      internalID: -717523011
       vertices: []
       indices: 
       edges: []
@@ -363,7 +254,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1e96ecb3ec646844c9b2fd720bd463cb
+    spriteID: a2b71ac04688a5e4ebf409242dde3948
     internalID: 0
     vertices: []
     indices: 
@@ -373,16 +264,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SL_0: 5230399334936925811
-      SL_1: 1817401020750814892
-      SL_2: -6625516515408537593
-      SL_3: 4916003595109132380
-      SL_4: -4297449658967657959
-      SL_5: -1992854424092581858
-      SL_6: -7762385351110418400
-      SL_7: -2198346170569762702
-      SL_8: 2107098046199501501
-      SL_9: -8124117069607775654
+      BTN_0: -2538533019411605505
+      BTN_1: 1670906578029223075
+      BTN_2: 5596703467246347568
+      BTN_3: -2104042258
+      BTN_4: -1054052593
+      BTN_5: -717523011
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

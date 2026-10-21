@@ -193,7 +193,7 @@ public class CaseIntroController : MonoBehaviour
             "Nhân vật chính: ChatGPT, một thám tử gặp sự cố xe giữa đường rừng.\n" +
             "Sau khi biết cây cầu gần đó đã sập, ChatGPT được Giang đưa về nhà nghỉ để tránh bão.\n" +
             "Tại đây có Giang, Bảo, Chi, Dũng, Hải và ChatGPT. Cây cầu sập khiến cả nhóm tạm thời không thể ra khỏi khu rừng, nhưng thức ăn trong tủ lạnh vẫn đủ cho một ngày.\n" +
-            "Bảo rủ mọi người vào rừng săn. Sau chuyến đi săn, cơn mưa ập tới khiến tất cả mọi người quay lại nhà nghỉ. Khi về nhà nghỉ, mọi người nhận được tin nhắn ẩn danh cùng một mật thư xuất hiện ngay trước cửa nhà.\n" +
+            "Bảo rủ mọi người vào rừng đi săn. Sau chuyến đi săn, cơn mưa ập tới khiến tất cả mọi người quay lại nhà nghỉ. Khi về nhà nghỉ, mọi người nhận được tin nhắn ẩn danh cùng một mật thư xuất hiện ngay trước cửa nhà.\n" +
             "Mọi người cho rằng đó chỉ là trò đùa rồi về phòng tắm rửa, thay đồ.\n" +
             "HỒI 1: BẮT ĐẦU.";
     }
@@ -204,5 +204,10 @@ public class CaseIntroController : MonoBehaviour
         Debug.Log("ChatGPT bắt đầu Hồi 1.");
 
         SceneManager.LoadScene("Investigation");
+    }
+    // Bỏ qua toàn bộ lời thoại và mở tóm tắt vụ án.
+    public void OnSkipDialogue()
+    {
+        ShowCaseSummary();
     }
 }

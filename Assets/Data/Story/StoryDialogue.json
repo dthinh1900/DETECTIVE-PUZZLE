@@ -1,0 +1,36 @@
+﻿{
+  "stories": [
+    {
+      "storyId": "STORY_01",
+      "title": "Chuyến đi săn",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Sau khi ổn định chỗ nghỉ, mọi người quyết định ra khu rừng gần nhà để săn gà rừng."
+        },
+        {
+          "speaker": "Bảo",
+          "text": "Khu rừng này có nhiều gà rừng và chim hoang. Mọi người cứ thử săn một chuyến đi!"
+        },
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Bảo lấy cung ra thử, bắn vài mũi tên vào những thân cây xung quanh. Anh nói rằng sẽ quay lại thu hồi chúng sau."
+        }
+      ]
+    },
+    {
+      "storyId": "STORY_02",
+      "title": "Tin nhắn ẩn danh",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Sau khi trở về nhà nghỉ vì cơn mưa lớn, điện thoại của mọi người đồng loạt nhận được một tin nhắn lạ."
+        },
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Tin nhắn đe dọa tính mạng của tất cả những người đang ở trong căn nhà."
+        }
+      ]
+    }
+  ]
+}
