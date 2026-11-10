@@ -10,6 +10,7 @@ public class StoryController : MonoBehaviour
     [Serializable]
     public class StoryInfo
     {
+        public string storyId;
         public string title;
 
         [TextArea(4, 12)]
@@ -24,13 +25,16 @@ public class StoryController : MonoBehaviour
         public Sprite itemIcon3;
     }
 
-    [Header("Hai panel")]
+    [Header("Panels")]
     [SerializeField] private GameObject sceneStory;
     [SerializeField] private GameObject storyDetailPanel;
 
     [Header("Danh sach Story")]
     [SerializeField] private Transform storyContent;
     [SerializeField] private Button storyItemPrefab;
+
+    [Header("Chapter 1 JSON")]
+    [SerializeField] private TextAsset chapter1StoryJson;
 
     [Header("Mau nen")]
     [SerializeField]
@@ -41,13 +45,71 @@ public class StoryController : MonoBehaviour
     private Color unlockedColor =
         new Color(1f, 0.9f, 0.65f, 1f);
 
-    [Header("Du lieu kiem thu")]
+    [Header("Du lieu Story")]
     [SerializeField] private StoryInfo[] stories;
+
+    [Header("Story Detail")]
+    [SerializeField]
+    private StoryDetailController storyDetailController;
+
+    private StoryDetailController.ChapterStoryData chapterData;
 
     private void Start()
     {
+        // 1. Tai JSON truoc.
+        if (!LoadChapterData())
+            return;
+
+        // 2. Truyen du lieu cho StoryDetailController.
+        if (storyDetailController == null)
+        {
+            Debug.LogError(
+                "StoryController: Chua gan StoryDetailController."
+            );
+            return;
+        }
+
+        storyDetailController.SetChapterData(chapterData);
+
+        // 3. Hien danh sach va sinh cac nut Story.
         ShowStoryList();
         GenerateStoryItems();
+    }
+
+    private bool LoadChapterData()
+    {
+        if (chapter1StoryJson == null)
+        {
+            Debug.LogError(
+                "StoryController: Chua gan Chapter1Story.json!"
+            );
+            return false;
+        }
+
+        chapterData =
+            JsonUtility.FromJson<
+                StoryDetailController.ChapterStoryData
+            >(chapter1StoryJson.text);
+
+        if (chapterData == null ||
+            chapterData.stories == null)
+        {
+            Debug.LogError(
+                "StoryController: JSON khong hop le " +
+                "hoac thieu mang stories!"
+            );
+
+            chapterData = null;
+            return false;
+        }
+
+        Debug.Log(
+            "StoryController: Da tai " +
+            chapterData.stories.Length +
+            " Story cua Chuong 1."
+        );
+
+        return true;
     }
 
     private void GenerateStoryItems()
@@ -60,7 +122,7 @@ public class StoryController : MonoBehaviour
             return;
         }
 
-        // Xoa cac Button cu trong Content.
+        // Xoa cac nut cu.
         foreach (Transform child in storyContent)
         {
             Destroy(child.gameObject);
@@ -74,74 +136,38 @@ public class StoryController : MonoBehaviour
             int index = i;
             StoryInfo story = stories[index];
 
+            if (story == null)
+                continue;
+
             Button item = Instantiate(
                 storyItemPrefab,
                 storyContent
             );
 
-            // Lay cac doi tuong con theo ten trong Prefab.
-            TMP_Text titleText =
-                item.transform.Find("StoryTitle")
-                ?.GetComponent<TMP_Text>();
+            StoryBTN storyButton =
+                item.GetComponent<StoryBTN>();
 
-            Transform iconsRoot =
-                item.transform.Find("ItemIcons");
-
-            Image backgroundImage =
-                item.GetComponent<Image>();
-
-            if (titleText != null)
-                titleText.text = story.title;
-
-            // Dat mau nen theo trang thai khoa.
-            if (backgroundImage != null)
+            if (storyButton == null)
             {
-                backgroundImage.color = story.unlocked
-                    ? unlockedColor
-                    : lockedColor;
-            }
-
-            // Gan ba icon vat pham.
-            if (iconsRoot != null)
-            {
-                Image icon1 = iconsRoot
-                    .Find("Icon_Item_1")
-                    ?.GetComponent<Image>();
-
-                Image icon2 = iconsRoot
-                    .Find("Icon_Item_2")
-                    ?.GetComponent<Image>();
-
-                Image icon3 = iconsRoot
-                    .Find("Icon_Item_3")
-                    ?.GetComponent<Image>();
-
-                SetIcon(icon1, story.itemIcon1);
-                SetIcon(icon2, story.itemIcon2);
-                SetIcon(icon3, story.itemIcon3);
-
-                // Da mo khoa thi an ca ba icon.
-                iconsRoot.gameObject.SetActive(
-                    !story.unlocked
+                Debug.LogError(
+                    "StoryController: Prefab chua co StoryBTN."
                 );
+
+                Destroy(item.gameObject);
+                continue;
             }
 
-            // Story bi khoa thi khong bam duoc.
-            item.interactable = story.unlocked;
-
-            item.onClick.AddListener(
+            storyButton.Setup(
+                story.title,
+                story.itemIcon1,
+                story.itemIcon2,
+                story.itemIcon3,
+                story.unlocked,
+                lockedColor,
+                unlockedColor,
                 () => OpenStory(index)
             );
         }
-    }
-
-    private void SetIcon(Image icon, Sprite sprite)
-    {
-        if (icon == null)
-            return;
-
-        icon.sprite = sprite;
-        icon.enabled = sprite != null;
     }
 
     private void OpenStory(int index)
@@ -153,25 +179,32 @@ public class StoryController : MonoBehaviour
             return;
         }
 
-        if (!stories[index].unlocked)
+        StoryInfo story = stories[index];
+
+        if (story == null || !story.unlocked)
             return;
 
-        // Tam thoi chi chuyen panel.
-        // Noi dung StoryDetailPanel se lam sau.
-        if (sceneStory != null)
-            sceneStory.SetActive(false);
+        if (string.IsNullOrWhiteSpace(story.storyId))
+        {
+            Debug.LogError(
+                "StoryController: Story ID khong duoc de trong."
+            );
+            return;
+        }
 
-        if (storyDetailPanel != null)
-            storyDetailPanel.SetActive(true);
+        storyDetailController.OpenStory(
+            story.storyId,
+            null
+        );
     }
 
     public void ShowStoryList()
     {
-        if (storyDetailPanel != null)
-            storyDetailPanel.SetActive(false);
-
         if (sceneStory != null)
             sceneStory.SetActive(true);
+
+        if (storyDetailPanel != null)
+            storyDetailPanel.SetActive(false);
     }
 
     public void OnBack()

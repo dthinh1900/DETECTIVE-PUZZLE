@@ -1,0 +1,19 @@
+{
+  "dialogues": [
+    {
+      "speaker": "ChatGPT",
+      "text": "Bắt đầu chương 2",
+      "backgroundIndex": 0
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Đường đường là 1 thám tử chả lẽ nay lại phải ngủ giữa rừng sao?!",
+      "backgroundIndex": -1
+    },
+    {
+      "speaker": "ChatGPT",
+      "text": "Ồ, có một chiếc xe đang tới! MÌnh đúng là quá may mắn mà! Làm ơn giúp tôi với...!",
+      "backgroundIndex": 1
+    }
+  ]
+}

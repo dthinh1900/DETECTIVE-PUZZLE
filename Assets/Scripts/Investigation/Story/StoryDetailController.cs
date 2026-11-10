@@ -6,11 +6,9 @@ using UnityEngine.UI;
 
 public class StoryDetailController : MonoBehaviour
 {
-    [Serializable]
-    public class DialogueData
-    {
-        public DialogueLine[] dialogues;
-    }
+    // =========================
+    // JSON DATA
+    // =========================
 
     [Serializable]
     public class DialogueLine
@@ -18,10 +16,27 @@ public class StoryDetailController : MonoBehaviour
         public string speaker;
         public string text;
 
-        // -1: giu nguyen Background hien tai.
-        // 0, 1, 2...: doi sang anh nen tuong ung.
+        // -1: giữ nguyên Background hiện tại.
+        // 0, 1, 2...: đổi sang ảnh nền tương ứng.
         public int backgroundIndex = -1;
     }
+
+    [Serializable]
+    public class StoryData
+    {
+        public string storyId;
+        public DialogueLine[] dialogues;
+    }
+
+    [Serializable]
+    public class ChapterStoryData
+    {
+        public StoryData[] stories;
+    }
+
+    // =========================
+    // PANELS
+    // =========================
 
     [Header("Panels")]
     [SerializeField] private GameObject sceneStory;
@@ -29,15 +44,32 @@ public class StoryDetailController : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private GameObject endPanel;
 
+   
+
+    private ChapterStoryData chapterData;
+
+    // =========================
+    // BACKGROUND
+    // =========================
+
     [Header("Background")]
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgrounds;
 
+    // =========================
+    // DIALOGUE UI
+    // =========================
+
     [Header("Dialogue UI")]
+    //[SerializeField] private TMP_Text characterNameText;
     [SerializeField] private Image characterImage;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private Button nextDialogueButton;
     [SerializeField] private TMP_Text endText;
+
+    // =========================
+    // CHARACTER PORTRAITS
+    // =========================
 
     [Header("Character Portraits")]
     [SerializeField] private Sprite chatGPTPortrait;
@@ -47,24 +79,116 @@ public class StoryDetailController : MonoBehaviour
     [SerializeField] private Sprite dungPortrait;
     [SerializeField] private Sprite haiPortrait;
 
-    private DialogueData dialogueData;
+    // =========================
+    // RUNTIME DATA
+    // =========================
+
+    private StoryData currentStory;
     private int dialogueIndex;
     private bool storyFinished;
 
+    // =========================
+    // START
+    // =========================
+
     private void Start()
     {
-        // Mac dinh hien danh sach, an chi tiet.
+        // Mac dinh hien danh sach Story.
         if (sceneStory != null)
             sceneStory.SetActive(true);
 
         if (storyDetailPanel != null)
             storyDetailPanel.SetActive(false);
 
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(true);
+
         if (endPanel != null)
             endPanel.SetActive(false);
     }
 
-    // Goi ham nay khi nguoi choi chon mot Story.
+    public void SetChapterData(ChapterStoryData data)
+    {
+        chapterData = data;
+    }
+    
+
+    
+    public void OpenStory(
+        string storyId,
+        Sprite[] storyBackgrounds)
+    {
+        Debug.Log("DETAIL 1: OpenStory được gọi, ID = " + storyId);
+        // Tự tải JSON nếu dữ liệu chưa được tải.
+        if (chapterData == null ||
+        chapterData.stories == null)
+        {
+            Debug.LogError(
+                "StoryDetailController: Chua nhan du lieu Story tu StoryController."
+            );
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(storyId))
+        {
+            Debug.LogError("Story ID không được để trống.");
+            return;
+        }
+
+        currentStory = null;
+
+        // Tìm đúng Story theo ID.
+        foreach (StoryData story in chapterData.stories)
+        {
+            if (story != null &&
+                story.storyId == storyId)
+            {
+                currentStory = story;
+                break;
+            }
+        }
+
+        if (currentStory == null)
+        {
+            Debug.LogError(
+                "Không tìm thấy Story có ID: " + storyId
+            );
+            return;
+        }
+
+        if (currentStory.dialogues == null ||
+            currentStory.dialogues.Length == 0)
+        {
+            Debug.LogWarning(
+                "Story không có lời thoại: " + storyId
+            );
+            currentStory = null;
+            return;
+        }
+
+        // Sử dụng bộ ảnh nền của Story được chọn.
+        // Nếu truyền null, giữ nguyên mảng backgrounds
+        // đã gán trong Inspector.
+        if (storyBackgrounds != null)
+            backgrounds = storyBackgrounds;
+
+        dialogueIndex = 0;
+        storyFinished = false;
+
+            sceneStory.SetActive(false);
+            storyDetailPanel.SetActive(true);
+            dialoguePanel.SetActive(true);
+            endPanel.SetActive(false);
+        
+        if (nextDialogueButton != null)
+        {
+            nextDialogueButton.gameObject.SetActive(true);
+            nextDialogueButton.interactable = true;
+        }
+
+        ShowDialogue();
+    }
+
     public void OpenStory(
         TextAsset dialogueJson,
         Sprite[] storyBackgrounds)
@@ -72,29 +196,30 @@ public class StoryDetailController : MonoBehaviour
         if (dialogueJson == null)
         {
             Debug.LogError(
-                "StoryDetailController: Chua gan file JSON!"
+                "StoryDetailController: Chưa gán file JSON!"
             );
             return;
         }
 
-        // Doc du lieu cua Story duoc chon.
-        dialogueData =
-            JsonUtility.FromJson<DialogueData>(
+        StoryData legacyStory =
+            JsonUtility.FromJson<StoryData>(
                 dialogueJson.text
             );
 
-        if (dialogueData == null ||
-            dialogueData.dialogues == null ||
-            dialogueData.dialogues.Length == 0)
+        if (legacyStory == null ||
+            legacyStory.dialogues == null ||
+            legacyStory.dialogues.Length == 0)
         {
             Debug.LogError(
-                "StoryDetailController: JSON khong co loi thoai hop le!"
+                "JSON Story riêng không có lời thoại hợp lệ."
             );
             return;
         }
 
-        // Nhan bo anh nen rieng cua Story nay.
-        backgrounds = storyBackgrounds;
+        currentStory = legacyStory;
+
+        if (storyBackgrounds != null)
+            backgrounds = storyBackgrounds;
 
         dialogueIndex = 0;
         storyFinished = false;
@@ -112,47 +237,60 @@ public class StoryDetailController : MonoBehaviour
             endPanel.SetActive(false);
 
         if (nextDialogueButton != null)
+        {
             nextDialogueButton.gameObject.SetActive(true);
+            nextDialogueButton.interactable = true;
+        }
 
         ShowDialogue();
     }
 
-    // Hien thi loi thoai hien tai.
     private void ShowDialogue()
     {
-        if (dialogueData == null ||
-            dialogueData.dialogues == null ||
+        if (currentStory == null ||
+            currentStory.dialogues == null ||
             dialogueIndex < 0 ||
-            dialogueIndex >= dialogueData.dialogues.Length)
+            dialogueIndex >= currentStory.dialogues.Length)
         {
             return;
         }
 
         DialogueLine line =
-            dialogueData.dialogues[dialogueIndex];
+            currentStory.dialogues[dialogueIndex];
 
+        // Tên người nói giống Intro.
+        //if (characterNameText != null) characterNameText.text = line.speaker;
+
+        // Nội dung lời thoại.
         if (dialogueText != null)
             dialogueText.text = line.text;
 
-        // Chi doi Background khi co chi dinh hop le.
+        // Chỉ đổi Background khi có chỉ định.
         if (line.backgroundIndex >= 0)
         {
             ChangeBackground(line.backgroundIndex);
         }
 
-        // Chon anh nhan vat theo speaker.
+        // Cập nhật ảnh nhân vật theo người nói.
         Sprite portrait = GetCharacterPortrait(line.speaker);
 
         if (characterImage != null)
         {
             characterImage.sprite = portrait;
+
             characterImage.gameObject.SetActive(
                 portrait != null
             );
         }
+
+        if (nextDialogueButton != null)
+        {
+            nextDialogueButton.gameObject.SetActive(true);
+            nextDialogueButton.interactable = true;
+        }
     }
 
-    // Lay anh dai dien theo ten nguoi noi.
+
     private Sprite GetCharacterPortrait(string speaker)
     {
         switch (speaker)
@@ -186,13 +324,13 @@ public class StoryDetailController : MonoBehaviour
         }
     }
 
-    // Thay doi anh nen theo index.
+   
     private void ChangeBackground(int index)
     {
         if (backgroundImage == null)
         {
             Debug.LogWarning(
-                "Chua gan Background Image!"
+                "Chưa gán Background Image!"
             );
             return;
         }
@@ -202,7 +340,7 @@ public class StoryDetailController : MonoBehaviour
             index >= backgrounds.Length)
         {
             Debug.LogWarning(
-                "Background Index khong hop le: " + index
+                "Background Index không hợp lệ: " + index
             );
             return;
         }
@@ -210,7 +348,7 @@ public class StoryDetailController : MonoBehaviour
         if (backgrounds[index] == null)
         {
             Debug.LogWarning(
-                "Chua gan anh nen tai vi tri: " + index
+                "Chưa gán ảnh nền tại vị trí: " + index
             );
             return;
         }
@@ -218,19 +356,19 @@ public class StoryDetailController : MonoBehaviour
         backgroundImage.sprite = backgrounds[index];
     }
 
-    // Goi tu Button Next.
-    public void OnNextDialogue()
+
+    public void OnNext  ()
     {
         if (storyFinished ||
-            dialogueData == null ||
-            dialogueData.dialogues == null)
+            currentStory == null ||
+            currentStory.dialogues == null)
         {
             return;
         }
 
         dialogueIndex++;
 
-        if (dialogueIndex >= dialogueData.dialogues.Length)
+        if (dialogueIndex >= currentStory.dialogues.Length)
         {
             FinishStory();
             return;
@@ -239,7 +377,7 @@ public class StoryDetailController : MonoBehaviour
         ShowDialogue();
     }
 
-    // Ket thuc Story: toi panel va hien chu ket thuc.
+
     private void FinishStory()
     {
         storyFinished = true;
@@ -254,7 +392,7 @@ public class StoryDetailController : MonoBehaviour
             endText.text = "KẾT THÚC CÂU CHUYỆN";
     }
 
-    // Goi tu nut CloseStory.
+
     public void CloseStory()
     {
         if (storyDetailPanel != null)
@@ -269,7 +407,7 @@ public class StoryDetailController : MonoBehaviour
         if (sceneStory != null)
             sceneStory.SetActive(true);
 
-        dialogueData = null;
+        currentStory = null;
         dialogueIndex = 0;
         storyFinished = false;
     }

@@ -1,0 +1,39 @@
+﻿{
+  "stories": [
+    {
+      "storyId": "STORY_01",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Sau khi trở về nhà nghỉ, mọi người bắt đầu chuẩn bị cho buổi tối.",
+          "backgroundIndex": 0
+        },
+        {
+          "speaker": "Bảo",
+          "text": "Mọi người cứ nghỉ ngơi đi. Tôi sẽ kiểm tra lại đồ đạc.",
+          "backgroundIndex": -1
+        },
+        {
+          "speaker": "ChatGPT",
+          "text": "Có điều gì đó không ổn. Mình cần quan sát kỹ hơn.",
+          "backgroundIndex": 1
+        }
+      ]
+    },
+    {
+      "storyId": "STORY_02",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Điện thoại của mọi người đồng loạt nhận được một tin nhắn ẩn danh.",
+          "backgroundIndex": 0
+        },
+        {
+          "speaker": "Giang",
+          "text": "Tin nhắn này là sao? Ai gửi nó cho chúng ta?",
+          "backgroundIndex": -1
+        }
+      ]
+    }
+  ]
+}

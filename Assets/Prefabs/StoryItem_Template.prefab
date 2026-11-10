@@ -438,6 +438,7 @@ GameObject:
   - component: {fileID: 1406882463913456516}
   - component: {fileID: 7664553091844379669}
   - component: {fileID: 5064933214877271052}
+  - component: {fileID: 558006255079675342}
   m_Layer: 5
   m_Name: StoryItem_Template
   m_TagString: Untagged
@@ -519,6 +520,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &558006255079675342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112517839699423323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0158252cc2e613442aa60c562eedec3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryBTN
+  button: {fileID: 5064933214877271052}
+  titleText: {fileID: 5472947449216030537}
+  backgroundImage: {fileID: 985782708700134228}
+  iconsRoot: {fileID: 5617051962284036519}
+  icon1: {fileID: 3423340010720741398}
+  icon2: {fileID: 1285714853424850638}
+  icon3: {fileID: 1088577845200928649}
 --- !u!1 &7357447128086275801
 GameObject:
   m_ObjectHideFlags: 0
