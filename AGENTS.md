@@ -2,7 +2,7 @@
 - Project name: DETECTIVE PUZZLE
 - Unity version: Unity 6000.3.0f1
 - Active game object:
-  - Name: List_BTN
+  - Name: Panel_Evidence
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
