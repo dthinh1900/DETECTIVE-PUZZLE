@@ -328,13 +328,31 @@ public class InterrogateController : MonoBehaviour
         }
 
         // Đánh dấu đã hỏi và tăng lượt đúng một lần.
+
+        // Đánh dấu đã hỏi và tăng lượt đúng một lần.
         question.asked = true;
         askedCounts[characterIndex]++;
+
+        // Lưu lời khai vào hồ sơ vụ án.
+        string characterId =
+            questionData.characters[characterIndex].characterId;
+
+        GameSessionData.AddStatement(
+            characterId,
+            question.questionText,
+            question.answerText
+        );
+
+        Debug.Log(
+    $"[THẨM VẤN] Đã lưu: {characterId} | " +
+    $"Câu hỏi: {question.questionText}"
+);
 
         if (answerText != null)
         {
             answerText.text = question.answerText;
         }
+
 
         GenerateQuestions();
         UpdateQuestionCount();

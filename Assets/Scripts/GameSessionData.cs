@@ -11,8 +11,70 @@ public class CollectedEvidenceInfo
     public Sprite evidenceImage;
 }
 
+
+[System.Serializable]
+public class StatementInfo
+{
+    public string characterId;
+    public string question;
+    public string answer;
+}
+
+
 public static class GameSessionData
 {
+    // Danh sách lời khai đã thu thập.
+    private static List<StatementInfo> collectedStatements = new List<StatementInfo>();
+
+    // Thêm lời khai mới.
+    public static void AddStatement(
+        string characterId,
+        string question,
+        string answer)
+    {
+        if (string.IsNullOrWhiteSpace(characterId) ||
+            string.IsNullOrWhiteSpace(question) ||
+            string.IsNullOrWhiteSpace(answer))
+        {
+            Debug.LogWarning("Lời khai không đầy đủ, không thể lưu!");
+            return;
+        }
+
+        // Tránh lưu trùng cùng một câu hỏi của cùng nhân vật.
+        bool alreadyExists = collectedStatements.Exists(
+            s => s.characterId == characterId &&
+                 s.question == question
+        );
+
+        if (alreadyExists)
+            return;
+
+        collectedStatements.Add(new StatementInfo
+        {
+            characterId = characterId,
+            question = question,
+            answer = answer
+        });
+
+        Debug.Log("Đã lưu lời khai của: " + characterId);
+    }
+
+    // Lấy lời khai theo nhân vật.
+    public static List<StatementInfo> GetStatementsByCharacter(
+        string characterId)
+    {
+        return collectedStatements.FindAll(
+            s => s.characterId == characterId
+        );
+    }
+
+    // Xóa toàn bộ lời khai.
+    public static void ClearStatements()
+    {
+        collectedStatements.Clear();
+    }
+
+
     // Lưu vật chứng theo ID để không bị trùng.
     private static Dictionary<string, CollectedEvidenceInfo> collectedEvidence =
         new Dictionary<string, CollectedEvidenceInfo>();

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CaseFileEvidenceController : MonoBehaviour
+public class EvidencePanel : MonoBehaviour
 {
     [Header("Danh sách vật chứng")]
     [SerializeField] private Transform content;

@@ -97,6 +97,20 @@ public class ExploreController : MonoBehaviour
         {
             SelectLocation(currentLocationIndex);
         }
+
+
+        // Ẩn những vật chứng đã thu thập từ trước.
+        EvidenceItemData[] allEvidence =
+            FindObjectsByType<EvidenceItemData>(FindObjectsSortMode.None);
+
+        foreach (EvidenceItemData evidence in allEvidence)
+        {
+            if (evidence.IsCollected())
+            {
+                evidence.gameObject.SetActive(false);
+            }
+        }
+
     }
 
     // Chọn địa điểm.
@@ -194,12 +208,15 @@ public class ExploreController : MonoBehaviour
 
     // Thu thập vật chứng.
 
+
     public void CollectCurrentEvidence()
     {
         if (currentEvidence == null)
             return;
 
-        string id = currentEvidence.evidenceId;
+        EvidenceItemData collectedItem = currentEvidence;
+
+        string id = collectedItem.evidenceId;
 
         if (string.IsNullOrWhiteSpace(id))
         {
@@ -207,21 +224,26 @@ public class ExploreController : MonoBehaviour
             return;
         }
 
-        bool collected = GameSessionData.CollectEvidence(currentEvidence);
+        bool collected = GameSessionData.CollectEvidence(collectedItem);
 
         if (!collected)
         {
             Debug.Log("Vật chứng đã được thu thập: " + id);
-            collectButton.gameObject.SetActive(false);
+            collectedItem.gameObject.SetActive(false);
+            CloseEvidenceDetail();
             return;
         }
 
-        currentEvidence.isCollected = true;
+        collectedItem.isCollected = true;
 
         Debug.Log("Đã thu thập vật chứng: " +
-                  currentEvidence.evidenceName);
+                  collectedItem.evidenceName);
 
-        collectButton.gameObject.SetActive(false);
+        // Ẩn vật chứng khỏi màn hình Explore.
+        collectedItem.gameObject.SetActive(false);
+
+        // Đóng bảng thông tin vật chứng.
+        CloseEvidenceDetail();
     }
 
 

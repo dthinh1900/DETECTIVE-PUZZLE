@@ -1,0 +1,24 @@
+﻿{
+  "characters": [
+    {
+      "characterId": "BAO",
+      "characterName": "Bảo"
+    },
+    {
+      "characterId": "CHI",
+      "characterName": "Chi"
+    },
+    {
+      "characterId": "DUNG",
+      "characterName": "Dũng"
+    },
+    {
+      "characterId": "GIANG",
+      "characterName": "Giang"
+    },
+    {
+      "characterId": "HAI",
+      "characterName": "Hải"
+    }
+  ]
+}

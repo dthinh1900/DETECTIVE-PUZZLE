@@ -1,7 +1,7 @@
 ﻿{
   "characters": [
     {
-      "characterId": "Bảo",
+      "characterId": "BAO",
       "questions": [
         {
           "questionText": "Anh đã ở đâu khi vụ án xảy ra?",
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "characterId": "Chi",
+      "characterId": "CHI",
       "questions": [
         {
           "questionText": "Lần cuối cô gặp nạn nhân là khi nào?",
@@ -35,15 +35,15 @@
       ]
     },
     {
-      "characterId": "Dũng",
+      "characterId": "DUNG",
       "questions": []
     },
     {
-      "characterId": "Giang",
+      "characterId": "GIANG",
       "questions": []
     },
     {
-      "characterId": "Hải",
+      "characterId": "HAI",
       "questions": []
     }
   ]
