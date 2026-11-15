@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,11 +24,9 @@ public class EvidenceSpawner : MonoBehaviour
     [Header("Ảnh 20 vật phẩm")]
     [SerializeField] private EvidenceSprite[] evidenceSprites;
 
-    [Header("Cấu hình")]
-    [SerializeField] private string specialEvidenceId = "E016";
-
     private const int CORRECT_COUNT = 3;
-    private const int DECOY_COUNT = 8;
+    private const int DECOY_COUNT = 9;
+    private const int TOTAL_COUNT = 12;
 
     private bool hasSpawned;
 
@@ -38,6 +37,12 @@ public class EvidenceSpawner : MonoBehaviour
     {
         if (hasSpawned)
             return;
+
+        if (controller == null)
+        {
+            Debug.LogError("[SPAWNER] ExploreController chưa được gán.");
+            return;
+        }
 
         if (!CaseSessionData.IsSessionStarted ||
             CaseSessionData.CurrentChapter == null ||
@@ -52,12 +57,23 @@ public class EvidenceSpawner : MonoBehaviour
         if (evidencePrefab == null ||
             spawnPointsRoot == null ||
             spawnPoints == null ||
-            spawnPoints.Length != 12)
+            spawnPoints.Length != TOTAL_COUNT)
         {
             Debug.LogError(
-                "[SPAWNER] Chưa gán Prefab hoặc đủ 12 SpawnPoint."
+                "[SPAWNER] Kiểm tra Prefab, vùng sinh và đủ 12 SpawnPoint."
             );
             return;
+        }
+
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            if (spawnPoints[i] == null)
+            {
+                Debug.LogError(
+                    "[SPAWNER] SpawnPoint " + i + " chưa được gán."
+                );
+                return;
+            }
         }
 
         ChapterData chapter = CaseSessionData.CurrentChapter;
@@ -65,38 +81,47 @@ public class EvidenceSpawner : MonoBehaviour
 
         List<string> selectedIds = SelectEvidenceIds(chapter, branch);
 
-        if (selectedIds == null || selectedIds.Count != 12)
+        if (selectedIds == null || selectedIds.Count != TOTAL_COUNT)
             return;
+
+        // Kiểm tra đủ ảnh trước khi bắt đầu sinh vật phẩm.
+        foreach (string itemId in selectedIds)
+        {
+            if (GetSprite(itemId) == null)
+            {
+                Debug.LogError(
+                    "[SPAWNER] Chưa gán ảnh cho vật phẩm: " + itemId
+                );
+                return;
+            }
+        }
 
         Shuffle(selectedIds);
 
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < selectedIds.Count; i++)
         {
-            if (spawnPoints[i] == null)
+            bool success = SpawnOneEvidence(
+                chapter,
+                selectedIds[i],
+                spawnPoints[i],
+                controller,
+                branch.specialEvidenceId
+            );
+
+            if (!success)
             {
-                Debug.LogError(
-                    "[SPAWNER] SpawnPoint " + i + " chưa được gán."
-                );
                 ClearSpawnedObjects();
                 return;
             }
         }
 
-        for (int i = 0; i < selectedIds.Count; i++)
-        {
-            SpawnOneEvidence(
-                chapter,
-                selectedIds[i],
-                spawnPoints[i],
-                controller
-            );
-        }
-
         hasSpawned = true;
 
         Debug.Log(
-            "[SPAWNER] Đã tạo 12 vật phẩm cho Branch " +
-            branch.branchId
+            "[SPAWNER] Đã tạo đủ 12 vật phẩm cho Branch " +
+            branch.branchId +
+            ". Vật chứng đặc biệt: " +
+            branch.specialEvidenceId
         );
     }
 
@@ -105,10 +130,13 @@ public class EvidenceSpawner : MonoBehaviour
         CaseBranchData branch)
     {
         if (chapter.items == null ||
+            chapter.items.Count != 20 ||
             branch.correctEvidence == null ||
             branch.correctEvidence.Count != 5)
         {
-            Debug.LogError("[SPAWNER] Dữ liệu Chapter/Branch không hợp lệ.");
+            Debug.LogError(
+                "[SPAWNER] Chapter phải có 20 vật phẩm và Branch phải có 5 vật chứng đúng."
+            );
             return null;
         }
 
@@ -116,46 +144,70 @@ public class EvidenceSpawner : MonoBehaviour
 
         foreach (CorrectEvidenceData evidence in branch.correctEvidence)
         {
-            if (evidence != null &&
-                !string.IsNullOrWhiteSpace(evidence.itemId))
+            if (evidence == null ||
+                string.IsNullOrWhiteSpace(evidence.itemId) ||
+                correctIds.Contains(evidence.itemId))
             {
-                correctIds.Add(evidence.itemId);
+                Debug.LogError(
+                    "[SPAWNER] Danh sách vật chứng đúng không hợp lệ hoặc bị trùng."
+                );
+                return null;
             }
+
+            correctIds.Add(evidence.itemId);
         }
 
-        if (correctIds.Count != 5)
-        {
-            Debug.LogError("[SPAWNER] Không đủ 5 vật chứng đúng.");
-            return null;
-        }
+        // Kiểm tra ID đặc biệt được khai báo trong JSON.
+        string specialId = branch.specialEvidenceId;
 
-        if (!correctIds.Contains(specialEvidenceId) &&
-            chapter.items.Exists(x => x.itemId == specialEvidenceId))
-        {
-            // E016 là vật phẩm đặc biệt, không phải vật chứng đúng.
-        }
-        else
+        if (string.IsNullOrWhiteSpace(specialId))
         {
             Debug.LogError(
-                "[SPAWNER] E016 không hợp lệ hoặc đang nằm trong danh sách đúng."
+                "[SPAWNER] Branch chưa khai báo specialEvidenceId."
             );
             return null;
         }
 
-        List<string> selected = new List<string>();
+        // Vật chứng đặc biệt phải tồn tại và không thuộc nhóm đúng.
+        bool specialExists = chapter.items.Exists(
+            item => item != null && item.itemId == specialId
+        );
 
+        if (!specialExists || correctIds.Contains(specialId))
+        {
+            Debug.LogError(
+                "[SPAWNER] Vật chứng đặc biệt phải tồn tại trong 20 vật phẩm và không nằm trong 5 vật chứng đúng."
+            );
+            return null;
+        }
+
+        // Kiểm tra 5 vật chứng đúng đều có trong danh mục 20 vật phẩm.
+        foreach (string id in correctIds)
+        {
+            if (!chapter.items.Exists(
+                item => item != null && item.itemId == id))
+            {
+                Debug.LogError(
+                    "[SPAWNER] Không tìm thấy vật chứng đúng trong danh mục: " + id
+                );
+                return null;
+            }
+        }
+
+        // Chọn ngẫu nhiên 3 trong 5 vật chứng đúng.
         List<string> shuffledCorrect = new List<string>(correctIds);
         Shuffle(shuffledCorrect);
 
-        // Chọn 3 trong 5 vật chứng đúng.
+        List<string> selected = new List<string>();
+
         for (int i = 0; i < CORRECT_COUNT; i++)
+        {
             selected.Add(shuffledCorrect[i]);
+        }
 
-        // Luôn thêm vật phẩm đặc biệt.
-        selected.Add(specialEvidenceId);
-
-        // Tạo danh sách giả, loại cả 5 vật chứng đúng và E016.
-        List<string> decoys = new List<string>();
+        // Tạo danh sách 15 vật chứng giả.
+        // Vật chứng đặc biệt vẫn nằm trong danh sách này.
+        List<string> decoyIds = new List<string>();
 
         foreach (CaseItemData item in chapter.items)
         {
@@ -166,34 +218,42 @@ public class EvidenceSpawner : MonoBehaviour
             if (correctIds.Contains(item.itemId))
                 continue;
 
-            if (item.itemId == specialEvidenceId)
+            if (decoyIds.Contains(item.itemId))
                 continue;
 
-            decoys.Add(item.itemId);
+            decoyIds.Add(item.itemId);
         }
 
-        if (decoys.Count < DECOY_COUNT)
+        if (decoyIds.Count != 15)
         {
-            Debug.LogError("[SPAWNER] Không đủ vật phẩm giả.");
+            Debug.LogError(
+                "[SPAWNER] Phải có đúng 15 vật chứng giả, hiện tại có: " +
+                decoyIds.Count
+            );
             return null;
         }
 
-        Shuffle(decoys);
+        // Chọn ngẫu nhiên 9 trong 15 vật chứng giả.
+        // Vật chứng đặc biệt có xác suất xuất hiện 9/15 = 60%.
+        Shuffle(decoyIds);
 
         for (int i = 0; i < DECOY_COUNT; i++)
-            selected.Add(decoys[i]);
+        {
+            selected.Add(decoyIds[i]);
+        }
 
         return selected;
     }
 
-    private void SpawnOneEvidence(
+    private bool SpawnOneEvidence(
         ChapterData chapter,
         string itemId,
         RectTransform spawnPoint,
-        ExploreController controller)
+        ExploreController controller,
+        string specialEvidenceId)
     {
         CaseItemData itemData = chapter.items.Find(
-            x => x.itemId == itemId
+            x => x != null && x.itemId == itemId
         );
 
         if (itemData == null)
@@ -201,18 +261,13 @@ public class EvidenceSpawner : MonoBehaviour
             Debug.LogError(
                 "[SPAWNER] Không tìm thấy dữ liệu: " + itemId
             );
-            return;
+            return false;
         }
 
         Sprite sprite = GetSprite(itemId);
 
         if (sprite == null)
-        {
-            Debug.LogError(
-                "[SPAWNER] Chưa gán ảnh cho " + itemId
-            );
-            return;
-        }
+            return false;
 
         GameObject newObject = Instantiate(
             evidencePrefab,
@@ -228,7 +283,7 @@ public class EvidenceSpawner : MonoBehaviour
                 "[SPAWNER] Prefab cần có RectTransform."
             );
             Destroy(newObject);
-            return;
+            return false;
         }
 
         newRect.anchorMin = spawnPoint.anchorMin;
@@ -249,7 +304,7 @@ public class EvidenceSpawner : MonoBehaviour
                 "[SPAWNER] Prefab thiếu Button hoặc EvidenceItemData."
             );
             Destroy(newObject);
-            return;
+            return false;
         }
 
         evidence.evidenceId = itemData.itemId;
@@ -257,6 +312,10 @@ public class EvidenceSpawner : MonoBehaviour
         evidence.description = itemData.description;
         evidence.evidenceImage = sprite;
         evidence.isCollected = false;
+
+        // Đánh dấu vật chứng đặc biệt theo JSON của Branch hiện tại.
+        evidence.isSpecialEvidence =
+            itemId == specialEvidenceId;
 
         evidence.SetupVisual();
 
@@ -267,6 +326,8 @@ public class EvidenceSpawner : MonoBehaviour
         newObject.name = "Evidence_" + itemId;
 
         spawnedObjects.Add(newObject);
+
+        return true;
     }
 
     private Sprite GetSprite(string itemId)
@@ -278,7 +339,9 @@ public class EvidenceSpawner : MonoBehaviour
         {
             if (entry != null &&
                 entry.itemId == itemId)
+            {
                 return entry.sprite;
+            }
         }
 
         return null;

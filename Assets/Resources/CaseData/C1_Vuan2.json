@@ -125,76 +125,79 @@
   "branches": [
     {
       "branchId": "BR01",
+      "specialEvidenceId": "E002",
       "correctEvidence": [
         {
           "itemId": "E001",
-          "killerInfo": "Đồng hồ có thời gian dừng bất thường, giúp xác định khoảng thời gian hung thủ có mặt tại hiện trường."
+          "killerInfo": "[TEST] Đồng hồ có dấu hiệu bất thường liên quan đến thời điểm xảy ra vụ án."
         },
         {
-          "itemId": "E002",
-          "killerInfo": "Dấu hiệu cá nhân trên bật lửa liên kết với một người có mặt tại hiện trường trước thời điểm xảy ra án mạng."
+          "itemId": "E006",
+          "killerInfo": "[TEST] Găng tay có dấu vết cần được đối chiếu với lời khai."
         },
         {
-          "itemId": "E003",
-          "killerInfo": "Chìa khóa có hình dạng phù hợp với ổ khóa tại căn phòng hung thủ đã sử dụng."
+          "itemId": "E011",
+          "killerInfo": "[TEST] Bút máy có liên quan đến một tài liệu đáng ngờ."
         },
         {
-          "itemId": "E004",
-          "killerInfo": "Dấu vân tay trên cốc giúp xác định người đã tiếp xúc với nạn nhân trước khi án mạng xảy ra."
+          "itemId": "E016",
+          "killerInfo": "[TEST] Chai nước có dấu vết tiếp xúc cần điều tra."
         },
         {
-          "itemId": "E005",
-          "killerInfo": "Một ghi chú trong sổ tay thể hiện động cơ và mối quan hệ giữa hung thủ với nạn nhân."
+          "itemId": "E020",
+          "killerInfo": "[TEST] Tạp chí chứa thông tin có thể liên quan đến nạn nhân."
         }
       ]
     },
     {
       "branchId": "BR02",
+      "specialEvidenceId": "E003",
       "correctEvidence": [
         {
-          "itemId": "E006",
-          "killerInfo": "Sợi vải trên găng tay trùng với chất liệu trang phục được xác định thuộc về hung thủ."
+          "itemId": "E002",
+          "killerInfo": "[TEST] Bật lửa có dấu hiệu cá nhân của một người đáng nghi."
         },
         {
           "itemId": "E007",
-          "killerInfo": "Dấu vết trên khăn tay cho thấy hung thủ đã cố lau sạch một vị trí trong hiện trường."
+          "killerInfo": "[TEST] Khăn tay có dấu vết cần phân tích."
         },
         {
-          "itemId": "E008",
-          "killerInfo": "Dữ liệu trong điện thoại cho thấy liên lạc đáng ngờ giữa hung thủ và nạn nhân."
+          "itemId": "E012",
+          "killerInfo": "[TEST] Ví da chứa thông tin liên quan đến mối quan hệ tài chính."
         },
         {
-          "itemId": "E009",
-          "killerInfo": "Thông tin trên hộp thuốc giúp xác định hung thủ biết rõ tình trạng sức khỏe của nạn nhân."
+          "itemId": "E017",
+          "killerInfo": "[TEST] Lược có dấu vết có thể giúp xác định người sử dụng."
         },
         {
-          "itemId": "E010",
-          "killerInfo": "Dấu vết trên gọng kính liên kết với người đã xuất hiện tại hiện trường."
+          "itemId": "E018",
+          "killerInfo": "[TEST] Khung ảnh có thể tiết lộ mối quan hệ giữa các nhân vật."
         }
       ]
     },
     {
       "branchId": "BR03",
+      "specialEvidenceId": "E004",
       "correctEvidence": [
         {
-          "itemId": "E011",
-          "killerInfo": "Nét chữ trên bút và tài liệu liên quan có đặc điểm trùng khớp với chữ viết của hung thủ."
+          "itemId": "E003",
+          "killerInfo": "[TEST] Chìa khóa có thể mở một khu vực liên quan đến vụ án."
         },
         {
-          "itemId": "E012",
-          "killerInfo": "Một giấy tờ nằm trong ví hé lộ mối quan hệ tài chính giữa hung thủ và nạn nhân."
+          "itemId": "E008",
+          "killerInfo": "[TEST] Điện thoại lưu lại thông tin liên lạc đáng ngờ."
         },
         {
           "itemId": "E013",
-          "killerInfo": "Thời gian trên hóa đơn giúp đối chiếu lời khai và phát hiện hung thủ khai báo sai."
+          "killerInfo": "[TEST] Hóa đơn có thời gian cần đối chiếu."
         },
         {
-          "itemId": "E014",
-          "killerInfo": "Dấu vết còn lại trên kéo liên kết với hành động chuẩn bị của hung thủ trước vụ án."
+          "itemId": "E019",
+          "killerInfo": "[TEST] Điều khiển có thể giúp xác định hoạt động trong căn phòng."
         },
         {
-          "itemId": "E015",
-          "killerInfo": "Dữ liệu lưu trong USB chứa thông tin quan trọng liên quan đến kế hoạch của hung thủ."
+          "itemId": "E020",
+          "killerInfo": "[TEST] Tạp chí có một chi tiết liên quan đến lời khai."
         }
       ]
     }

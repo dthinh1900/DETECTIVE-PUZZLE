@@ -469,9 +469,13 @@ public class CaseIntroController : MonoBehaviour
     }
 
 
+
     public void OnStartInvestigation()
     {
         int chapterNumber = GameManager.Instance.SelectedChapter;
+
+        // Hiện tại chạy Vụ án 1.
+        int caseNumber = 1;
 
         ChapterDataLoader loader =
             GameManager.Instance.GetComponent<ChapterDataLoader>();
@@ -482,15 +486,17 @@ public class CaseIntroController : MonoBehaviour
             return;
         }
 
-        ChapterData chapter = loader.LoadChapter(chapterNumber);
+        // Ví dụ Chapter 1, Vụ án 1 sẽ đọc C1_Vuan1.json.
+        ChapterData chapter = loader.LoadCase(
+            chapterNumber,
+            caseNumber
+        );
 
         if (chapter == null)
             return;
 
-        // XÓA DỮ LIỆU CỦA PHIÊN CHƠI CŨ
         GameSessionData.ClearAllSessionData();
 
-        // Tạo phiên mới và chọn Branch mới
         CaseSessionData.StartNewSession(chapter);
 
         if (!CaseSessionData.IsSessionStarted)
@@ -500,6 +506,7 @@ public class CaseIntroController : MonoBehaviour
 
         SceneManager.LoadScene("Investigation");
     }
+
 
 
     private Coroutine dialogueAnimationCoroutine;

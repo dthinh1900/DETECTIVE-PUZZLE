@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EvidenceItemData : MonoBehaviour
@@ -18,6 +19,9 @@ public class EvidenceItemData : MonoBehaviour
 
     [Header("Trạng thái")]
     public bool isCollected;
+
+    [Tooltip("Đây có phải vật chứng đặc biệt của Branch hiện tại không?")]
+    public bool isSpecialEvidence;
 
     private void Awake()
     {

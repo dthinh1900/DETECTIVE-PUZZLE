@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class ChapterDataLoader : MonoBehaviour
 {
-    public ChapterData LoadChapter(int chapterNumber)
+    public ChapterData LoadCase(int chapterNumber, int caseNumber)
     {
-        string fileName = $"Chapter{chapterNumber:00}";
+        string fileName = $"C{chapterNumber}_Vuan{caseNumber}";
 
         TextAsset jsonFile = Resources.Load<TextAsset>(
             $"CaseData/{fileName}"
@@ -26,19 +26,19 @@ public class ChapterDataLoader : MonoBehaviour
             chapter.items == null ||
             chapter.branches == null)
         {
-            Debug.LogError("Dữ liệu Chapter không hợp lệ.");
-            return null;
-        }
-
-        if (chapter.branches.Count != 3)
-        {
-            Debug.LogError("Chapter phải có đúng 3 Branch.");
+            Debug.LogError($"Dữ liệu {fileName}.json không hợp lệ.");
             return null;
         }
 
         if (chapter.items.Count != 20)
         {
-            Debug.LogError("Chapter phải có đúng 20 vật chứng.");
+            Debug.LogError($"{fileName} phải có đúng 20 vật chứng.");
+            return null;
+        }
+
+        if (chapter.branches.Count != 3)
+        {
+            Debug.LogError($"{fileName} phải có đúng 3 Branch.");
             return null;
         }
 
@@ -52,10 +52,34 @@ public class ChapterDataLoader : MonoBehaviour
                 );
                 return null;
             }
+
+            if (string.IsNullOrEmpty(branch.specialEvidenceId))
+            {
+                Debug.LogError(
+                    $"Branch {branch.branchId} chưa có specialEvidenceId."
+                );
+                return null;
+            }
+
+            bool specialIsCorrect = branch.correctEvidence.Exists(
+                item => item.itemId == branch.specialEvidenceId
+            );
+
+            bool specialExists = chapter.items.Exists(
+                item => item.itemId == branch.specialEvidenceId
+            );
+
+            if (!specialExists || specialIsCorrect)
+            {
+                Debug.LogError(
+                    $"Vật chứng đặc biệt của {branch.branchId} phải nằm trong 15 vật chứng giả."
+                );
+                return null;
+            }
         }
 
         Debug.Log(
-            $"Đọc thành công {chapter.chapterId}: " +
+            $"Đọc thành công {fileName}: " +
             $"{chapter.items.Count} vật chứng, " +
             $"{chapter.branches.Count} Branch."
         );

@@ -19,12 +19,15 @@ public class CaseItemData
     public string decoyDetail;
 }
 
+
 [Serializable]
 public class CaseBranchData
 {
     public string branchId;
+    public string specialEvidenceId;
     public List<CorrectEvidenceData> correctEvidence;
 }
+
 
 [Serializable]
 public class CorrectEvidenceData
