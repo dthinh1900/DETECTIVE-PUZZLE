@@ -1,0 +1,34 @@
+﻿{
+  "characters": [
+    {
+      "characterId": "BAO",
+      "characterName": "Bảo",
+      "characterDescription": "Tôi tên là Bảo. Tôi là bạn thân của nạn nhân và hiện đang làm nhân viên thiết kế đồ họa. Tôi đã quen nạn nhân nhiều năm.",
+      "isDead": false
+    },
+    {
+      "characterId": "CHI",
+      "characterName": "Chi",
+      "characterDescription": "Tôi tên là Chi. Tôi là sinh viên năm cuối ngành Công nghệ thông tin. Tôi quen nạn nhân thông qua một người bạn chung.",
+      "isDead": false
+    },
+    {
+      "characterId": "DUNG",
+      "characterName": "Dũng",
+      "characterDescription": "Tôi tên là Dũng. Tôi là nhân viên kinh doanh và từng có thời gian làm việc cùng nạn nhân.",
+      "isDead": false
+    },
+    {
+      "characterId": "GIANG",
+      "characterName": "Giang",
+      "characterDescription": "Tôi tên là Giang. Tôi là bác sĩ và có mối quan hệ thân thiết với gia đình nạn nhân.",
+      "isDead": false
+    },
+    {
+      "characterId": "HAI",
+      "characterName": "Hải",
+      "characterDescription": "Tôi tên là Hải. Tôi là chủ một cửa hàng kinh doanh đồ cổ và từng có quan hệ làm ăn với nạn nhân.",
+      "isDead": false
+    }
+  ]
+}

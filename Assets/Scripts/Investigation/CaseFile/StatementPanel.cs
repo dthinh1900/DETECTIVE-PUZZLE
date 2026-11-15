@@ -28,8 +28,23 @@ public class StatementPanel : MonoBehaviour
 
     private string selectedCharacterId;
 
+    // Chương hiện tại
+    private int currentChapterId;
+
     private void Start()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("[HỒ SƠ] Không tìm thấy GameManager!");
+            return;
+        }
+
+        currentChapterId = GameManager.Instance.SelectedChapter;
+
+        Debug.Log(
+            "[HỒ SƠ] Đang mở hồ sơ chương " + currentChapterId
+        );
+
         LoadCharacters();
         GenerateCharacterButtons();
     }
@@ -39,7 +54,7 @@ public class StatementPanel : MonoBehaviour
     {
         if (characterListJson == null)
         {
-            Debug.LogError("[HỒ SƠ] Chưa gán CaseCharacters.json!");
+            Debug.LogError("[HỒ SƠ] Chưa gán file JSON!");
             return;
         }
 
@@ -62,26 +77,32 @@ public class StatementPanel : MonoBehaviour
                 string.IsNullOrWhiteSpace(character.characterId) ||
                 string.IsNullOrWhiteSpace(character.characterName))
             {
-                Debug.LogWarning("[HỒ SƠ] Có dữ liệu nghi phạm không hợp lệ!");
+                Debug.LogWarning(
+                    "[HỒ SƠ] Có dữ liệu nghi phạm không hợp lệ!"
+                );
                 continue;
             }
 
             characters.Add(character);
         }
 
-        Debug.Log("[HỒ SƠ] Đã tải " + characters.Count + " nghi phạm.");
+        Debug.Log(
+            "[HỒ SƠ] Đã tải " + characters.Count + " nghi phạm."
+        );
     }
 
     // Tự động tạo nút tên nghi phạm
     private void GenerateCharacterButtons()
     {
-        if (characterContent == null || characterButtonPrefab == null)
+        if (characterContent == null ||
+            characterButtonPrefab == null)
         {
-            Debug.LogError("[HỒ SƠ] Chưa gán CharacterContent hoặc ButtonPrefab!");
+            Debug.LogError(
+                "[HỒ SƠ] Chưa gán CharacterContent hoặc ButtonPrefab!"
+            );
             return;
         }
 
-        // Xóa các nút cũ nếu có
         foreach (Transform child in characterContent)
         {
             Destroy(child.gameObject);
@@ -113,7 +134,10 @@ public class StatementPanel : MonoBehaviour
 
             if (button == null)
             {
-                Debug.LogError("[HỒ SƠ] CharacterButtonPrefab thiếu Button!");
+                Debug.LogError(
+                    "[HỒ SƠ] CharacterButtonPrefab thiếu Button!"
+                );
+
                 Destroy(buttonObject);
                 continue;
             }
@@ -149,7 +173,9 @@ public class StatementPanel : MonoBehaviour
     }
 
     // Chọn nghi phạm
-    private void SelectCharacter(string characterId, string characterName)
+    private void SelectCharacter(
+        string characterId,
+        string characterName)
     {
         selectedCharacterId = characterId;
 
@@ -160,15 +186,20 @@ public class StatementPanel : MonoBehaviour
 
         RefreshStatements();
 
-        Debug.Log("[HỒ SƠ] Đang xem lời khai: " + characterName);
+        Debug.Log(
+            "[HỒ SƠ] Đang xem lời khai: " + characterName
+        );
     }
 
     // Cập nhật danh sách lời khai
     public void RefreshStatements()
     {
-        if (statementContent == null || statementCardPrefab == null)
+        if (statementContent == null ||
+            statementCardPrefab == null)
         {
-            Debug.LogError("[HỒ SƠ] Chưa gán StatementContent hoặc StatementCardPrefab!");
+            Debug.LogError(
+                "[HỒ SƠ] Chưa gán StatementContent hoặc StatementCardPrefab!"
+            );
             return;
         }
 
@@ -185,10 +216,15 @@ public class StatementPanel : MonoBehaviour
             return;
         }
 
+        // Chỉ lấy lời khai thuộc chương hiện tại
         List<StatementInfo> statements =
-            GameSessionData.GetStatementsByCharacter(selectedCharacterId);
+            GameSessionData.GetStatementsByCharacter(
+                currentChapterId,
+                selectedCharacterId
+            );
 
-        bool hasStatements = statements != null && statements.Count > 0;
+        bool hasStatements =
+            statements != null && statements.Count > 0;
 
         if (noStatementText != null)
         {
@@ -240,7 +276,8 @@ public class StatementPanel : MonoBehaviour
         }
 
         Debug.Log(
-            "[HỒ SƠ] Nhân vật: " + selectedCharacterId +
+            "[HỒ SƠ] Chương: " + currentChapterId +
+            " | Nhân vật: " + selectedCharacterId +
             " | Số lời khai: " + statements.Count
         );
     }

@@ -11,73 +11,114 @@ public class CollectedEvidenceInfo
     public Sprite evidenceImage;
 }
 
-
 [System.Serializable]
 public class StatementInfo
 {
+    public int chapterId;
     public string characterId;
     public string question;
     public string answer;
 }
 
-
 public static class GameSessionData
 {
-    // Danh sách lời khai đã thu thập.
-    private static List<StatementInfo> collectedStatements = new List<StatementInfo>();
+    // ==================== LỜI KHAI ====================
 
-    // Thêm lời khai mới.
+    private static List<StatementInfo> collectedStatements =
+        new List<StatementInfo>();
+
     public static void AddStatement(
+        int chapterId,
         string characterId,
         string question,
         string answer)
     {
-        if (string.IsNullOrWhiteSpace(characterId) ||
+        if (chapterId <= 0 ||
+            string.IsNullOrWhiteSpace(characterId) ||
             string.IsNullOrWhiteSpace(question) ||
             string.IsNullOrWhiteSpace(answer))
         {
-            Debug.LogWarning("Lời khai không đầy đủ, không thể lưu!");
+            Debug.LogWarning("[LỜI KHAI] Dữ liệu không đầy đủ!");
             return;
         }
 
-        // Tránh lưu trùng cùng một câu hỏi của cùng nhân vật.
-        bool alreadyExists = collectedStatements.Exists(
-            s => s.characterId == characterId &&
-                 s.question == question
+        bool alreadyExists = collectedStatements.Exists(s =>
+            s.chapterId == chapterId &&
+            s.characterId == characterId &&
+            s.question == question
         );
 
         if (alreadyExists)
+        {
+            Debug.Log("[LỜI KHAI] Lời khai đã tồn tại!");
             return;
+        }
 
         collectedStatements.Add(new StatementInfo
         {
+            chapterId = chapterId,
             characterId = characterId,
             question = question,
             answer = answer
         });
 
-        Debug.Log("Đã lưu lời khai của: " + characterId);
-    }
-
-    // Lấy lời khai theo nhân vật.
-    public static List<StatementInfo> GetStatementsByCharacter(
-        string characterId)
-    {
-        return collectedStatements.FindAll(
-            s => s.characterId == characterId
+        Debug.Log(
+            "[LỜI KHAI] Đã lưu chương " + chapterId +
+            " | Nhân vật: " + characterId
         );
     }
 
-    // Xóa toàn bộ lời khai.
+    // Giữ hàm cũ để tương thích
+    public static void AddStatement(
+        string characterId,
+        string question,
+        string answer)
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("[LỜI KHAI] Không tìm thấy GameManager!");
+            return;
+        }
+
+        AddStatement(
+            GameManager.Instance.SelectedChapter,
+            characterId,
+            question,
+            answer
+        );
+    }
+
+    public static List<StatementInfo> GetStatementsByCharacter(
+        int chapterId,
+        string characterId)
+    {
+        return collectedStatements.FindAll(s =>
+            s.chapterId == chapterId &&
+            s.characterId == characterId
+        );
+    }
+
+    // Giữ hàm cũ để tương thích
+    public static List<StatementInfo> GetStatementsByCharacter(
+        string characterId)
+    {
+        return collectedStatements.FindAll(s =>
+            s.characterId == characterId
+        );
+    }
+
     public static void ClearStatements()
     {
         collectedStatements.Clear();
+
+        Debug.Log("[LỜI KHAI] Đã xóa toàn bộ lời khai.");
     }
 
+    // ==================== VẬT CHỨNG ====================
 
-    // Lưu vật chứng theo ID để không bị trùng.
-    private static Dictionary<string, CollectedEvidenceInfo> collectedEvidence =
-        new Dictionary<string, CollectedEvidenceInfo>();
+    private static Dictionary<string, CollectedEvidenceInfo>
+        collectedEvidence =
+            new Dictionary<string, CollectedEvidenceInfo>();
 
     public static bool IsEvidenceCollected(string evidenceId)
     {
@@ -87,7 +128,6 @@ public static class GameSessionData
         return collectedEvidence.ContainsKey(evidenceId);
     }
 
-    // Lưu đầy đủ thông tin vật chứng khi người chơi thu thập.
     public static bool CollectEvidence(EvidenceItemData evidence)
     {
         if (evidence == null ||
@@ -108,12 +148,15 @@ public static class GameSessionData
         };
 
         collectedEvidence.Add(evidence.evidenceId, info);
+
         return true;
     }
 
     public static List<CollectedEvidenceInfo> GetCollectedEvidence()
     {
-        return new List<CollectedEvidenceInfo>(collectedEvidence.Values);
+        return new List<CollectedEvidenceInfo>(
+            collectedEvidence.Values
+        );
     }
 
     public static List<string> GetCollectedEvidenceIds()
@@ -124,5 +167,19 @@ public static class GameSessionData
     public static void ClearCollectedEvidence()
     {
         collectedEvidence.Clear();
+
+        Debug.Log("[VẬT CHỨNG] Đã xóa toàn bộ vật chứng.");
+    }
+
+    // ==================== RESET PHIÊN CHƠI ====================
+
+    public static void ClearAllSessionData()
+    {
+        ClearStatements();
+        ClearCollectedEvidence();
+
+        Debug.Log(
+            "[GAME SESSION] Đã reset toàn bộ dữ liệu phiên chơi mới."
+        );
     }
 }

@@ -1,0 +1,94 @@
+﻿{
+  "characters": [
+    {
+      "characterId": "BAO",
+      "characterName": "Bảo",
+      "characterDescription": "Tôi tên là Bảo. Tôi là bạn thân của nạn nhân và hiện đang làm nhân viên thiết kế đồ họa.",
+      "isDead": false
+    },
+    {
+      "characterId": "CHI",
+      "characterName": "Chi",
+      "characterDescription": "Tôi tên là Chi. Tôi là sinh viên năm cuối ngành Công nghệ thông tin.",
+      "isDead": false
+    },
+    {
+      "characterId": "DUNG",
+      "characterName": "Dũng",
+      "characterDescription": "Tôi tên là Dũng. Tôi làm quản lý tại một khách sạn và đã quen nạn nhân nhiều năm.",
+      "isDead": false
+    },
+    {
+      "characterId": "GIANG",
+      "characterName": "Giang",
+      "characterDescription": "Tôi tên là Giang. Tôi là bác sĩ tại một bệnh viện tư nhân.",
+      "isDead": false
+    },
+    {
+      "characterId": "HAI",
+      "characterName": "Hải",
+      "characterDescription": "Tôi tên là Hải. Tôi là chủ một cửa hàng kinh doanh đồ cổ.",
+      "isDead": false
+    },
+    {
+      "characterId": "ANH",
+      "characterName": "Anh",
+      "characterDescription": "Tôi tên là Anh. Tôi là em họ của nạn nhân và hiện đang học ngành Luật.",
+      "isDead": false
+    },
+    {
+      "characterId": "BINH",
+      "characterName": "Bình",
+      "characterDescription": "Tôi tên là Bình. Tôi làm kỹ thuật viên sửa chữa thiết bị điện tử.",
+      "isDead": false
+    },
+    {
+      "characterId": "CUONG",
+      "characterName": "Cường",
+      "characterDescription": "Tôi tên là Cường. Tôi là nhân viên bảo vệ tại khu nhà nơi xảy ra vụ án.",
+      "isDead": false
+    },
+    {
+      "characterId": "DUC",
+      "characterName": "Đức",
+      "characterDescription": "Tôi tên là Đức. Tôi là phóng viên chuyên viết về các vụ án hình sự.",
+      "isDead": false
+    },
+    {
+      "characterId": "HUNG",
+      "characterName": "Hùng",
+      "characterDescription": "Tôi tên là Hùng. Tôi làm đầu bếp tại một nhà hàng trong thành phố.",
+      "isDead": false
+    },
+    {
+      "characterId": "LAN",
+      "characterName": "Lan",
+      "characterDescription": "Tôi tên là Lan. Tôi là giáo viên dạy Văn tại một trường trung học.",
+      "isDead": false
+    },
+    {
+      "characterId": "LINH",
+      "characterName": "Linh",
+      "characterDescription": "Tôi tên là Linh. Tôi là nhân viên kế toán của công ty nơi nạn nhân từng làm việc.",
+      "isDead": false
+    },
+    {
+      "characterId": "MINH",
+      "characterName": "Minh",
+      "characterDescription": "Tôi tên là Minh. Tôi là kiến trúc sư và từng tham gia thiết kế căn nhà xảy ra vụ án.",
+      "isDead": false
+    },
+    {
+      "characterId": "NAM",
+      "characterName": "Nam",
+      "characterDescription": "Tôi tên là Nam. Tôi là sinh viên ngành Tâm lý học và có quen biết với nạn nhân.",
+      "isDead": false
+    },
+    {
+      "characterId": "PHUONG",
+      "characterName": "Phương",
+      "characterDescription": "Tôi tên là Phương. Tôi làm nhân viên lễ tân và là người cuối cùng tiếp xúc với nạn nhân tại khách sạn.",
+      "isDead": false
+    }
+  ]
+}

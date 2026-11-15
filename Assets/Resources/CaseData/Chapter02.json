@@ -1,0 +1,18 @@
+{
+  "chapterId": "CH02",
+  "items": [],
+  "branches": [
+    {
+      "branchId": "BR01",
+      "correctEvidenceIds": []
+    },
+    {
+      "branchId": "BR02",
+      "correctEvidenceIds": []
+    },
+    {
+      "branchId": "BR03",
+      "correctEvidenceIds": []
+    }
+  ]
+}

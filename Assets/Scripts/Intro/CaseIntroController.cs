@@ -468,12 +468,39 @@ public class CaseIntroController : MonoBehaviour
         ShowCaseSummary();
     }
 
+
     public void OnStartInvestigation()
     {
+        int chapterNumber = GameManager.Instance.SelectedChapter;
+
+        ChapterDataLoader loader =
+            GameManager.Instance.GetComponent<ChapterDataLoader>();
+
+        if (loader == null)
+        {
+            Debug.LogError("GameManager chưa có ChapterDataLoader.");
+            return;
+        }
+
+        ChapterData chapter = loader.LoadChapter(chapterNumber);
+
+        if (chapter == null)
+            return;
+
+        // XÓA DỮ LIỆU CỦA PHIÊN CHƠI CŨ
+        GameSessionData.ClearAllSessionData();
+
+        // Tạo phiên mới và chọn Branch mới
+        CaseSessionData.StartNewSession(chapter);
+
+        if (!CaseSessionData.IsSessionStarted)
+            return;
+
         GameManager.Instance.StartNewTimer();
 
         SceneManager.LoadScene("Investigation");
     }
+
 
     private Coroutine dialogueAnimationCoroutine;
     private Vector2 dialogueGroupOriginalPosition;

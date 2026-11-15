@@ -1,0 +1,65 @@
+﻿{
+  "chapterId": "CHAPTER_01",
+  "branches": [
+    {
+      "branchId": "BR01",
+      "stories": [
+        {
+          "storyId": "STORY_01",
+          "title": "Câu chuyện 01",
+          "requiredEvidence": [
+            "E001"
+          ],
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Đây là nội dung thử nghiệm của nhánh 1.",
+              "backgroundIndex": 0
+            },
+            {
+              "speaker": "Bảo",
+              "text": "Chúng ta cần tìm hiểu chuyện gì đã xảy ra.",
+              "backgroundIndex": -1
+            }
+          ],
+          "statementUpdates": []
+        },
+        {
+          "storyId": "STORY_02",
+          "title": "Câu chuyện 02",
+          "requiredEvidence": [
+            "E002",
+            "E003",
+            "E004"
+          ],
+          "dialogues": [],
+          "statementUpdates": []
+        }
+      ]
+    },
+    {
+      "branchId": "BR02",
+      "stories": [
+        {
+          "storyId": "STORY_01",
+          "title": "Câu chuyện 01",
+          "requiredEvidence": [
+            "E006"
+          ],
+          "dialogues": [
+            {
+              "speaker": "Giang",
+              "text": "Đây là nội dung thử nghiệm khác của nhánh 2.",
+              "backgroundIndex": -1
+            }
+          ],
+          "statementUpdates": []
+        }
+      ]
+    },
+    {
+      "branchId": "BR03",
+      "stories": []
+    }
+  ]
+}

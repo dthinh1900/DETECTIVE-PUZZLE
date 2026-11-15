@@ -1,0 +1,688 @@
+fileFormatVersion: 2
+guid: 9411d46de4c0d76449d726f913080486
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9086997832191380349
+    second: vatchung_0
+  - first:
+      213: -3297115634657535463
+    second: vatchung_1
+  - first:
+      213: 5643568253980631724
+    second: vatchung_2
+  - first:
+      213: 1367648123692476753
+    second: vatchung_3
+  - first:
+      213: 5167999079436341670
+    second: vatchung_4
+  - first:
+      213: 2402527181143188821
+    second: vatchung_5
+  - first:
+      213: -2000489910717610587
+    second: vatchung_6
+  - first:
+      213: -2979955264611143133
+    second: vatchung_7
+  - first:
+      213: 863063370144048139
+    second: vatchung_8
+  - first:
+      213: 1709999927723883438
+    second: vatchung_9
+  - first:
+      213: -608328067184223640
+    second: vatchung_10
+  - first:
+      213: -6880860185141587869
+    second: vatchung_11
+  - first:
+      213: 729659850186448046
+    second: vatchung_12
+  - first:
+      213: -1190432287353901745
+    second: vatchung_13
+  - first:
+      213: -3967365605313640953
+    second: vatchung_14
+  - first:
+      213: -3415408256433695206
+    second: vatchung_15
+  - first:
+      213: -2119368044304661225
+    second: vatchung_16
+  - first:
+      213: 3961132891607170875
+    second: vatchung_17
+  - first:
+      213: 2008593332607634543
+    second: vatchung_18
+  - first:
+      213: -2022797705500324491
+    second: vatchung_19
+  - first:
+      213: 3811990985071548226
+    second: vatchung_20
+  - first:
+      213: 4652057165698533088
+    second: vatchung_21
+  - first:
+      213: 8628623994619879008
+    second: vatchung_22
+  - first:
+      213: -6234014445209111541
+    second: vatchung_23
+  - first:
+      213: -7626836973867160644
+    second: vatchung_24
+  - first:
+      213: 5084779093956127951
+    second: vatchung_25
+  - first:
+      213: 6016847574120958123
+    second: vatchung_26
+  - first:
+      213: 915893945201163741
+    second: vatchung_27
+  - first:
+      213: -9213815346132947523
+    second: vatchung_28
+  - first:
+      213: -2593328568976685261
+    second: vatchung_29
+  - first:
+      213: -2970898447076561640
+    second: vatchung_30
+  - first:
+      213: -5866160345574660477
+    second: vatchung_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vatchung_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1118
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7b038622608b1e70800000000000000
+      internalID: 9086997832191380349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_1
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 1118
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ad9d49cca4e32d0800000000000000
+      internalID: -3297115634657535463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_2
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 1118
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca2ef241d6bf15e40800000000000000
+      internalID: 5643568253980631724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_3
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 1118
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1596b6ee8bcdaf210800000000000000
+      internalID: 1367648123692476753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 839
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1595118cb68b740800000000000000
+      internalID: 5167999079436341670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_5
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 839
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 555a24bfdbd775120800000000000000
+      internalID: 2402527181143188821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_6
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 839
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a58ce67605dc34e0800000000000000
+      internalID: -2000489910717610587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_7
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 839
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3223c4ea97215a6d0800000000000000
+      internalID: -2979955264611143133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 560
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b04661cff873afb00800000000000000
+      internalID: 863063370144048139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_9
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 560
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabfce1dfd32bb710800000000000000
+      internalID: 1709999927723883438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_10
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 560
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86a959098d8ce87f0800000000000000
+      internalID: -608328067184223640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_11
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 560
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 360d1833e164280a0800000000000000
+      internalID: -6880860185141587869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 281
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eac5a3194c5402a00800000000000000
+      internalID: 729659850186448046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_13
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 294
+        width: 281
+        height: 266
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d6d1f442cba7fe0800000000000000
+      internalID: -1190432287353901745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_14
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 289
+        width: 281
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7068d21800611f8c0800000000000000
+      internalID: -3967365605313640953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_15
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 281
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a16555059480a90d0800000000000000
+      internalID: -3415408256433695206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71508ea1efd7692e0800000000000000
+      internalID: -2119368044304661225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_17
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 2
+        width: 281
+        height: 293
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3f7c50c065c8f630800000000000000
+      internalID: 3961132891607170875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_18
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 1
+        width: 281
+        height: 288
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6ccb487ef4ffdb10800000000000000
+      internalID: 2008593332607634543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vatchung_19
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 2
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57d8d2f34349de3e0800000000000000
+      internalID: -2022797705500324491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e6b68592514638f45b40e7f399723465
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":5.0},"gridSpriteSize":{"x":281.0,"y":279.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      vatchung_0: 9086997832191380349
+      vatchung_1: -3297115634657535463
+      vatchung_10: -608328067184223640
+      vatchung_11: -6880860185141587869
+      vatchung_12: 729659850186448046
+      vatchung_13: -1190432287353901745
+      vatchung_14: -3967365605313640953
+      vatchung_15: -3415408256433695206
+      vatchung_16: -2119368044304661225
+      vatchung_17: 3961132891607170875
+      vatchung_18: 2008593332607634543
+      vatchung_19: -2022797705500324491
+      vatchung_2: 5643568253980631724
+      vatchung_3: 1367648123692476753
+      vatchung_4: 5167999079436341670
+      vatchung_5: 2402527181143188821
+      vatchung_6: -2000489910717610587
+      vatchung_7: -2979955264611143133
+      vatchung_8: 863063370144048139
+      vatchung_9: 1709999927723883438
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
