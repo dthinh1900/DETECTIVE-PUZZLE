@@ -2,121 +2,121 @@
   "chapterId": "CH01",
   "items": [
     {
-      "itemId": "E001",
+      "itemId": "A001",
       "itemName": "Chiếc đồng hồ đeo tay",
       "description": "Đồng hồ dây da màu đen.",
       "decoyDetail": "Đây là đồng hồ đeo tay thông thường, có giá trị khoảng 1.500.000 đồng."
     },
     {
-      "itemId": "E002",
+      "itemId": "A002",
       "itemName": "Chiếc bật lửa",
       "description": "Bật lửa kim loại màu bạc.",
       "decoyDetail": "Bật lửa kim loại dùng để châm thuốc, giá bán khoảng 80.000 đồng."
     },
     {
-      "itemId": "E003",
+      "itemId": "A003",
       "itemName": "Chìa khóa",
       "description": "Một chiếc chìa khóa nhỏ.",
       "decoyDetail": "Chìa khóa dự phòng thông thường, không có dấu hiệu đặc biệt, giá trị khoảng 20.000 đồng."
     },
     {
-      "itemId": "E004",
+      "itemId": "A004",
       "itemName": "Chiếc cốc thủy tinh",
       "description": "Cốc thủy tinh trong suốt.",
       "decoyDetail": "Cốc uống nước bằng thủy tinh, có giá khoảng 35.000 đồng."
     },
     {
-      "itemId": "E005",
+      "itemId": "A005",
       "itemName": "Quyển sổ tay",
       "description": "Sổ bìa nâu, kích thước nhỏ.",
       "decoyDetail": "Sổ ghi chép cá nhân thông thường, giá bán khoảng 45.000 đồng."
     },
     {
-      "itemId": "E006",
+      "itemId": "A006",
       "itemName": "Đôi găng tay",
       "description": "Găng tay vải màu xám.",
       "decoyDetail": "Găng tay giữ ấm thông thường, giá khoảng 60.000 đồng."
     },
     {
-      "itemId": "E007",
+      "itemId": "A007",
       "itemName": "Chiếc khăn tay",
       "description": "Khăn tay màu trắng.",
       "decoyDetail": "Khăn tay bằng vải cotton, giá khoảng 25.000 đồng."
     },
     {
-      "itemId": "E008",
+      "itemId": "A008",
       "itemName": "Chiếc điện thoại cũ",
       "description": "Điện thoại màu đen đã qua sử dụng.",
       "decoyDetail": "Điện thoại đời cũ đã qua sử dụng, giá trị khoảng 700.000 đồng."
     },
     {
-      "itemId": "E009",
+      "itemId": "A009",
       "itemName": "Hộp thuốc",
       "description": "Hộp đựng thuốc nhỏ.",
       "decoyDetail": "Hộp đựng thuốc cá nhân thông thường, giá trị khoảng 30.000 đồng."
     },
     {
-      "itemId": "E010",
+      "itemId": "A010",
       "itemName": "Chiếc kính mắt",
       "description": "Kính mắt gọng đen.",
       "decoyDetail": "Kính mắt dùng để hỗ trợ thị lực, giá khoảng 400.000 đồng."
     },
     {
-      "itemId": "E011",
+      "itemId": "A011",
       "itemName": "Cây bút máy",
       "description": "Bút máy màu xanh đậm.",
       "decoyDetail": "Bút máy dùng để viết và ghi chép, giá khoảng 120.000 đồng."
     },
     {
-      "itemId": "E012",
+      "itemId": "A012",
       "itemName": "Chiếc ví da",
       "description": "Ví da màu nâu.",
       "decoyDetail": "Ví đựng tiền và giấy tờ cá nhân, giá khoảng 250.000 đồng."
     },
     {
-      "itemId": "E013",
+      "itemId": "A013",
       "itemName": "Tờ hóa đơn",
       "description": "Một tờ hóa đơn mua hàng.",
       "decoyDetail": "Hóa đơn mua sắm thông thường, không có giá trị sử dụng đáng kể."
     },
     {
-      "itemId": "E014",
+      "itemId": "A014",
       "itemName": "Chiếc kéo",
       "description": "Kéo nhỏ có tay cầm màu đỏ.",
       "decoyDetail": "Kéo gia dụng dùng để cắt giấy và vật liệu mỏng, giá khoảng 40.000 đồng."
     },
     {
-      "itemId": "E015",
+      "itemId": "A015",
       "itemName": "Chiếc USB",
       "description": "USB màu bạc dung lượng nhỏ.",
       "decoyDetail": "Thiết bị lưu trữ dữ liệu thông thường, giá khoảng 100.000 đồng."
     },
     {
-      "itemId": "E016",
+      "itemId": "A016",
       "itemName": "Chai nước",
       "description": "Chai nước nhựa đã mở nắp.",
       "decoyDetail": "Chai nước uống thông thường, giá khoảng 10.000 đồng."
     },
     {
-      "itemId": "E017",
+      "itemId": "A017",
       "itemName": "Chiếc lược",
       "description": "Lược nhựa màu đen.",
       "decoyDetail": "Lược chải tóc bằng nhựa, giá khoảng 20.000 đồng."
     },
     {
-      "itemId": "E018",
+      "itemId": "A018",
       "itemName": "Khung ảnh",
       "description": "Khung ảnh nhỏ đặt trên bàn.",
       "decoyDetail": "Khung ảnh trang trí bằng gỗ, giá khoảng 90.000 đồng."
     },
     {
-      "itemId": "E019",
+      "itemId": "A019",
       "itemName": "Chiếc điều khiển",
       "description": "Điều khiển TV màu đen.",
       "decoyDetail": "Điều khiển từ xa của TV, giá thay thế khoảng 100.000 đồng."
     },
     {
-      "itemId": "E020",
+      "itemId": "A020",
       "itemName": "Cuốn tạp chí",
       "description": "Tạp chí cũ đặt trên bàn.",
       "decoyDetail": "Tạp chí giải trí thông thường, giá bìa khoảng 35.000 đồng."
@@ -125,78 +125,78 @@
   "branches": [
     {
       "branchId": "BR01",
-      "specialEvidenceId": "E016",
+      "specialEvidenceId": "A016",
       "correctEvidence": [
         {
-          "itemId": "E001",
+          "itemId": "A001",
           "killerInfo": "Đồng hồ có thời gian dừng bất thường, giúp xác định khoảng thời gian hung thủ có mặt tại hiện trường."
         },
         {
-          "itemId": "E002",
+          "itemId": "A002",
           "killerInfo": "Dấu hiệu cá nhân trên bật lửa liên kết với một người có mặt tại hiện trường trước thời điểm xảy ra án mạng."
         },
         {
-          "itemId": "E003",
+          "itemId": "A003",
           "killerInfo": "Chìa khóa có hình dạng phù hợp với ổ khóa tại căn phòng hung thủ đã sử dụng."
         },
         {
-          "itemId": "E004",
+          "itemId": "A004",
           "killerInfo": "Dấu vân tay trên cốc giúp xác định người đã tiếp xúc với nạn nhân trước khi án mạng xảy ra."
         },
         {
-          "itemId": "E005",
+          "itemId": "A005",
           "killerInfo": "Một ghi chú trong sổ tay thể hiện động cơ và mối quan hệ giữa hung thủ với nạn nhân."
         }
       ]
     },
     {
       "branchId": "BR02",
-      "specialEvidenceId": "E001",
+      "specialEvidenceId": "A001",
       "correctEvidence": [
         {
-          "itemId": "E006",
+          "itemId": "A006",
           "killerInfo": "Sợi vải trên găng tay trùng với chất liệu trang phục được xác định thuộc về hung thủ."
         },
         {
-          "itemId": "E007",
+          "itemId": "A007",
           "killerInfo": "Dấu vết trên khăn tay cho thấy hung thủ đã cố lau sạch một vị trí trong hiện trường."
         },
         {
-          "itemId": "E008",
+          "itemId": "A008",
           "killerInfo": "Dữ liệu trong điện thoại cho thấy liên lạc đáng ngờ giữa hung thủ và nạn nhân."
         },
         {
-          "itemId": "E009",
+          "itemId": "A009",
           "killerInfo": "Thông tin trên hộp thuốc giúp xác định hung thủ biết rõ tình trạng sức khỏe của nạn nhân."
         },
         {
-          "itemId": "E010",
+          "itemId": "A010",
           "killerInfo": "Dấu vết trên gọng kính liên kết với người đã xuất hiện tại hiện trường."
         }
       ]
     },
     {
       "branchId": "BR03",
-      "specialEvidenceId": "E020",
+      "specialEvidenceId": "A020",
       "correctEvidence": [
         {
-          "itemId": "E011",
+          "itemId": "A011",
           "killerInfo": "Nét chữ trên bút và tài liệu liên quan có đặc điểm trùng khớp với chữ viết của hung thủ."
         },
         {
-          "itemId": "E012",
+          "itemId": "A012",
           "killerInfo": "Một giấy tờ nằm trong ví hé lộ mối quan hệ tài chính giữa hung thủ và nạn nhân."
         },
         {
-          "itemId": "E013",
+          "itemId": "A013",
           "killerInfo": "Thời gian trên hóa đơn giúp đối chiếu lời khai và phát hiện hung thủ khai báo sai."
         },
         {
-          "itemId": "E014",
+          "itemId": "A014",
           "killerInfo": "Dấu vết còn lại trên kéo liên kết với hành động chuẩn bị của hung thủ trước vụ án."
         },
         {
-          "itemId": "E015",
+          "itemId": "A015",
           "killerInfo": "Dữ liệu lưu trong USB chứa thông tin quan trọng liên quan đến kế hoạch của hung thủ."
         }
       ]

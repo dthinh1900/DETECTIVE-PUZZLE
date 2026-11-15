@@ -1642,27 +1642,9 @@ MonoBehaviour:
   storyContent: {fileID: 1787217367}
   storyItemPrefab: {fileID: 5064933214877271052, guid: a1d35d73d5615964185c78133778ea47, type: 3}
   chapter1StoryJson: {fileID: 4900000, guid: 744a8ee6c7fc25d479761a04ccc2f986, type: 3}
+  questionMarkSprite: {fileID: -58548946388782698, guid: a7d680cc4e2d58c448c8cfdd1a7e4b11, type: 3}
   lockedColor: {r: 0, g: 1, b: 0.0724082, a: 1}
   unlockedColor: {r: 0.4867924, g: 0.4867924, b: 0.4867924, a: 1}
-  stories:
-  - storyId: STORY_01
-    title: "Chuy\u1EBFn \u0111i s\u0103n"
-    content: "Chuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn
-      \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn
-      \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103n"
-    unlocked: 1
-    itemIcon1: {fileID: 5843422287449127606, guid: 00e7360b64d843341898adb1d9dcb5f1, type: 3}
-    itemIcon2: {fileID: 5843422287449127606, guid: 00e7360b64d843341898adb1d9dcb5f1, type: 3}
-    itemIcon3: {fileID: 5843422287449127606, guid: 00e7360b64d843341898adb1d9dcb5f1, type: 3}
-  - storyId: STORY_02
-    title: "Chuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103n"
-    content: "Chuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn
-      \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn
-      \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103nChuy\u1EBFn \u0111i s\u0103n"
-    unlocked: 1
-    itemIcon1: {fileID: 6565469124822105906, guid: 00e7360b64d843341898adb1d9dcb5f1, type: 3}
-    itemIcon2: {fileID: 6565469124822105906, guid: 00e7360b64d843341898adb1d9dcb5f1, type: 3}
-    itemIcon3: {fileID: 6565469124822105906, guid: 00e7360b64d843341898adb1d9dcb5f1, type: 3}
   storyDetailController: {fileID: 1195511081}
 --- !u!1 &1156575016
 GameObject:
@@ -1819,7 +1801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1195511078
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2172,7 +2154,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1195511081}
         m_TargetAssemblyTypeName: StoryDetailController, Assembly-CSharp
-        m_MethodName: CloseStory
+        m_MethodName: RequestCloseStory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2609,6 +2591,10 @@ PrefabInstance:
     - target: {fileID: 2478128200359967850, guid: 29745f1ca4a5b9b419f869be14abe732, type: 3}
       propertyPath: m_Name
       value: Panel_Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478128200359967850, guid: 29745f1ca4a5b9b419f869be14abe732, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

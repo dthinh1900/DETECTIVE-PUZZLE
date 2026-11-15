@@ -1,30 +1,12 @@
-﻿
-using System;
-using TMPro;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StoryController : MonoBehaviour
 {
-    [Serializable]
-    public class StoryInfo
-    {
-        public string storyId;
-        public string title;
-
-        [TextArea(4, 12)]
-        public string content;
-
-        [Tooltip("Bat len neu Story da mo khoa.")]
-        public bool unlocked;
-
-        [Header("Ba vat pham can tim")]
-        public Sprite itemIcon1;
-        public Sprite itemIcon2;
-        public Sprite itemIcon3;
-    }
-
     [Header("Panels")]
     [SerializeField] private GameObject sceneStory;
     [SerializeField] private GameObject storyDetailPanel;
@@ -33,8 +15,11 @@ public class StoryController : MonoBehaviour
     [SerializeField] private Transform storyContent;
     [SerializeField] private Button storyItemPrefab;
 
-    [Header("Chapter 1 JSON")]
+    [Header("Chapter 01 JSON")]
     [SerializeField] private TextAsset chapter1StoryJson;
+
+    [Header("Icon Story dac biet")]
+    [SerializeField] private Sprite questionMarkSprite;
 
     [Header("Mau nen")]
     [SerializeField]
@@ -45,43 +30,73 @@ public class StoryController : MonoBehaviour
     private Color unlockedColor =
         new Color(1f, 0.9f, 0.65f, 1f);
 
-    [Header("Du lieu Story")]
-    [SerializeField] private StoryInfo[] stories;
-
     [Header("Story Detail")]
     [SerializeField]
     private StoryDetailController storyDetailController;
 
     private StoryDetailController.ChapterStoryData chapterData;
+    private StoryDetailController.BranchStoryData selectedBranch;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        // 1. Tai JSON truoc.
-        if (!LoadChapterData())
-            return;
+        // Cho StoryDetailController khoi tao UI truoc.
+        yield return null;
 
-        // 2. Truyen du lieu cho StoryDetailController.
+        if (!LoadChapterData())
+            yield break;
+
         if (storyDetailController == null)
         {
             Debug.LogError(
                 "StoryController: Chua gan StoryDetailController."
             );
-            return;
+            yield break;
         }
 
-        storyDetailController.SetChapterData(chapterData);
+        storyDetailController.SetChapterData(
+            chapterData,
+            CaseSessionData.SelectedBranchId
+        );
 
-        // 3. Hien danh sach va sinh cac nut Story.
         ShowStoryList();
         GenerateStoryItems();
+
+        // Neu vua thu thap Evidence dac biet,
+        // tu dong mo Story tuong ung.
+        TryOpenPendingSpecialStory();
     }
 
     private bool LoadChapterData()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError(
+                "StoryController: Khong tim thay GameManager."
+            );
+            return false;
+        }
+
+        if (GameManager.Instance.SelectedChapter != 1)
+        {
+            Debug.LogError(
+                "StoryController hien tai chi ho tro Chapter 01."
+            );
+            return false;
+        }
+
+        if (!CaseSessionData.IsSessionStarted ||
+            string.IsNullOrWhiteSpace(CaseSessionData.SelectedBranchId))
+        {
+            Debug.LogError(
+                "StoryController: Chua co Branch duoc chon trong phien choi."
+            );
+            return false;
+        }
+
         if (chapter1StoryJson == null)
         {
             Debug.LogError(
-                "StoryController: Chua gan Chapter1Story.json!"
+                "StoryController: Chua gan Chapter01Story.json."
             );
             return false;
         }
@@ -92,21 +107,50 @@ public class StoryController : MonoBehaviour
             >(chapter1StoryJson.text);
 
         if (chapterData == null ||
-            chapterData.stories == null)
+            chapterData.branches == null)
         {
             Debug.LogError(
-                "StoryController: JSON khong hop le " +
-                "hoac thieu mang stories!"
+                "Chapter01Story.json khong hop le hoac thieu branches."
             );
+            return false;
+        }
 
-            chapterData = null;
+        selectedBranch = null;
+
+        foreach (
+            StoryDetailController.BranchStoryData branch
+            in chapterData.branches
+        )
+        {
+            if (branch != null &&
+                branch.branchId == CaseSessionData.SelectedBranchId)
+            {
+                selectedBranch = branch;
+                break;
+            }
+        }
+
+        if (selectedBranch == null)
+        {
+            Debug.LogError(
+                "Khong tim thay Story cua Branch: " +
+                CaseSessionData.SelectedBranchId
+            );
+            return false;
+        }
+
+        if (selectedBranch.stories == null ||
+            selectedBranch.stories.Length != 2)
+        {
+            Debug.LogError(
+                "Moi Branch cua Chapter 01 phai co dung 2 Story."
+            );
             return false;
         }
 
         Debug.Log(
-            "StoryController: Da tai " +
-            chapterData.stories.Length +
-            " Story cua Chuong 1."
+            "Da tai " + selectedBranch.stories.Length +
+            " Story cua " + selectedBranch.branchId
         );
 
         return true;
@@ -122,20 +166,22 @@ public class StoryController : MonoBehaviour
             return;
         }
 
-        // Xoa cac nut cu.
+        if (selectedBranch == null ||
+            selectedBranch.stories == null)
+        {
+            return;
+        }
+
         foreach (Transform child in storyContent)
         {
             Destroy(child.gameObject);
         }
 
-        if (stories == null)
-            return;
-
-        for (int i = 0; i < stories.Length; i++)
+        foreach (
+            StoryDetailController.StoryData story
+            in selectedBranch.stories
+        )
         {
-            int index = i;
-            StoryInfo story = stories[index];
-
             if (story == null)
                 continue;
 
@@ -157,45 +203,215 @@ public class StoryController : MonoBehaviour
                 continue;
             }
 
+            bool unlocked;
+
+            Sprite[] icons = BuildStoryIcons(
+                story,
+                out unlocked
+            );
+
+            string title =
+                string.IsNullOrWhiteSpace(story.title)
+                    ? story.storyId
+                    : story.title;
+
             storyButton.Setup(
-                story.title,
-                story.itemIcon1,
-                story.itemIcon2,
-                story.itemIcon3,
-                story.unlocked,
+                title,
+                icons[0],
+                icons[1],
+                icons[2],
+                unlocked,
                 lockedColor,
                 unlockedColor,
-                () => OpenStory(index)
+                () => OpenStory(story)
             );
         }
     }
 
-    private void OpenStory(int index)
+
+    private Sprite[] BuildStoryIcons(
+        StoryDetailController.StoryData story,
+        out bool unlocked)
     {
-        if (stories == null ||
-            index < 0 ||
-            index >= stories.Length)
+        Sprite[] icons = new Sprite[3];
+        unlocked = false;
+
+        if (story == null)
+            return icons;
+
+        // STORY ĐẶC BIỆT: chỉ hiện dấu hỏi ở ô giữa.
+        if (story.storyType == "special")
         {
-            return;
+            icons[1] = questionMarkSprite;
+
+            unlocked =
+                !string.IsNullOrWhiteSpace(story.requiredEvidenceId) &&
+                GameSessionData.IsEvidenceCollected(
+                    story.requiredEvidenceId
+                );
+
+            if (unlocked)
+            {
+                CollectedEvidenceInfo info =
+                    FindCollectedEvidence(story.requiredEvidenceId);
+
+                if (info != null && info.evidenceImage != null)
+                    icons[1] = info.evidenceImage;
+            }
+
+            return icons;
         }
 
-        StoryInfo story = stories[index];
+        // STORY THƯỜNG: mặc định cả 3 ô đều là dấu hỏi.
+        if (story.storyType == "normal")
+        {
+            for (int i = 0; i < 3; i++)
+                icons[i] = questionMarkSprite;
 
-        if (story == null || !story.unlocked)
+            if (story.candidateEvidenceIds == null ||
+                story.candidateEvidenceIds.Length != 4)
+            {
+                Debug.LogWarning(
+                    story.storyId +
+                    ": Can khai bao dung 4 candidateEvidenceIds."
+                );
+
+                return icons;
+            }
+
+            HashSet<string> countedIds =
+                new HashSet<string>();
+
+            int collectedCount = 0;
+
+            foreach (string evidenceId in story.candidateEvidenceIds)
+            {
+                if (string.IsNullOrWhiteSpace(evidenceId))
+                    continue;
+
+                if (!countedIds.Add(evidenceId))
+                    continue;
+
+                if (!GameSessionData.IsEvidenceCollected(evidenceId))
+                    continue;
+
+                if (collectedCount < 3)
+                {
+                    CollectedEvidenceInfo info =
+                        FindCollectedEvidence(evidenceId);
+
+                    if (info != null && info.evidenceImage != null)
+                        icons[collectedCount] = info.evidenceImage;
+                }
+
+                collectedCount++;
+            }
+
+            int requiredCount =
+                Mathf.Max(1, story.requiredEvidenceCount);
+
+            unlocked = collectedCount >= requiredCount;
+
+            return icons;
+        }
+
+        Debug.LogWarning(
+            story.storyId + ": storyType khong hop le."
+        );
+
+        return icons;
+    }
+
+
+    private CollectedEvidenceInfo FindCollectedEvidence(
+        string evidenceId)
+    {
+        List<CollectedEvidenceInfo> collected =
+            GameSessionData.GetCollectedEvidence();
+
+        foreach (CollectedEvidenceInfo info in collected)
+        {
+            if (info != null &&
+                info.evidenceId == evidenceId)
+            {
+                return info;
+            }
+        }
+
+        return null;
+    }
+
+    private bool IsStoryUnlocked(
+        StoryDetailController.StoryData story)
+    {
+        bool unlocked;
+
+        BuildStoryIcons(story, out unlocked);
+
+        return unlocked;
+    }
+
+    private void OpenStory(
+        StoryDetailController.StoryData story)
+    {
+        if (story == null || storyDetailController == null)
             return;
 
-        if (string.IsNullOrWhiteSpace(story.storyId))
+        if (!IsStoryUnlocked(story))
         {
-            Debug.LogError(
-                "StoryController: Story ID khong duoc de trong."
+            Debug.LogWarning(
+                "Story chua du dieu kien mo khoa: " +
+                story.storyId
             );
             return;
         }
 
-        storyDetailController.OpenStory(
-            story.storyId,
-            null
+        storyDetailController.OpenStory(story, null);
+    }
+
+    private void TryOpenPendingSpecialStory()
+    {
+        string pendingEvidenceId =
+            GameSessionData.PendingSpecialEvidenceId;
+
+        if (string.IsNullOrWhiteSpace(pendingEvidenceId))
+            return;
+
+        foreach (
+            StoryDetailController.StoryData story
+            in selectedBranch.stories
+        )
+        {
+            if (story == null ||
+                story.storyType != "special")
+            {
+                continue;
+            }
+
+            if (story.requiredEvidenceId != pendingEvidenceId)
+                continue;
+
+            GameSessionData.ClearPendingSpecialEvidenceId();
+
+            if (IsStoryUnlocked(story))
+            {
+                OpenStory(story);
+
+                Debug.Log(
+                    "Tu dong mo Story dac biet: " +
+                    story.storyId
+                );
+            }
+
+            return;
+        }
+
+        Debug.LogWarning(
+            "Khong tim thay Story dac biet cho Evidence: " +
+            pendingEvidenceId
         );
+
+        GameSessionData.ClearPendingSpecialEvidenceId();
     }
 
     public void ShowStoryList()

@@ -21,7 +21,6 @@ public class StoryBTN : MonoBehaviour
     [SerializeField] private Image icon2;
     [SerializeField] private Image icon3;
 
-    // Goi khi StoryController sinh nut moi.
     public void Setup(
         string title,
         Sprite itemSprite1,
@@ -34,51 +33,68 @@ public class StoryBTN : MonoBehaviour
     {
         CacheReferences();
 
-        // Cap nhat ten Story.
         if (titleText != null)
-        {
             titleText.text = title;
-        }
 
-        // Cap nhat ba icon vat pham.
-        SetIcon(icon1, itemSprite1);
-        SetIcon(icon2, itemSprite2);
-        SetIcon(icon3, itemSprite3);
-
-        // Cap nhat mau nen.
+        // Nền luôn màu trắng.
         if (backgroundImage != null)
+            backgroundImage.color = Color.white;
+
+        if (unlocked)
         {
-            backgroundImage.color = unlocked
-                ? unlockedColor
-                : lockedColor;
+            // Đã đủ vật chứng: ẩn toàn bộ icon.
+            if (icon1 != null)
+                icon1.gameObject.SetActive(false);
+
+            if (icon2 != null)
+                icon2.gameObject.SetActive(false);
+
+            if (icon3 != null)
+                icon3.gameObject.SetActive(false);
+        }
+        else
+        {
+            // Story đặc biệt: chỉ hiển thị ô giữa.
+            bool isSpecialStory =
+                itemSprite1 == null &&
+                itemSprite2 != null &&
+                itemSprite3 == null;
+
+            if (icon1 != null)
+                icon1.gameObject.SetActive(!isSpecialStory);
+
+            if (icon2 != null)
+                icon2.gameObject.SetActive(true);
+
+            if (icon3 != null)
+                icon3.gameObject.SetActive(!isSpecialStory);
+
+            // Chỉ thay Sprite, giữ nguyên kích thước và vị trí.
+            SetIcon(icon1, itemSprite1);
+            SetIcon(icon2, itemSprite2);
+            SetIcon(icon3, itemSprite3);
         }
 
-        // Story da mo khoa moi hien nut bam.
         if (button != null)
         {
             button.interactable = unlocked;
 
-            button.onClick.AddListener(()=>
+            button.onClick.RemoveAllListeners();
+
+            button.onClick.AddListener(() =>
             {
-                Debug.Log("BTN STORY ĐÃ NHẬN CLICK");
                 onClick?.Invoke();
             });
         }
 
-        // Giu nguyen co che hien icon hien tai:
-        // Story bi khoa hien icon, Story mo khoa an icon.
         if (iconsRoot != null)
-        {
-            iconsRoot.gameObject.SetActive(!unlocked);
-        }
+            iconsRoot.gameObject.SetActive(true);
     }
 
     private void CacheReferences()
     {
         if (button == null)
-        {
             button = GetComponent<Button>();
-        }
 
         if (titleText == null)
         {
@@ -88,9 +104,7 @@ public class StoryBTN : MonoBehaviour
         }
 
         if (iconsRoot == null)
-        {
             iconsRoot = transform.Find("ItemIcons");
-        }
 
         if (icon1 == null && iconsRoot != null)
         {
@@ -115,19 +129,13 @@ public class StoryBTN : MonoBehaviour
 
         if (backgroundImage == null)
         {
-            // Uu tien BG la GameObject con neu co.
             Transform bg = transform.Find("BG");
 
             if (bg != null)
-            {
                 backgroundImage = bg.GetComponent<Image>();
-            }
 
-            // Neu khong co BG con, lay Image tren Button.
             if (backgroundImage == null)
-            {
                 backgroundImage = GetComponent<Image>();
-            }
         }
     }
 
@@ -136,7 +144,12 @@ public class StoryBTN : MonoBehaviour
         if (icon == null)
             return;
 
-        icon.sprite = sprite;
-        icon.enabled = sprite != null;
+        // Có Sprite mới thì thay ảnh.
+        // Không có Sprite thì giữ ảnh dấu hỏi đã gán trong Prefab.
+        if (sprite != null)
+            icon.sprite = sprite;
+
+        icon.enabled = true;
+        icon.preserveAspect = true;
     }
 }
