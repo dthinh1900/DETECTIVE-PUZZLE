@@ -140,10 +140,10 @@ public class StoryController : MonoBehaviour
         }
 
         if (selectedBranch.stories == null ||
-            selectedBranch.stories.Length != 2)
+            selectedBranch.stories.Length != 8)
         {
             Debug.LogError(
-                "Moi Branch cua Chapter 01 phai co dung 2 Story."
+                "Moi Branch cua Chapter 01 phai co dung 8 Story (4 Case x 2 Story)."
             );
             return false;
         }
@@ -246,7 +246,7 @@ public class StoryController : MonoBehaviour
 
             unlocked =
                 !string.IsNullOrWhiteSpace(story.requiredEvidenceId) &&
-                GameSessionData.IsEvidenceCollected(
+                GameSessionData.IsEvidenceCollectedInAnyCase(
                     story.requiredEvidenceId
                 );
 
@@ -292,7 +292,7 @@ public class StoryController : MonoBehaviour
                 if (!countedIds.Add(evidenceId))
                     continue;
 
-                if (!GameSessionData.IsEvidenceCollected(evidenceId))
+                if (!GameSessionData.IsEvidenceCollectedInAnyCase(evidenceId))
                     continue;
 
                 if (collectedCount < 3)
@@ -300,8 +300,11 @@ public class StoryController : MonoBehaviour
                     CollectedEvidenceInfo info =
                         FindCollectedEvidence(evidenceId);
 
-                    if (info != null && info.evidenceImage != null)
-                        icons[collectedCount] = info.evidenceImage;
+                    if (info != null)
+                    {
+                        Sprite resolved = info.evidenceImage != null ? info.evidenceImage : EvidenceSpawner.FindSprite(info.evidenceId);
+                        if (resolved != null) icons[collectedCount] = resolved;
+                    }
                 }
 
                 collectedCount++;

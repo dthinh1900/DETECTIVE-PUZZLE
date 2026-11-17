@@ -1,0 +1,207 @@
+{
+  "chapterId": 1,
+  "chapterName": "DETECTIVE PUZZLE - CHƯƠNG 01",
+  "commonCases": [
+    {
+      "caseNumber": 1,
+      "caseId": "C1_Vuan1",
+      "title": "VỤ ÁN 01 - DẤU VẾT ĐẦU TIÊN",
+      "summary": "Vụ án đầu tiên khép lại nhưng những chứng cứ thu thập được cho thấy đây không phải một sự việc đơn lẻ. Một chi tiết nhỏ trong hồ sơ khiến nhóm điều tra nghi ngờ có người đang cố tình che giấu sự thật.",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Vụ án đầu tiên đã tạm khép lại. Tuy nhiên, những gì nhóm điều tra tìm thấy vẫn chưa giải thích được toàn bộ sự việc."
+        },
+        {
+          "speaker": "Giang",
+          "text": "Có một chi tiết trong hồ sơ khiến tôi thấy không ổn. Chúng ta cần xem xét nó trong bối cảnh rộng hơn."
+        },
+        {
+          "speaker": "Bảo",
+          "text": "Nếu manh mối này liên quan đến một vụ việc khác thì sao? Có lẽ chúng ta mới chỉ nhìn thấy phần đầu của câu chuyện."
+        }
+      ]
+    },
+    {
+      "caseNumber": 2,
+      "caseId": "C1_Vuan2",
+      "title": "VỤ ÁN 02 - MỐI LIÊN HỆ",
+      "summary": "Một vụ việc mới xuất hiện với những dấu hiệu tương đồng. Nhóm điều tra bắt đầu nhận ra một mối liên hệ giữa các nhân vật và những chứng cứ ở vụ án trước.",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Không lâu sau, một vụ việc khác được báo cáo. Những dấu hiệu ban đầu khiến nhóm điều tra liên tưởng đến hồ sơ trước đó."
+        },
+        {
+          "speaker": "Chi",
+          "text": "Các chi tiết không hoàn toàn giống nhau, nhưng có một điểm chung mà chúng ta không thể bỏ qua."
+        },
+        {
+          "speaker": "Dũng",
+          "text": "Vậy chúng ta cần kiểm tra từng giả thuyết. Đừng vội kết luận khi chưa có đủ căn cứ."
+        }
+      ]
+    },
+    {
+      "caseNumber": 5,
+      "caseId": "C1_CoHoiCuoiCung",
+      "title": "CƠ HỘI CUỐI CÙNG",
+      "summary": "Bốn vụ án đã lần lượt khép lại. Những chứng cứ và lời khai thu thập được đã đưa nhóm điều tra đến thời khắc phải đưa ra kết luận cuối cùng. Đây là cơ hội cuối cùng để xác định sự thật.",
+      "dialogues": [
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Bốn vụ án đã khép lại, nhưng tất cả những manh mối tìm được đều dẫn về cùng một sự thật. Giờ đây, nhóm điều tra phải đặt toàn bộ chứng cứ cạnh nhau để tìm ra lời giải cuối cùng."
+        },
+        {
+          "speaker": "Giang",
+          "text": "Chúng ta không còn vụ án nào tiếp theo để mở rộng điều tra. Mọi chi tiết quan trọng đều đã nằm trong hồ sơ, và chúng ta phải tự mình xâu chuỗi chúng lại."
+        },
+        {
+          "speaker": "Bảo",
+          "text": "Đây là cơ hội cuối cùng. Hãy kiểm tra thật kỹ chứng cứ và lời khai trước khi lựa chọn nghi phạm. Một kết luận sai có thể khiến sự thật mãi mãi bị chôn vùi."
+        },
+        {
+          "speaker": "Người dẫn chuyện",
+          "text": "Đã đến lúc đưa ra suy luận cuối cùng. Sau quyết định này, mọi chuyện sẽ được định đoạt."
+        }
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "branchId": "BR01",
+      "cases": [
+        {
+          "caseNumber": 3,
+          "caseId": "C1_Vuan3_BR01",
+          "title": "VỤ ÁN 03 - CUỘC GỌI LÚC NỬA ĐÊM",
+          "summary": "[TEST BR01] Một cuộc gọi bí ẩn xuất hiện trong lịch sử liên lạc, hé lộ rằng nạn nhân đã gặp một người quen ngay trước khi sự việc xảy ra.",
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Dữ liệu điện thoại cho thấy nạn nhân đã nhận một cuộc gọi vào thời điểm bất thường. Cuộc gọi chỉ kéo dài vài giây nhưng đủ để mở ra hướng điều tra mới."
+            },
+            {
+              "speaker": "Giang",
+              "text": "Số điện thoại này đã được lưu dưới một cái tên giả. Có người rõ ràng không muốn danh tính của mình bị phát hiện."
+            },
+            {
+              "speaker": "Bảo",
+              "text": "Nếu xác định được người đứng sau cuộc gọi, chúng ta có thể tìm ra lý do cuộc hẹn bị che giấu."
+            }
+          ]
+        },
+        {
+          "caseNumber": 4,
+          "caseId": "C1_Vuan4_BR01",
+          "title": "VỤ ÁN 04 - NGƯỜI ĐỨNG SAU CUỘC GỌI",
+          "summary": "[TEST BR01] Những dữ liệu cuối cùng dẫn đến một người từng xuất hiện trong các cuộc gặp bí mật. Nhóm điều tra phải đối chiếu lời khai để xác định vai trò thật sự của người này.",
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Cuộc gọi lúc nửa đêm không phải một sự trùng hợp. Người thực hiện cuộc gọi có liên quan trực tiếp đến chuỗi sự kiện."
+            },
+            {
+              "speaker": "Chi",
+              "text": "Lời khai của người này mâu thuẫn với thời gian trong nhật ký cuộc gọi. Chúng ta đã có cơ sở để đặt câu hỏi."
+            },
+            {
+              "speaker": "Giang",
+              "text": "Hãy ghép tất cả chứng cứ lại. Chỉ cần một mắt xích sai lệch, toàn bộ câu chuyện có thể bị hiểu nhầm."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "branchId": "BR02",
+      "cases": [
+        {
+          "caseNumber": 3,
+          "caseId": "C1_Vuan3_BR02",
+          "title": "VỤ ÁN 03 - BẢN GHI BỊ XÓA",
+          "summary": "[TEST BR02] Một bản ghi âm bị xóa một phần được khôi phục. Nội dung còn sót lại cho thấy có tranh cãi giữa nạn nhân và một người thân cận.",
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Trong thiết bị lưu trữ, nhóm điều tra tìm thấy một tệp âm thanh đã bị xóa. Phần dữ liệu khôi phục được chứa những câu nói rời rạc nhưng đáng chú ý."
+            },
+            {
+              "speaker": "Dũng",
+              "text": "Âm thanh bị cắt đúng đoạn quan trọng nhất. Người xóa nó có thể đã biết chính xác mình cần che giấu điều gì."
+            },
+            {
+              "speaker": "Chi",
+              "text": "Chúng ta cần xác định ai có quyền truy cập thiết bị và ai là người cuối cùng ở cạnh nạn nhân."
+            }
+          ]
+        },
+        {
+          "caseNumber": 4,
+          "caseId": "C1_Vuan4_BR02",
+          "title": "VỤ ÁN 04 - LỜI THÚ NHẬN DANG DỞ",
+          "summary": "[TEST BR02] Bản ghi được phục hồi hoàn chỉnh hơn, làm sáng tỏ cuộc tranh cãi và một bí mật tài chính bị che giấu.",
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Phần âm thanh còn thiếu đã được khôi phục. Những lời nói trong đó khiến giả thuyết ban đầu của nhóm điều tra phải thay đổi."
+            },
+            {
+              "speaker": "Bảo",
+              "text": "Cuộc tranh cãi không chỉ liên quan đến tiền bạc. Có vẻ nạn nhân đã phát hiện một việc mà người kia muốn giữ kín."
+            },
+            {
+              "speaker": "Dũng",
+              "text": "Chúng ta không thể dựa vào một đoạn ghi âm duy nhất. Hãy kiểm tra nó với các vật chứng và lời khai còn lại."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "branchId": "BR03",
+      "cases": [
+        {
+          "caseNumber": 3,
+          "caseId": "C1_Vuan3_BR03",
+          "title": "VỤ ÁN 03 - CHIẾC CHÌA KHÓA THỨ HAI",
+          "summary": "[TEST BR03] Một chiếc chìa khóa không có trong danh sách bàn giao được phát hiện. Nó có thể mở căn phòng mà mọi người đều cho rằng đã bị khóa suốt đêm.",
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Kết quả đối chiếu cho thấy chiếc chìa khóa tìm được không thuộc bộ chìa khóa chính thức. Sự tồn tại của nó đặt ra câu hỏi về một lối ra vào khác."
+            },
+            {
+              "speaker": "Hải",
+              "text": "Nếu có chìa khóa thứ hai, lời khai rằng căn phòng luôn bị khóa có thể không còn đáng tin."
+            },
+            {
+              "speaker": "Giang",
+              "text": "Chúng ta cần tìm xem chiếc chìa khóa này được tạo ra khi nào và ai có thể đã sử dụng nó."
+            }
+          ]
+        },
+        {
+          "caseNumber": 4,
+          "caseId": "C1_Vuan4_BR03",
+          "title": "VỤ ÁN 04 - CÁNH CỬA KHÔNG DẤU VẾT",
+          "summary": "[TEST BR03] Lối ra vào bí mật được xác nhận. Những dấu vết tưởng như không liên quan cuối cùng kết nối thành một diễn biến hoàn chỉnh.",
+          "dialogues": [
+            {
+              "speaker": "Người dẫn chuyện",
+              "text": "Cuộc kiểm tra cuối cùng xác nhận chiếc chìa khóa có thể mở một cánh cửa phụ. Điều đó giải thích vì sao không có dấu hiệu cạy phá tại hiện trường."
+            },
+            {
+              "speaker": "Chi",
+              "text": "Có người đã ra vào mà không cần sử dụng cửa chính. Vì vậy, thời gian xuất hiện của họ đã bị bỏ sót."
+            },
+            {
+              "speaker": "Hải",
+              "text": "Chúng ta đã tìm được mắt xích còn thiếu. Bây giờ hãy đối chiếu toàn bộ chứng cứ trước khi đưa ra kết luận."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

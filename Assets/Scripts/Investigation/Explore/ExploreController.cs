@@ -7,39 +7,31 @@ public class ExploreController : MonoBehaviour
 {
     [Header("Sinh vật phẩm")]
     [SerializeField] private EvidenceSpawner evidenceSpawner;
-
     private const int MAX_EVIDENCE = 4;
     private const string STORY_SCENE_NAME = "Story";
 
     [System.Serializable]
     public class LocationData
     {
-        [Header("Thông tin địa điểm")]
+        [Header("Tên hiện trường / Case")]
         public string locationName;
-
-        [Header("Nút chọn địa điểm")]
+        [Header("Nút chọn hiện trường trong LocationListPanel")]
         public Button locationButton;
-
-        [Header("Background của địa điểm")]
+        [Header("Background tùy chọn")]
         public Sprite background;
-
-        [Header("Nhóm vật chứng của địa điểm")]
+        [Header("EvidenceGroup tương ứng Case")]
         public GameObject evidenceGroup;
     }
 
-    [Header("Danh sách địa điểm")]
+    [Header("Bốn hiện trường: Element 0-3 tương ứng Case 1-4")]
     public LocationData[] locations;
-
     [Header("Background")]
     public Image backgroundImage;
-
-    [Header("Tên địa điểm hiện tại")]
+    [Header("Tên hiện trường")]
     public TMP_Text currentLocationText;
-
-    [Header("Danh sách địa điểm")]
+    [Header("Danh sách hiện trường")]
     public GameObject locationListPanel;
     public Button toggleLocationListButton;
-
     [Header("Thông tin vật chứng")]
     public GameObject evidenceDetailPanel;
     public Image evidenceImage;
@@ -47,194 +39,202 @@ public class ExploreController : MonoBehaviour
     public TMP_Text evidenceDescriptionText;
     public Button collectButton;
     public Button closeDetailButton;
-
-    [Header("Số lượt thu thập vật chứng")]
+    [Header("Bộ đếm vật chứng")]
     public TMP_Text evidenceCountText;
-
-    [Header("Trạng thái")]
-    public int currentLocationIndex = 0;
+    [Header("Trạng thái tương thích")]
+    public int currentLocationIndex;
 
     private EvidenceItemData currentEvidence;
-
-    // Danh sách toàn bộ vật chứng trong Scene hiện tại.
-    private EvidenceItemData[] sceneEvidenceItems;
+    private int currentCaseIndex;
+    private ChapterDataLoader chapterDataLoader;
 
     private void Start()
     {
-        if (evidenceSpawner != null)
+        if (!CaseSessionData.IsSessionStarted)
         {
-            evidenceSpawner.SpawnEvidence(this);
-        }
-        else
-        {
-            Debug.LogError(
-                "Chưa gán EvidenceSpawner vào ExploreController!"
-            );
-        }
-
-        // Lấy cả vật chứng đang bị ẩn.
-        sceneEvidenceItems =
-            FindObjectsByType<EvidenceItemData>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None
-            );
-
-        // Đăng ký sự kiện cho các nút địa điểm.
-        if (locations != null)
-        {
-            for (int i = 0; i < locations.Length; i++)
-            {
-                int index = i;
-
-                if (locations[i] != null &&
-                    locations[i].locationButton != null)
-                {
-                    locations[i].locationButton.onClick.RemoveAllListeners();
-
-                    locations[i].locationButton.onClick.AddListener(
-                        () => SelectLocation(index)
-                    );
-                }
-            }
-        }
-
-        // Nút ẩn/hiện danh sách địa điểm.
-        if (toggleLocationListButton != null)
-        {
-            toggleLocationListButton.onClick.RemoveAllListeners();
-            toggleLocationListButton.onClick.AddListener(
-                ToggleLocationList
-            );
-        }
-
-        // Nút thu thập.
-        if (collectButton != null)
-        {
-            collectButton.onClick.RemoveAllListeners();
-            collectButton.onClick.AddListener(
-                CollectCurrentEvidence
-            );
-        }
-
-        // Nút đóng bảng thông tin.
-        if (closeDetailButton != null)
-        {
-            closeDetailButton.onClick.RemoveAllListeners();
-            closeDetailButton.onClick.AddListener(
-                CloseEvidenceDetail
-            );
-        }
-
-        // Ẩn bảng thông tin lúc bắt đầu.
-        if (evidenceDetailPanel != null)
-            evidenceDetailPanel.SetActive(false);
-
-        // Ẩn bộ đếm lúc bắt đầu.
-        if (evidenceCountText != null)
-            evidenceCountText.gameObject.SetActive(false);
-
-        // Ẩn những vật chứng đã thu thập từ trước.
-        if (sceneEvidenceItems != null)
-        {
-            foreach (EvidenceItemData evidence in sceneEvidenceItems)
-            {
-                if (evidence != null && evidence.IsCollected())
-                {
-                    evidence.isCollected = true;
-                    evidence.gameObject.SetActive(false);
-                }
-            }
-        }
-
-        // Hiển thị địa điểm đầu tiên.
-        if (locations != null && locations.Length > 0)
-        {
-            SelectLocation(currentLocationIndex);
-        }
-    }
-
-    // =========================================
-    // CHỌN ĐỊA ĐIỂM
-    // =========================================
-
-    public void SelectLocation(int index)
-    {
-        if (locations == null ||
-            index < 0 ||
-            index >= locations.Length ||
-            locations[index] == null)
-        {
+            Debug.LogError("[EXPLORE] Chưa có phiên chơi.");
             return;
         }
 
-        currentLocationIndex = index;
-
-        UpdateCurrentLocationText();
-
-        // Đổi Background.
-        if (backgroundImage != null)
+        if (locations == null || locations.Length != 4)
         {
-            backgroundImage.sprite = locations[index].background;
+            Debug.LogError("[EXPLORE] Locations phải có đúng 4 phần tử, tương ứng Case 1-4.");
+            return;
         }
 
-        // Chỉ hiện nhóm vật chứng thuộc địa điểm được chọn.
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("[EXPLORE] Không tìm thấy GameManager.");
+            return;
+        }
+
+        chapterDataLoader = GameManager.Instance.GetComponent<ChapterDataLoader>();
+        if (chapterDataLoader == null)
+        {
+            Debug.LogError("[EXPLORE] GameManager chưa có ChapterDataLoader.");
+            return;
+        }
+
+        evidenceSpawner = evidenceSpawner != null
+            ? evidenceSpawner
+            : FindFirstObjectByType<EvidenceSpawner>();
+
+        if (evidenceSpawner == null)
+        {
+            Debug.LogError("[EXPLORE] Chưa gắn EvidenceSpawner.");
+            return;
+        }
+
+        SetupButtons();
+
+        if (locationListPanel != null)
+            locationListPanel.SetActive(false);
+
+        if (toggleLocationListButton != null)
+            toggleLocationListButton.gameObject.SetActive(true);
+
+        if (evidenceDetailPanel != null)
+            evidenceDetailPanel.SetActive(false);
+
+        if (collectButton != null)
+        {
+            collectButton.onClick.RemoveListener(CollectCurrentEvidence);
+            collectButton.onClick.AddListener(CollectCurrentEvidence);
+        }
+
+        if (closeDetailButton != null)
+        {
+            closeDetailButton.onClick.RemoveListener(CloseEvidenceDetail);
+            closeDetailButton.onClick.AddListener(CloseEvidenceDetail);
+        }
+
+        int initialCase = CaseSessionData.ViewingCaseNumber > 0
+            ? CaseSessionData.ViewingCaseNumber
+            : CaseSessionData.CurrentCaseNumber;
+
+        RefreshLocationButtons();
+        LoadAndShowCase(initialCase);
+    }
+
+    private void SetupButtons()
+    {
+        if (toggleLocationListButton != null &&
+            toggleLocationListButton.onClick.GetPersistentEventCount() == 0)
+        {
+            toggleLocationListButton.onClick.AddListener(ToggleLocationList);
+        }
+
         for (int i = 0; i < locations.Length; i++)
         {
-            if (locations[i] != null &&
-                locations[i].evidenceGroup != null)
-            {
-                locations[i].evidenceGroup.SetActive(i == index);
-            }
+            if (locations[i] == null || locations[i].locationButton == null)
+                continue;
+
+            int caseIndex = i;
+            Button button = locations[i].locationButton;
+
+            // Nếu Button chưa được gán OnClick trong Inspector, tự kết nối bằng code.
+            // Nếu đã gán OnClick trong Inspector, giữ nguyên kết nối hiện tại.
+            if (button.onClick.GetPersistentEventCount() == 0)
+                button.onClick.AddListener(() => SelectLocation(caseIndex));
         }
+    }
+
+    private void RefreshLocationButtons()
+    {
+        int highestUnlockedCase = CaseSessionData.CurrentCaseNumber;
+
+        for (int i = 0; i < locations.Length; i++)
+        {
+            if (locations[i] == null || locations[i].locationButton == null)
+                continue;
+
+            bool unlocked = (i + 1) <= highestUnlockedCase;
+            locations[i].locationButton.gameObject.SetActive(unlocked);
+            locations[i].locationButton.interactable = unlocked;
+        }
+    }
+
+    // Nút trong danh sách gọi hàm này với index 0, 1, 2 hoặc 3.
+    public void SelectLocation(int index)
+    {
+        if (index < 0 || index >= 4)
+            return;
+
+        int caseNumber = index + 1;
+        if (caseNumber > CaseSessionData.CurrentCaseNumber)
+        {
+            Debug.LogWarning("[EXPLORE] Case " + caseNumber + " chưa được mở khóa.");
+            return;
+        }
+
+        if (locationListPanel != null)
+            locationListPanel.SetActive(false);
+
+        LoadAndShowCase(caseNumber);
+    }
+
+    private void LoadAndShowCase(int caseNumber)
+    {
+        if (caseNumber < 1 || caseNumber > CaseSessionData.CurrentCaseNumber || caseNumber > locations.Length)
+            return;
+
+        LocationData location = locations[caseNumber - 1];
+        if (location == null || location.evidenceGroup == null)
+        {
+            Debug.LogError("[EXPLORE] Chưa gán EvidenceGroup cho Case " + caseNumber + ".");
+            return;
+        }
+
+        ChapterData chapter = chapterDataLoader.LoadCase(
+            GameManager.Instance.SelectedChapter,
+            caseNumber
+        );
+
+        if (chapter == null)
+            return;
+
+        if (!CaseSessionData.SetViewingCase(chapter, caseNumber))
+            return;
+
+        // Chỉ bật EvidenceGroup của hiện trường đang xem.
+        for (int i = 0; i < locations.Length; i++)
+        {
+            if (locations[i] != null && locations[i].evidenceGroup != null)
+                locations[i].evidenceGroup.SetActive(i == caseNumber - 1);
+        }
+
+        currentCaseIndex = caseNumber - 1;
+        currentLocationIndex = currentCaseIndex;
 
         CloseEvidenceDetail();
 
-        // Cập nhật bộ đếm theo địa điểm.
-        UpdateEvidenceCount();
-    }
+        if (backgroundImage != null && location.background != null)
+            backgroundImage.sprite = location.background;
 
-    // =========================================
-    // ĐẾM VẬT CHỨNG
-    // =========================================
+        if (currentLocationText != null)
+        {
+            currentLocationText.text = string.IsNullOrWhiteSpace(location.locationName)
+                ? "Hiện trường vụ án " + caseNumber
+                : location.locationName;
+        }
+
+        evidenceSpawner.SpawnEvidence(
+            this,
+            location.evidenceGroup.transform,
+            CaseSessionData.ViewingChapter,
+            CaseSessionData.ViewingBranch,
+            caseNumber
+        );
+
+        RefreshLocationButtons();
+        UpdateEvidenceCount();
+
+        GameManager.Instance.SaveGame();
+    }
 
     private int GetCollectedEvidenceCount()
     {
-        int count = 0;
-
-        if (sceneEvidenceItems == null)
-            return count;
-
-        foreach (EvidenceItemData evidence in sceneEvidenceItems)
-        {
-            if (evidence != null && evidence.IsCollected())
-            {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
-    private bool HasEvidenceAtCurrentLocation()
-    {
-        if (locations == null ||
-            currentLocationIndex < 0 ||
-            currentLocationIndex >= locations.Length ||
-            locations[currentLocationIndex] == null)
-        {
-            return false;
-        }
-
-        GameObject group =
-            locations[currentLocationIndex].evidenceGroup;
-
-        if (group == null)
-            return false;
-
-        EvidenceItemData[] evidenceItems =
-            group.GetComponentsInChildren<EvidenceItemData>(true);
-
-        return evidenceItems.Length > 0;
+        return GameSessionData.GetCollectedEvidenceCount(CaseSessionData.ViewingCaseNumber);
     }
 
     private void UpdateEvidenceCount()
@@ -242,226 +242,110 @@ public class ExploreController : MonoBehaviour
         if (evidenceCountText == null)
             return;
 
-        bool hasEvidence = HasEvidenceAtCurrentLocation();
-
-        evidenceCountText.gameObject.SetActive(hasEvidence);
-
-        if (!hasEvidence)
-            return;
-
-        int collectedCount = GetCollectedEvidenceCount();
-
-        evidenceCountText.text =
-            $"Đã thu thập: {collectedCount}/{MAX_EVIDENCE}";
+        evidenceCountText.gameObject.SetActive(true);
+        evidenceCountText.text = $"Đã thu thập: {GetCollectedEvidenceCount()}/{MAX_EVIDENCE}";
     }
-
-    // =========================================
-    // DANH SÁCH ĐỊA ĐIỂM
-    // =========================================
 
     public void ToggleLocationList()
     {
         if (locationListPanel == null)
-            return;
-
-        locationListPanel.SetActive(
-            !locationListPanel.activeSelf
-        );
-    }
-
-    private void UpdateCurrentLocationText()
-    {
-        if (currentLocationText == null ||
-            locations == null ||
-            currentLocationIndex < 0 ||
-            currentLocationIndex >= locations.Length ||
-            locations[currentLocationIndex] == null)
         {
+            Debug.LogWarning("[EXPLORE] Chưa gán Location List Panel.");
             return;
         }
 
-        currentLocationText.text =
-            locations[currentLocationIndex].locationName;
+        RefreshLocationButtons();
+        locationListPanel.SetActive(!locationListPanel.activeSelf);
     }
-
-    // =========================================
-    // HIỂN THỊ THÔNG TIN VẬT CHỨNG
-    // =========================================
 
     public void ShowEvidence(EvidenceItemData evidence)
     {
-        if (evidence == null ||
-            evidenceDetailPanel == null)
-        {
+        int caseNumber = CaseSessionData.ViewingCaseNumber;
+
+        if (evidence == null || evidenceDetailPanel == null ||
+            evidence.isCollected ||
+            GameSessionData.IsEvidenceCollected(caseNumber, evidence.evidenceId))
             return;
-        }
 
         currentEvidence = evidence;
-
         evidenceDetailPanel.SetActive(true);
 
         if (evidenceNameText != null)
-        {
             evidenceNameText.text = evidence.evidenceName;
-        }
 
         if (evidenceDescriptionText != null)
-        {
             evidenceDescriptionText.text = evidence.description;
-        }
 
         if (evidenceImage != null)
         {
             evidenceImage.sprite = evidence.evidenceImage;
-
-            evidenceImage.gameObject.SetActive(
-                evidence.evidenceImage != null
-            );
+            evidenceImage.gameObject.SetActive(evidence.evidenceImage != null);
         }
-
-        bool alreadyCollected = evidence.IsCollected();
-
-        evidence.isCollected = alreadyCollected;
-
-        bool canCollect =
-            !alreadyCollected &&
-            GetCollectedEvidenceCount() < MAX_EVIDENCE;
 
         if (collectButton != null)
         {
+            bool canCollect = GetCollectedEvidenceCount() < MAX_EVIDENCE;
             collectButton.gameObject.SetActive(canCollect);
+            collectButton.interactable = canCollect;
         }
     }
 
-    // =========================================
-    // KIỂM TRA EVIDENCE ĐẶC BIỆT CỦA BRANCH
-    // =========================================
-
-    private bool IsCurrentBranchSpecialEvidence(
-        EvidenceItemData evidence
-    )
+    private bool IsCurrentViewingBranchSpecialEvidence(EvidenceItemData evidence)
     {
-        if (evidence == null ||
-            CaseSessionData.CurrentBranch == null)
-        {
-            return false;
-        }
-
-        // Dùng specialEvidenceId của Branch hiện tại
-        // làm điều kiện xác định chính xác.
-        return CaseSessionData.CurrentBranch.specialEvidenceId
-               == evidence.evidenceId;
+        return evidence != null && CaseSessionData.ViewingBranch != null &&
+               CaseSessionData.ViewingBranch.specialEvidenceId == evidence.evidenceId;
     }
-
-    // =========================================
-    // THU THẬP VẬT CHỨNG
-    // =========================================
 
     public void CollectCurrentEvidence()
     {
         if (currentEvidence == null)
             return;
 
-        // Không cho thu thập quá 4 vật chứng.
+        int caseNumber = CaseSessionData.ViewingCaseNumber;
         if (GetCollectedEvidenceCount() >= MAX_EVIDENCE)
         {
-            Debug.Log("Đã đạt giới hạn 4 vật chứng!");
-
+            Debug.LogWarning("[EXPLORE] Đã đạt giới hạn 4 vật chứng của Case này.");
             UpdateEvidenceCount();
             CloseEvidenceDetail();
-
             return;
         }
 
-        EvidenceItemData collectedItem = currentEvidence;
+        EvidenceItemData item = currentEvidence;
+        bool isSpecial = IsCurrentViewingBranchSpecialEvidence(item);
 
-        string id = collectedItem.evidenceId;
-
-        if (string.IsNullOrWhiteSpace(id))
+        if (!GameSessionData.CollectEvidence(item, caseNumber))
         {
-            Debug.LogWarning(
-                "Vật chứng chưa được đặt evidenceId!"
-            );
-            return;
-        }
-
-        // Kiểm tra đây có phải Evidence đặc biệt
-        // của Branch đang chơi hay không.
-        bool isSpecialEvidence =
-            IsCurrentBranchSpecialEvidence(collectedItem);
-
-        // Lưu Evidence vào dữ liệu phiên chơi.
-        bool collected =
-            GameSessionData.CollectEvidence(collectedItem);
-
-        if (!collected)
-        {
-            Debug.Log(
-                "Vật chứng đã được thu thập: " + id
-            );
-
-            collectedItem.gameObject.SetActive(false);
-
+            item.gameObject.SetActive(false);
             CloseEvidenceDetail();
             UpdateEvidenceCount();
-
             return;
         }
 
-        collectedItem.isCollected = true;
-
-        Debug.Log(
-            "Đã thu thập vật chứng: " +
-            collectedItem.evidenceName
-        );
-
-        // Ẩn vật chứng khỏi màn hình Explore.
-        collectedItem.gameObject.SetActive(false);
-
-        // Cập nhật số lượt.
+        item.isCollected = true;
+        item.gameObject.SetActive(false);
         UpdateEvidenceCount();
-
-        // Đóng bảng thông tin vật chứng.
         CloseEvidenceDetail();
+        GameManager.Instance?.SaveGame();
 
-        // Nếu là Evidence đặc biệt:
-        // lưu ID đang chờ và chuyển sang Scene Story.
-        if (isSpecialEvidence)
+        if (isSpecial)
         {
-            GameSessionData.SetPendingSpecialEvidenceId(id);
-
-            Debug.Log(
-                "Đã thu thập Evidence đặc biệt: " +
-                id +
-                ". Đang mở Story..."
-            );
-
+            GameSessionData.SetPendingSpecialEvidenceId(item.evidenceId);
+            GameManager.Instance?.SaveGame();
             SceneManager.LoadScene(STORY_SCENE_NAME);
-
-            return;
         }
     }
-
-    // =========================================
-    // ĐÓNG BẢNG THÔNG TIN
-    // =========================================
 
     public void CloseEvidenceDetail()
     {
         if (evidenceDetailPanel != null)
-        {
             evidenceDetailPanel.SetActive(false);
-        }
 
         currentEvidence = null;
     }
 
-    // =========================================
-    // QUAY LẠI INVESTIGATION
-    // =========================================
-
     public void OnBack()
     {
+        GameManager.Instance?.SaveGame();
         SceneManager.LoadScene("Investigation");
     }
 }

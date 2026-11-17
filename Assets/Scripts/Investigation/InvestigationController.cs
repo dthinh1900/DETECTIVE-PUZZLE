@@ -1,4 +1,4 @@
-
+﻿
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,5 +22,12 @@ public class InvestigationController : MonoBehaviour
     public void ShowCaseFile()
     {
         SceneManager.LoadScene("CaseFile");
+    }
+
+    // Chuyển sang màn hình kết luận.
+    // Timer tiếp tục chạy, không đặt lại.
+    public void ShowDeduction()
+    {
+        SceneManager.LoadScene("Deduction");
     }
 }

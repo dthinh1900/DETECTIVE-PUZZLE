@@ -88,10 +88,11 @@ public class EvidencePanel : MonoBehaviour
 
             if (evidenceImage != null)
             {
-                evidenceImage.sprite = evidence.evidenceImage;
-                evidenceImage.gameObject.SetActive(
-                    evidence.evidenceImage != null
-                );
+                Sprite resolvedSprite = evidence.evidenceImage != null
+                    ? evidence.evidenceImage
+                    : EvidenceSpawner.FindSprite(evidence.evidenceId);
+                evidenceImage.sprite = resolvedSprite;
+                evidenceImage.gameObject.SetActive(resolvedSprite != null);
             }
         }
     }

@@ -31,6 +31,8 @@ public class StoryDetailController : MonoBehaviour
     [Serializable]
     public class StoryData
     {
+        public int caseNumber;
+
         public string storyId;
         public string title;
 
@@ -50,7 +52,6 @@ public class StoryDetailController : MonoBehaviour
 
         public DialogueLine[] dialogues;
     }
-
     [Serializable]
     public class BranchStoryData
     {

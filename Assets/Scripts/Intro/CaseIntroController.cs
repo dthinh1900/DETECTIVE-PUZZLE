@@ -8,8 +8,9 @@ using System.Collections;
 
 public class CaseIntroController : MonoBehaviour
 {
-   
-    [Serializable]    public class IntroDialogueLine
+
+    [Serializable]
+    public class IntroDialogueLine
     {
         public string speaker;
         public string text;
@@ -123,7 +124,7 @@ public class CaseIntroController : MonoBehaviour
 
         ShowDialogue();
     }
-    
+
     private void LoadIntroData()
     {
         TextAsset selectedIntroJson = null;
@@ -433,7 +434,7 @@ public class CaseIntroController : MonoBehaviour
 
     private void ShowCaseSummary()
     {
-        
+
         if (dialoguePanel != null)
         {
             dialoguePanel.SetActive(false);
@@ -470,11 +471,18 @@ public class CaseIntroController : MonoBehaviour
 
 
 
+
     public void OnStartInvestigation()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("Không tìm thấy GameManager.");
+            return;
+        }
+
         int chapterNumber = GameManager.Instance.SelectedChapter;
 
-        // Hiện tại chạy Vụ án 1.
+        // Phiên chơi luôn bắt đầu từ Vụ án 1.
         int caseNumber = 1;
 
         ChapterDataLoader loader =
@@ -482,27 +490,51 @@ public class CaseIntroController : MonoBehaviour
 
         if (loader == null)
         {
-            Debug.LogError("GameManager chưa có ChapterDataLoader.");
+            Debug.LogError(
+                "GameManager chưa có ChapterDataLoader."
+            );
             return;
         }
 
-        // Ví dụ Chapter 1, Vụ án 1 sẽ đọc C1_Vuan1.json.
+        // Tải dữ liệu Vụ án 1.
         ChapterData chapter = loader.LoadCase(
             chapterNumber,
             caseNumber
         );
 
         if (chapter == null)
+        {
+            Debug.LogError(
+                "Không thể tải dữ liệu Vụ án 1."
+            );
             return;
+        }
 
-        GameSessionData.ClearAllSessionData();
+        // Dữ liệu đã được reset tại ChapterSelect khi người chơi chọn New Game.
+        // Không xóa dữ liệu tại Intro để tránh mất Save khi Continue hoặc chuyển cảnh.
 
-        CaseSessionData.StartNewSession(chapter);
+        // Xóa trạng thái phiên cũ và chọn Branch mới.
+        CaseSessionData.StartNewSession(
+            chapter,
+            caseNumber
+        );
 
         if (!CaseSessionData.IsSessionStarted)
+        {
+            Debug.LogError(
+                "Không thể khởi tạo phiên chơi."
+            );
             return;
+        }
 
+        // Bắt đầu timer cho Vụ án 1.
         GameManager.Instance.StartNewTimer();
+
+        Debug.Log(
+            $"Bắt đầu Chapter {chapterNumber} - " +
+            $"Vụ án {CaseSessionData.CurrentCaseNumber} - " +
+            $"Branch {CaseSessionData.SelectedBranchId}"
+        );
 
         SceneManager.LoadScene("Investigation");
     }

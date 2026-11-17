@@ -1,372 +1,225 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EvidenceSpawner : MonoBehaviour
 {
     [System.Serializable]
-    public class EvidenceSprite
-    {
-        public string itemId;
-        public Sprite sprite;
-    }
+    public class EvidenceSprite { public string itemId; public Sprite sprite; }
 
     [Header("Prefab")]
     [SerializeField] private GameObject evidencePrefab;
-
-    [Header("Vùng sinh vật phẩm")]
+    [Header("Thiết lập cũ - giữ để tương thích Inspector")]
     [SerializeField] private Transform spawnPointsRoot;
-
-    [Header("12 vị trí sinh vật phẩm")]
     [SerializeField] private RectTransform[] spawnPoints;
-
-    [Header("Ảnh 20 vật phẩm")]
+    [Header("Ảnh vật chứng - cần gán đủ ID của các Case")]
     [SerializeField] private EvidenceSprite[] evidenceSprites;
 
     private const int CORRECT_COUNT = 3;
     private const int DECOY_COUNT = 9;
     private const int TOTAL_COUNT = 12;
+    private readonly List<GameObject> spawnedObjects = new List<GameObject>();
+    private static readonly Dictionary<string, Sprite> SpriteCache = new Dictionary<string, Sprite>();
 
-    private bool hasSpawned;
+    private void Awake() { RegisterSprites(); }
+    private void OnEnable() { RegisterSprites(); }
 
-    private readonly List<GameObject> spawnedObjects =
-        new List<GameObject>();
+    private void RegisterSprites()
+    {
+        if (evidenceSprites == null) return;
+        foreach (EvidenceSprite entry in evidenceSprites)
+            if (entry != null && !string.IsNullOrWhiteSpace(entry.itemId) && entry.sprite != null)
+                SpriteCache[entry.itemId] = entry.sprite;
+    }
 
+    public static Sprite FindSprite(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return null;
+        if (SpriteCache.TryGetValue(id, out Sprite sprite) && sprite != null) return sprite;
+        EvidenceSpawner[] spawners = FindObjectsByType<EvidenceSpawner>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (EvidenceSpawner spawner in spawners) { spawner.RegisterSprites(); if (SpriteCache.TryGetValue(id, out sprite)) return sprite; }
+        return null;
+    }
+
+    // Tương thích với cách gọi cũ.
     public void SpawnEvidence(ExploreController controller)
     {
-        if (hasSpawned)
-            return;
+        Transform group = spawnPointsRoot != null ? spawnPointsRoot : transform;
+        SpawnEvidence(controller, group);
+    }
 
-        if (controller == null)
-        {
-            Debug.LogError("[SPAWNER] ExploreController chưa được gán.");
-            return;
-        }
-
-        if (!CaseSessionData.IsSessionStarted ||
-            CaseSessionData.CurrentChapter == null ||
-            CaseSessionData.CurrentBranch == null)
-        {
-            Debug.LogError(
-                "[SPAWNER] Chưa có phiên chơi hoặc Branch."
-            );
-            return;
-        }
-
-        if (evidencePrefab == null ||
-            spawnPointsRoot == null ||
-            spawnPoints == null ||
-            spawnPoints.Length != TOTAL_COUNT)
-        {
-            Debug.LogError(
-                "[SPAWNER] Kiểm tra Prefab, vùng sinh và đủ 12 SpawnPoint."
-            );
-            return;
-        }
-
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
-            if (spawnPoints[i] == null)
-            {
-                Debug.LogError(
-                    "[SPAWNER] SpawnPoint " + i + " chưa được gán."
-                );
-                return;
-            }
-        }
-
-        ChapterData chapter = CaseSessionData.CurrentChapter;
-        CaseBranchData branch = CaseSessionData.CurrentBranch;
-
-        List<string> selectedIds = SelectEvidenceIds(chapter, branch);
-
-        if (selectedIds == null || selectedIds.Count != TOTAL_COUNT)
-            return;
-
-        // Kiểm tra đủ ảnh trước khi bắt đầu sinh vật phẩm.
-        foreach (string itemId in selectedIds)
-        {
-            if (GetSprite(itemId) == null)
-            {
-                Debug.LogError(
-                    "[SPAWNER] Chưa gán ảnh cho vật phẩm: " + itemId
-                );
-                return;
-            }
-        }
-
-        Shuffle(selectedIds);
-
-        for (int i = 0; i < selectedIds.Count; i++)
-        {
-            bool success = SpawnOneEvidence(
-                chapter,
-                selectedIds[i],
-                spawnPoints[i],
-                controller,
-                branch.specialEvidenceId
-            );
-
-            if (!success)
-            {
-                ClearSpawnedObjects();
-                return;
-            }
-        }
-
-        hasSpawned = true;
-
-        Debug.Log(
-            "[SPAWNER] Đã tạo đủ 12 vật phẩm cho Branch " +
-            branch.branchId +
-            ". Vật chứng đặc biệt: " +
-            branch.specialEvidenceId
+    public void SpawnEvidence(ExploreController controller, Transform evidenceGroup)
+    {
+        SpawnEvidence(
+            controller,
+            evidenceGroup,
+            CaseSessionData.CurrentChapter,
+            CaseSessionData.CurrentBranch,
+            CaseSessionData.CurrentCaseNumber
         );
     }
 
-    private List<string> SelectEvidenceIds(
+    // Dùng overload này khi người chơi chuyển qua một hiện trường Case cũ.
+    // Không lấy CurrentCaseNumber vì đó là Case cao nhất của tiến trình cốt truyện.
+    public void SpawnEvidence(
+        ExploreController controller,
+        Transform evidenceGroup,
         ChapterData chapter,
-        CaseBranchData branch)
+        CaseBranchData branch,
+        int caseNumber)
     {
-        if (chapter.items == null ||
-            chapter.items.Count != 20 ||
-            branch.correctEvidence == null ||
-            branch.correctEvidence.Count != 5)
+        if (controller == null || evidenceGroup == null)
         {
-            Debug.LogError(
-                "[SPAWNER] Chapter phải có 20 vật phẩm và Branch phải có 5 vật chứng đúng."
-            );
-            return null;
+            Debug.LogError("[SPAWNER] Thiếu ExploreController/EvidenceGroup.");
+            return;
         }
 
-        List<string> correctIds = new List<string>();
-
-        foreach (CorrectEvidenceData evidence in branch.correctEvidence)
+        if (!CaseSessionData.IsSessionStarted || chapter == null || branch == null || caseNumber < 1)
         {
-            if (evidence == null ||
-                string.IsNullOrWhiteSpace(evidence.itemId) ||
-                correctIds.Contains(evidence.itemId))
+            Debug.LogError("[SPAWNER] Dữ liệu Case/Branch chưa được khởi tạo.");
+            return;
+        }
+
+        if (evidencePrefab == null)
+        {
+            Debug.LogError("[SPAWNER] Chưa gán Evidence Prefab.");
+            return;
+        }
+
+        List<RectTransform> points = FindSpawnPoints(evidenceGroup);
+        if (points.Count != TOTAL_COUNT)
+        {
+            Debug.LogError($"[SPAWNER] EvidenceGroup {evidenceGroup.name} phải có đúng 12 SpawnPoint, hiện có {points.Count}.");
+            return;
+        }
+
+        List<SpawnedEvidenceSaveData> saved = GameSessionData.GetSavedSpawnedEvidence(caseNumber);
+
+        if (saved == null)
+        {
+            List<string> ids = SelectEvidenceIds(chapter, branch);
+            if (ids == null || ids.Count != TOTAL_COUNT) return;
+            Shuffle(ids);
+            saved = new List<SpawnedEvidenceSaveData>();
+            for (int i = 0; i < TOTAL_COUNT; i++)
             {
-                Debug.LogError(
-                    "[SPAWNER] Danh sách vật chứng đúng không hợp lệ hoặc bị trùng."
-                );
-                return null;
+                RectTransform p = points[i];
+                saved.Add(new SpawnedEvidenceSaveData
+                {
+                    evidenceId = ids[i],
+                    spawnPointIndex = i,
+                    anchoredPosition = p.anchoredPosition,
+                    anchorMin = p.anchorMin,
+                    anchorMax = p.anchorMax,
+                    pivot = p.pivot,
+                    sizeDelta = p.sizeDelta,
+                    localScale = p.localScale
+                });
             }
-
-            correctIds.Add(evidence.itemId);
+            GameSessionData.SaveSpawnedEvidence(caseNumber, saved);
         }
 
-        // Kiểm tra ID đặc biệt được khai báo trong JSON.
-        string specialId = branch.specialEvidenceId;
+        if (saved.Count != TOTAL_COUNT) { Debug.LogError("[SPAWNER] Save của Case không có đúng 12 vật chứng."); return; }
+        Transform parent = points[0].parent != null ? points[0].parent : evidenceGroup;
 
-        if (string.IsNullOrWhiteSpace(specialId))
+        foreach (SpawnedEvidenceSaveData entry in saved)
         {
-            Debug.LogError(
-                "[SPAWNER] Branch chưa khai báo specialEvidenceId."
-            );
-            return null;
-        }
-
-        // Vật chứng đặc biệt phải tồn tại và không thuộc nhóm đúng.
-        bool specialExists = chapter.items.Exists(
-            item => item != null && item.itemId == specialId
-        );
-
-        if (!specialExists || correctIds.Contains(specialId))
-        {
-            Debug.LogError(
-                "[SPAWNER] Vật chứng đặc biệt phải tồn tại trong 20 vật phẩm và không nằm trong 5 vật chứng đúng."
-            );
-            return null;
-        }
-
-        // Kiểm tra 5 vật chứng đúng đều có trong danh mục 20 vật phẩm.
-        foreach (string id in correctIds)
-        {
-            if (!chapter.items.Exists(
-                item => item != null && item.itemId == id))
+            if (entry == null || string.IsNullOrEmpty(entry.evidenceId) || FindSprite(entry.evidenceId) == null)
             {
-                Debug.LogError(
-                    "[SPAWNER] Không tìm thấy vật chứng đúng trong danh mục: " + id
-                );
-                return null;
+                Debug.LogError("[SPAWNER] Thiếu ID hoặc Sprite: " + (entry == null ? "null" : entry.evidenceId));
+                ClearSpawnedObjects(); return;
             }
         }
 
-        // Chọn ngẫu nhiên 3 trong 5 vật chứng đúng.
-        List<string> shuffledCorrect = new List<string>(correctIds);
-        Shuffle(shuffledCorrect);
+        ClearSpawnedObjects();
+        foreach (SpawnedEvidenceSaveData entry in saved)
+        {
+            if (entry.spawnPointIndex < 0 || entry.spawnPointIndex >= TOTAL_COUNT) { Debug.LogError("[SPAWNER] SpawnPointIndex không hợp lệ."); ClearSpawnedObjects(); return; }
+            SpawnOne(chapter, branch, entry, parent, controller, caseNumber);
+        }
+        Debug.Log($"[SPAWNER] Đã khôi phục/sinh 12 vật chứng cho Case {caseNumber}, Branch {branch.branchId}.");
+    }
 
+    private List<RectTransform> FindSpawnPoints(Transform group)
+    {
+        List<RectTransform> result = new List<RectTransform>();
+        RectTransform[] all = group.GetComponentsInChildren<RectTransform>(true);
+        foreach (RectTransform rect in all)
+            if (rect != group && IsSpawnPointName(rect.name)) result.Add(rect);
+        result.Sort((a, b) => ExtractNumber(a.name).CompareTo(ExtractNumber(b.name)));
+        if (result.Count == 0 && spawnPoints != null)
+            foreach (RectTransform p in spawnPoints) if (p != null) result.Add(p);
+        return result;
+    }
+
+    private bool IsSpawnPointName(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return false;
+        string lower = value.ToLowerInvariant();
+        if (lower.StartsWith("spawnpoint_") || lower.StartsWith("spawnpoint ")) return true;
+        return lower.StartsWith("spawnpoint") && lower.Length > 10 && char.IsDigit(lower[10]);
+    }
+
+    private int ExtractNumber(string value)
+    {
+        int number = 0; string digits = "";
+        for (int i = value.Length - 1; i >= 0 && char.IsDigit(value[i]); i--) digits = value[i] + digits;
+        return int.TryParse(digits, out number) ? number : int.MaxValue;
+    }
+
+    private List<string> SelectEvidenceIds(ChapterData chapter, CaseBranchData branch)
+    {
+        if (chapter.items == null || chapter.items.Count != 20 || branch.correctEvidence == null || branch.correctEvidence.Count != 5) return null;
+        List<string> correct = new List<string>();
+        foreach (CorrectEvidenceData item in branch.correctEvidence)
+        {
+            if (item == null || string.IsNullOrEmpty(item.itemId) || correct.Contains(item.itemId)) { Debug.LogError("[SPAWNER] Danh sách vật chứng đúng không hợp lệ."); return null; }
+            correct.Add(item.itemId);
+        }
+        if (!chapter.items.Exists(x => x != null && x.itemId == branch.specialEvidenceId) || correct.Contains(branch.specialEvidenceId)) { Debug.LogError("[SPAWNER] Special Evidence phải là một vật chứng giả có trong JSON."); return null; }
         List<string> selected = new List<string>();
-
-        for (int i = 0; i < CORRECT_COUNT; i++)
-        {
-            selected.Add(shuffledCorrect[i]);
-        }
-
-        // Tạo danh sách 15 vật chứng giả.
-        // Vật chứng đặc biệt vẫn nằm trong danh sách này.
-        List<string> decoyIds = new List<string>();
-
+        Shuffle(correct);
+        for (int i = 0; i < CORRECT_COUNT; i++) selected.Add(correct[i]);
+        List<string> decoys = new List<string>();
         foreach (CaseItemData item in chapter.items)
-        {
-            if (item == null ||
-                string.IsNullOrWhiteSpace(item.itemId))
-                continue;
-
-            if (correctIds.Contains(item.itemId))
-                continue;
-
-            if (decoyIds.Contains(item.itemId))
-                continue;
-
-            decoyIds.Add(item.itemId);
-        }
-
-        if (decoyIds.Count != 15)
-        {
-            Debug.LogError(
-                "[SPAWNER] Phải có đúng 15 vật chứng giả, hiện tại có: " +
-                decoyIds.Count
-            );
-            return null;
-        }
-
-        // Chọn ngẫu nhiên 9 trong 15 vật chứng giả.
-        // Vật chứng đặc biệt có xác suất xuất hiện 9/15 = 60%.
-        Shuffle(decoyIds);
-
-        for (int i = 0; i < DECOY_COUNT; i++)
-        {
-            selected.Add(decoyIds[i]);
-        }
-
+            if (item != null && !string.IsNullOrEmpty(item.itemId) && !correct.Contains(item.itemId)) decoys.Add(item.itemId);
+        if (decoys.Count != 15) { Debug.LogError("[SPAWNER] Không đủ 15 vật chứng giả."); return null; }
+        Shuffle(decoys);
+        for (int i = 0; i < DECOY_COUNT; i++) selected.Add(decoys[i]);
         return selected;
     }
 
-    private bool SpawnOneEvidence(
-        ChapterData chapter,
-        string itemId,
-        RectTransform spawnPoint,
-        ExploreController controller,
-        string specialEvidenceId)
+    private void SpawnOne(ChapterData chapter, CaseBranchData branch, SpawnedEvidenceSaveData saved, Transform parent, ExploreController controller, int caseNumber)
     {
-        CaseItemData itemData = chapter.items.Find(
-            x => x != null && x.itemId == itemId
-        );
-
-        if (itemData == null)
-        {
-            Debug.LogError(
-                "[SPAWNER] Không tìm thấy dữ liệu: " + itemId
-            );
-            return false;
-        }
-
-        Sprite sprite = GetSprite(itemId);
-
-        if (sprite == null)
-            return false;
-
-        GameObject newObject = Instantiate(
-            evidencePrefab,
-            spawnPointsRoot
-        );
-
-        RectTransform newRect =
-            newObject.GetComponent<RectTransform>();
-
-        if (newRect == null)
-        {
-            Debug.LogError(
-                "[SPAWNER] Prefab cần có RectTransform."
-            );
-            Destroy(newObject);
-            return false;
-        }
-
-        newRect.anchorMin = spawnPoint.anchorMin;
-        newRect.anchorMax = spawnPoint.anchorMax;
-        newRect.pivot = spawnPoint.pivot;
-        newRect.anchoredPosition = spawnPoint.anchoredPosition;
-        newRect.sizeDelta = spawnPoint.sizeDelta;
-        newRect.localScale = Vector3.one;
-
-        EvidenceItemData evidence =
-            newObject.GetComponent<EvidenceItemData>();
-
-        Button button = newObject.GetComponent<Button>();
-
-        if (evidence == null || button == null)
-        {
-            Debug.LogError(
-                "[SPAWNER] Prefab thiếu Button hoặc EvidenceItemData."
-            );
-            Destroy(newObject);
-            return false;
-        }
-
-        evidence.evidenceId = itemData.itemId;
-        evidence.evidenceName = itemData.itemName;
-        evidence.description = itemData.description;
-        evidence.evidenceImage = sprite;
-        evidence.isCollected = false;
-
-        // Đánh dấu vật chứng đặc biệt theo JSON của Branch hiện tại.
-        evidence.isSpecialEvidence =
-            itemId == specialEvidenceId;
-
-        evidence.SetupVisual();
-
-        button.onClick.AddListener(
-            () => controller.ShowEvidence(evidence)
-        );
-
-        newObject.name = "Evidence_" + itemId;
-
-        spawnedObjects.Add(newObject);
-
-        return true;
-    }
-
-    private Sprite GetSprite(string itemId)
-    {
-        if (evidenceSprites == null)
-            return null;
-
-        foreach (EvidenceSprite entry in evidenceSprites)
-        {
-            if (entry != null &&
-                entry.itemId == itemId)
-            {
-                return entry.sprite;
-            }
-        }
-
-        return null;
+        CaseItemData item = chapter.items.Find(x => x != null && x.itemId == saved.evidenceId);
+        if (item == null) { Debug.LogError("[SPAWNER] Không có dữ liệu " + saved.evidenceId); return; }
+        GameObject obj = Instantiate(evidencePrefab, parent);
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        EvidenceItemData data = obj.GetComponent<EvidenceItemData>();
+        Button button = obj.GetComponent<Button>();
+        if (rect == null || data == null || button == null) { Debug.LogError("[SPAWNER] Prefab cần RectTransform, EvidenceItemData và Button."); Destroy(obj); return; }
+        rect.anchorMin = saved.anchorMin; rect.anchorMax = saved.anchorMax; rect.pivot = saved.pivot;
+        rect.anchoredPosition = saved.anchoredPosition; rect.sizeDelta = saved.sizeDelta;
+        rect.localScale = saved.localScale == Vector3.zero ? Vector3.one : saved.localScale;
+        data.evidenceId = item.itemId; data.evidenceName = item.itemName; data.description = item.description;
+        data.evidenceImage = FindSprite(item.itemId); data.isCollected = GameSessionData.IsEvidenceCollected(caseNumber, item.itemId);
+        data.isSpecialEvidence = item.itemId == branch.specialEvidenceId;
+        data.SetupVisual();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => controller.ShowEvidence(data));
+        obj.name = "Evidence_" + item.itemId;
+        obj.SetActive(!data.isCollected);
+        spawnedObjects.Add(obj);
     }
 
     private void Shuffle<T>(List<T> list)
     {
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int randomIndex = Random.Range(0, i + 1);
-
-            T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
-        }
+        for (int i = list.Count - 1; i > 0; i--) { int j = Random.Range(0, i + 1); T t = list[i]; list[i] = list[j]; list[j] = t; }
     }
 
     private void ClearSpawnedObjects()
     {
-        foreach (GameObject obj in spawnedObjects)
-        {
-            if (obj != null)
-                Destroy(obj);
-        }
-
+        foreach (GameObject obj in spawnedObjects) if (obj != null) Destroy(obj);
         spawnedObjects.Clear();
     }
 }
