@@ -144,12 +144,12 @@ public class StoryBTN : MonoBehaviour
         if (icon == null)
             return;
 
-        // Có Sprite mới thì thay ảnh.
-        // Không có Sprite thì giữ ảnh dấu hỏi đã gán trong Prefab.
         if (sprite != null)
             icon.sprite = sprite;
 
         icon.enabled = true;
+
+        // Giữ nguyên tỷ lệ và hiển thị toàn bộ ảnh.
         icon.preserveAspect = true;
     }
 }
