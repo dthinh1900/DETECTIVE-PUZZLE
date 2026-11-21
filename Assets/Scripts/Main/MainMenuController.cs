@@ -7,7 +7,15 @@ public class MainMenuController : MonoBehaviour
     public GameObject collectionPanel;
     public GameObject guidePanel;
 
-    public void OnNewGame() { SceneManager.LoadScene("ChapterSelect"); }
+    public void OnNewGame()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.PrepareForNewGameSelection();
+        else
+            Debug.LogWarning("[NEW GAME] Không tìm thấy GameManager; thời gian sẽ được reset khi chọn Chapter.");
+
+        SceneManager.LoadScene("ChapterSelect");
+    }
 
     public void OnContinue()
     {

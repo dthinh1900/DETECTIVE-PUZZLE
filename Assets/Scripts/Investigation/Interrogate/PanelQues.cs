@@ -84,6 +84,51 @@ public class PanelQues : MonoBehaviour
 
         askedCounts = new int[questionData.characters.Length];
 
+        // Khôi phục câu hỏi đã hỏi và ghép các câu hỏi mới do Story bổ sung.
+        // Việc ghép chỉ diễn ra trong bộ nhớ runtime; Questions.json không bị sửa.
+        int chapterId = GameManager.Instance != null ? GameManager.Instance.SelectedChapter : 0;
+        for (int characterIndex = 0; characterIndex < questionData.characters.Length; characterIndex++)
+        {
+            CharacterQuestions character = questionData.characters[characterIndex];
+            if (character == null) continue;
+
+            if (character.questions == null)
+                character.questions = new QuestionInfo[0];
+
+            System.Collections.Generic.List<StatementInfo> updates =
+                GameSessionData.GetStoryStatementOverrides(chapterId, character.characterId);
+
+            foreach (StatementInfo update in updates)
+            {
+                bool exists = false;
+                foreach (QuestionInfo existing in character.questions)
+                {
+                    if (existing != null && string.Equals(existing.questionText, update.question, StringComparison.OrdinalIgnoreCase))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                {
+                    System.Array.Resize(ref character.questions, character.questions.Length + 1);
+                    character.questions[character.questions.Length - 1] = new QuestionInfo
+                    {
+                        questionText = update.question,
+                        answerText = update.answer
+                    };
+                }
+            }
+
+            foreach (QuestionInfo question in character.questions)
+            {
+                if (question == null) continue;
+                question.asked = GameSessionData.IsQuestionAsked(chapterId, character.characterId, question.questionText);
+                if (question.asked) askedCounts[characterIndex]++;
+            }
+        }
+
         Debug.Log(
             "[PANEL QUES] Đã tải dữ liệu " +
             questionData.characters.Length +
@@ -260,10 +305,18 @@ public class PanelQues : MonoBehaviour
 
         QuestionInfo question = questions[questionIndex];
 
-        // Nếu đã hỏi: chỉ hiển thị lại câu trả lời
-        if (question.asked)
+        int chapterId = GameManager.Instance != null ? GameManager.Instance.SelectedChapter : 0;
+
+        // Nếu đã hỏi: hiển thị đáp án hiệu lực (ưu tiên bản cập nhật từ Story).
+        if (question.asked || GameSessionData.IsQuestionAsked(chapterId, questionData.characters[characterIndex].characterId, question.questionText))
         {
-            SetAnswerText(question.answerText);
+            question.asked = true;
+            SetAnswerText(GameSessionData.GetEffectiveStatementAnswer(
+                chapterId,
+                questionData.characters[characterIndex].characterId,
+                question.questionText,
+                question.answerText
+            ));
             return;
         }
 
@@ -281,19 +334,23 @@ public class PanelQues : MonoBehaviour
             return;
         }
 
-        // Đánh dấu đã hỏi
+        // Đánh dấu đã hỏi và lưu trạng thái vào SaveData.
         question.asked = true;
         askedCounts[characterIndex]++;
 
-        string characterId =
-            questionData.characters[characterIndex].characterId;
+        string characterId = questionData.characters[characterIndex].characterId;
+        GameSessionData.MarkQuestionAsked(chapterId, characterId, question.questionText);
 
-        // Lưu lời khai kèm chương hiện tại
+        string effectiveAnswer = GameSessionData.GetEffectiveStatementAnswer(
+            chapterId, characterId, question.questionText, question.answerText
+        );
+
+        // Lưu đúng câu trả lời người chơi thực sự nhìn thấy.
         GameSessionData.AddStatement(
-            GameManager.Instance.SelectedChapter,
+            chapterId,
             characterId,
             question.questionText,
-            question.answerText
+            effectiveAnswer
         );
 
         Debug.Log(
@@ -302,7 +359,7 @@ public class PanelQues : MonoBehaviour
             " | " + question.questionText
         );
 
-        SetAnswerText(question.answerText);
+        SetAnswerText(effectiveAnswer);
 
         GenerateQuestions();
         UpdateQuestionCount();

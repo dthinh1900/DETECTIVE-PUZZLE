@@ -18,6 +18,18 @@
         {
           "questionText": "Anh gặp nạn nhân lần cuối khi nào?",
           "answerText": "Tôi gặp nạn nhân vào buổi chiều."
+        },
+        {
+          "questionText": "Anh có rời khỏi phòng khách trong buổi tối không?",
+          "answerText": "[TEST - GOC] Không, tôi ở phòng khách gần như suốt buổi tối."
+        },
+        {
+          "questionText": "Anh có biết chiếc chìa khóa dự phòng được cất ở đâu không?",
+          "answerText": "[TEST - GOC] Tôi nghĩ nó thường được để trong ngăn kéo gần cửa."
+        },
+        {
+          "questionText": "Trước khi vụ án xảy ra, anh có tranh cãi với nạn nhân không?",
+          "answerText": "[TEST - GOC] Chúng tôi chỉ bất đồng về một chuyện nhỏ, không có gì nghiêm trọng."
         }
       ]
     },
@@ -31,20 +43,99 @@
         {
           "questionText": "Cô có thấy ai đi vào phòng không?",
           "answerText": "Tôi thấy một người đi về phía hành lang."
+        },
+        {
+          "questionText": "Cô có thấy ai sử dụng chiếc điều khiển này không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Cô có nghe thấy tiếng bước chân ở hành lang không?",
+          "answerText": "[TEST - GOC] Tôi nghe thấy tiếng bước chân nhưng không xác định được là của ai."
+        },
+        {
+          "questionText": "Cô có biết ai thường sử dụng bật lửa kim loại không?",
+          "answerText": "[TEST - GOC] Tôi không để ý ai thường mang theo bật lửa đó."
+        },
+        {
+          "questionText": "Cô có vào phòng nạn nhân trong ngày xảy ra vụ án không?",
+          "answerText": "[TEST - GOC] Tôi có đi ngang qua nhưng không ở lại lâu."
         }
       ]
     },
     {
       "characterId": "DUNG",
-      "questions": []
+      "questions": [
+        {
+          "questionText": "Anh có biết ai đã sử dụng quyển sổ tay này không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Anh có biết bức ảnh trong khung này được chụp khi nào không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Anh có thường xuyên gặp nạn nhân không?",
+          "answerText": "[TEST - GOC] Tôi chỉ gặp nạn nhân khi có việc cần trao đổi."
+        },
+        {
+          "questionText": "Anh có biết quyển sổ tay được cất ở đâu không?",
+          "answerText": "[TEST - GOC] Tôi không rõ, có thể nó được để trên bàn làm việc."
+        },
+        {
+          "questionText": "Tối hôm đó anh có nhìn thấy ai rời khỏi hiện trường không?",
+          "answerText": "[TEST - GOC] Tôi thấy một bóng người đi về phía hành lang."
+        }
+      ]
     },
     {
       "characterId": "GIANG",
-      "questions": []
+      "questions": [
+        {
+          "questionText": "Cô có nhận ra chiếc lược này không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Cô có biết ai đã đọc cuốn tạp chí này không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Cô có từng vào phòng nghỉ trước khi vụ án xảy ra không?",
+          "answerText": "[TEST - GOC] Tôi có vào đó một lần để tìm đồ cá nhân."
+        },
+        {
+          "questionText": "Cô có nhận thấy ai mang theo túi đồ lạ không?",
+          "answerText": "[TEST - GOC] Tôi thấy một chiếc túi đặt gần cửa nhưng không biết của ai."
+        },
+        {
+          "questionText": "Cô có nghe mọi người nhắc đến cuốn tạp chí không?",
+          "answerText": "[TEST - GOC] Tôi nghe nhắc đến nó nhưng không biết ai là người đọc."
+        }
+      ]
     },
     {
       "characterId": "HAI",
-      "questions": []
+      "questions": [
+        {
+          "questionText": "Anh có từng nhìn thấy chiếc đồng hồ này trước đây không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Anh có nhận ra chiếc cốc thủy tinh này không?",
+          "answerText": "[TEST - GOC] Tôi không nhớ rõ chi tiết này. Tôi chưa có gì thêm để khai báo."
+        },
+        {
+          "questionText": "Anh có tham dự buổi gặp mặt trước đó không?",
+          "answerText": "[TEST - GOC] Có, tôi chỉ ở lại một lúc rồi rời đi."
+        },
+        {
+          "questionText": "Anh có nhìn thấy chiếc cốc thủy tinh trên bàn không?",
+          "answerText": "[TEST - GOC] Tôi có thấy nó nhưng không để ý ai đã sử dụng."
+        },
+        {
+          "questionText": "Anh có biết ai sở hữu chiếc đồng hồ này không?",
+          "answerText": "[TEST - GOC] Tôi không chắc, nhưng hình như đã thấy nó ở buổi gặp mặt."
+        }
+      ]
     }
   ]
 }

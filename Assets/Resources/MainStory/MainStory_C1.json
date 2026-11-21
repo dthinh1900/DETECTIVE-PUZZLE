@@ -53,11 +53,11 @@
           "text": "Bốn vụ án đã khép lại, nhưng tất cả những manh mối tìm được đều dẫn về cùng một sự thật. Giờ đây, nhóm điều tra phải đặt toàn bộ chứng cứ cạnh nhau để tìm ra lời giải cuối cùng."
         },
         {
-          "speaker": "Giang",
+          "speaker": "Người dẫn chuyện",
           "text": "Chúng ta không còn vụ án nào tiếp theo để mở rộng điều tra. Mọi chi tiết quan trọng đều đã nằm trong hồ sơ, và chúng ta phải tự mình xâu chuỗi chúng lại."
         },
         {
-          "speaker": "Bảo",
+          "speaker": "@KILLER",
           "text": "Đây là cơ hội cuối cùng. Hãy kiểm tra thật kỹ chứng cứ và lời khai trước khi lựa chọn nghi phạm. Một kết luận sai có thể khiến sự thật mãi mãi bị chôn vùi."
         },
         {
@@ -82,7 +82,7 @@
               "text": "Dữ liệu điện thoại cho thấy nạn nhân đã nhận một cuộc gọi vào thời điểm bất thường. Cuộc gọi chỉ kéo dài vài giây nhưng đủ để mở ra hướng điều tra mới."
             },
             {
-              "speaker": "Giang",
+              "speaker": "Dũng",
               "text": "Số điện thoại này đã được lưu dưới một cái tên giả. Có người rõ ràng không muốn danh tính của mình bị phát hiện."
             },
             {
@@ -106,12 +106,17 @@
               "text": "Lời khai của người này mâu thuẫn với thời gian trong nhật ký cuộc gọi. Chúng ta đã có cơ sở để đặt câu hỏi."
             },
             {
-              "speaker": "Giang",
+              "speaker": "Bảo",
               "text": "Hãy ghép tất cả chứng cứ lại. Chỉ cần một mắt xích sai lệch, toàn bộ câu chuyện có thể bị hiểu nhầm."
             }
           ]
         }
-      ]
+      ],
+      "killerCharacterId": "BAO",
+      "deadAfterCase3CharacterId": "DUNG",
+      "deadAfterCase4CharacterId": "CHI",
+      "deadAfterCase1CharacterId": "GIANG",
+      "deadAfterCase2CharacterId": "HAI"
     },
     {
       "branchId": "BR02",
@@ -147,7 +152,7 @@
               "text": "Phần âm thanh còn thiếu đã được khôi phục. Những lời nói trong đó khiến giả thuyết ban đầu của nhóm điều tra phải thay đổi."
             },
             {
-              "speaker": "Bảo",
+              "speaker": "Hải",
               "text": "Cuộc tranh cãi không chỉ liên quan đến tiền bạc. Có vẻ nạn nhân đã phát hiện một việc mà người kia muốn giữ kín."
             },
             {
@@ -156,7 +161,12 @@
             }
           ]
         }
-      ]
+      ],
+      "killerCharacterId": "DUNG",
+      "deadAfterCase3CharacterId": "CHI",
+      "deadAfterCase4CharacterId": "HAI",
+      "deadAfterCase1CharacterId": "BAO",
+      "deadAfterCase2CharacterId": "GIANG"
     },
     {
       "branchId": "BR03",
@@ -172,11 +182,11 @@
               "text": "Kết quả đối chiếu cho thấy chiếc chìa khóa tìm được không thuộc bộ chìa khóa chính thức. Sự tồn tại của nó đặt ra câu hỏi về một lối ra vào khác."
             },
             {
-              "speaker": "Hải",
+              "speaker": "Giang",
               "text": "Nếu có chìa khóa thứ hai, lời khai rằng căn phòng luôn bị khóa có thể không còn đáng tin."
             },
             {
-              "speaker": "Giang",
+              "speaker": "Dũng",
               "text": "Chúng ta cần tìm xem chiếc chìa khóa này được tạo ra khi nào và ai có thể đã sử dụng nó."
             }
           ]
@@ -196,12 +206,17 @@
               "text": "Có người đã ra vào mà không cần sử dụng cửa chính. Vì vậy, thời gian xuất hiện của họ đã bị bỏ sót."
             },
             {
-              "speaker": "Hải",
+              "speaker": "Dũng",
               "text": "Chúng ta đã tìm được mắt xích còn thiếu. Bây giờ hãy đối chiếu toàn bộ chứng cứ trước khi đưa ra kết luận."
             }
           ]
         }
-      ]
+      ],
+      "killerCharacterId": "CHI",
+      "deadAfterCase3CharacterId": "GIANG",
+      "deadAfterCase4CharacterId": "DUNG",
+      "deadAfterCase1CharacterId": "BAO",
+      "deadAfterCase2CharacterId": "HAI"
     }
   ]
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public static class CaseSessionData
 {
@@ -10,6 +11,14 @@ public static class CaseSessionData
     public static int ViewingCaseNumber { get; private set; }
 
     public static string SelectedBranchId { get; private set; }
+
+    // Kết quả cốt truyện Chapter 1, xác định theo Branch và giữ nguyên suốt phiên chơi.
+    public static string SelectedKillerCharacterId { get; private set; }
+    public static string DeadAfterCase1CharacterId { get; private set; }
+    public static string DeadAfterCase2CharacterId { get; private set; }
+    public static string DeadAfterCase3CharacterId { get; private set; }
+    public static string DeadAfterCase4CharacterId { get; private set; }
+
     public static ChapterData CurrentChapter { get; private set; }
     public static CaseBranchData CurrentBranch { get; private set; }
 
@@ -19,22 +28,66 @@ public static class CaseSessionData
 
     public static bool IsSessionStarted { get; private set; }
 
+    // Random Branch một lần khi mở Intro Chapter 1 (hoặc khi bắt đầu phiên ở Chapter khác).
     public static void StartNewSession(ChapterData chapter, int caseNumber = 1)
     {
-        ClearSession();
-
         if (!IsValidChapter(chapter) || caseNumber < 1 || caseNumber > 4)
         {
             Debug.LogError("[SESSION] Chapter/Case không hợp lệ.");
             return;
         }
 
-        int index = Random.Range(0, chapter.branches.Count);
+        int index = UnityEngine.Random.Range(0, chapter.branches.Count);
         CaseBranchData branch = chapter.branches[index];
-        if (branch == null || string.IsNullOrEmpty(branch.branchId)) return;
+        if (branch == null || string.IsNullOrWhiteSpace(branch.branchId))
+            return;
+
+        StartNewSession(chapter, caseNumber, branch.branchId);
+    }
+
+    // Branch của Chapter 1 được random trước hội thoại Intro; không random lại khi bấm Bắt đầu điều tra.
+    public static void StartNewSession(ChapterData chapter, int caseNumber, string selectedBranchId)
+    {
+        ClearSession();
+
+        if (!IsValidChapter(chapter) || caseNumber < 1 || caseNumber > 4 ||
+            string.IsNullOrWhiteSpace(selectedBranchId))
+        {
+            Debug.LogError("[SESSION] Chapter/Case/Branch không hợp lệ.");
+            return;
+        }
+
+        CaseBranchData branch = chapter.branches.Find(
+            b => b != null && string.Equals(b.branchId, selectedBranchId, StringComparison.OrdinalIgnoreCase));
+
+        if (branch == null)
+        {
+            Debug.LogError("[SESSION] Không tìm thấy Branch đã chọn: " + selectedBranchId);
+            return;
+        }
 
         SetCurrent(chapter, branch, caseNumber);
-        Debug.Log($"[SESSION] New Game | Branch {SelectedBranchId} | Case {CurrentCaseNumber}");
+        GameSessionData.ClearCharacterDeaths();
+
+        if (!ConfigureBranchFate(branch.branchId, null))
+        {
+            ClearSession();
+            return;
+        }
+
+        Debug.Log($"[SESSION] New Game | Branch {SelectedBranchId} | Killer {SelectedKillerCharacterId} | Case {CurrentCaseNumber}");
+    }
+
+    public static string GetDeadCharacterAfterCase(int completedCaseNumber)
+    {
+        switch (completedCaseNumber)
+        {
+            case 1: return DeadAfterCase1CharacterId;
+            case 2: return DeadAfterCase2CharacterId;
+            case 3: return DeadAfterCase3CharacterId;
+            case 4: return DeadAfterCase4CharacterId;
+            default: return null;
+        }
     }
 
     // Chỉ dùng khi cốt truyện thực sự mở sang Case kế tiếp.
@@ -58,7 +111,11 @@ public static class CaseSessionData
         return true;
     }
 
-    public static bool RestoreSession(ChapterData chapter, string branchId, int caseNumber)
+    public static bool RestoreSession(
+        ChapterData chapter,
+        string branchId,
+        int caseNumber,
+        string savedKillerCharacterId = null)
     {
         if (!IsValidChapter(chapter) || string.IsNullOrEmpty(branchId) || caseNumber < 1 || caseNumber > 4)
             return false;
@@ -67,7 +124,47 @@ public static class CaseSessionData
         if (branch == null) return false;
 
         SetCurrent(chapter, branch, caseNumber);
-        Debug.Log($"[SESSION] Restore | Branch {branchId} | Progress Case {caseNumber}");
+
+        if (!ConfigureBranchFate(branchId, savedKillerCharacterId))
+        {
+            ClearSession();
+            return false;
+        }
+
+        Debug.Log($"[SESSION] Restore | Branch {branchId} | Killer {SelectedKillerCharacterId} | Progress Case {caseNumber}");
+        return true;
+    }
+
+    private static bool ConfigureBranchFate(string branchId, string savedKillerCharacterId)
+    {
+        SelectedKillerCharacterId = null;
+        DeadAfterCase1CharacterId = null;
+        DeadAfterCase2CharacterId = null;
+        DeadAfterCase3CharacterId = null;
+        DeadAfterCase4CharacterId = null;
+
+        if (GameManager.Instance == null || GameManager.Instance.SelectedChapter != 1)
+            return true;
+
+        MainStoryBranchData fate = MainStoryLoader.GetBranchConfiguration(branchId);
+        if (!MainStoryLoader.IsValidBranchFate(fate))
+        {
+            Debug.LogError("[SESSION] Cấu hình hung thủ/thứ tự sát hại không hợp lệ cho Branch " + branchId);
+            return false;
+        }
+
+        SelectedKillerCharacterId = fate.killerCharacterId.Trim();
+        DeadAfterCase1CharacterId = fate.deadAfterCase1CharacterId.Trim();
+        DeadAfterCase2CharacterId = fate.deadAfterCase2CharacterId.Trim();
+        DeadAfterCase3CharacterId = fate.deadAfterCase3CharacterId.Trim();
+        DeadAfterCase4CharacterId = fate.deadAfterCase4CharacterId.Trim();
+
+        if (!string.IsNullOrWhiteSpace(savedKillerCharacterId) &&
+            !string.Equals(savedKillerCharacterId.Trim(), SelectedKillerCharacterId, StringComparison.OrdinalIgnoreCase))
+        {
+            Debug.LogWarning("[SESSION] Hung thủ trong Save không khớp Branch. Đã khôi phục theo cấu hình cố định của Branch " + branchId);
+        }
+
         return true;
     }
 
@@ -125,6 +222,11 @@ public static class CaseSessionData
         ViewingChapter = null;
         ViewingBranch = null;
         SelectedBranchId = null;
+        SelectedKillerCharacterId = null;
+        DeadAfterCase1CharacterId = null;
+        DeadAfterCase2CharacterId = null;
+        DeadAfterCase3CharacterId = null;
+        DeadAfterCase4CharacterId = null;
         CurrentCaseNumber = 0;
         ViewingCaseNumber = 0;
         IsSessionStarted = false;

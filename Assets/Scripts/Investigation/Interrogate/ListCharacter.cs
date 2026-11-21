@@ -80,6 +80,17 @@ public class ListCharacter : MonoBehaviour
             return;
         }
 
+        // isDead trong CharactersC1.json là trạng thái gốc.
+        // Trạng thái của lượt chơi hiện tại được lấy từ GameSessionData.
+        foreach (CaseCharacterInfo character in characterListData.characters)
+        {
+            if (character != null &&
+                GameSessionData.IsCharacterDead(chapterId, character.characterId))
+            {
+                character.isDead = true;
+            }
+        }
+
         Debug.Log(
             "[LIST CHARACTER] Đã tải " +
             characterListData.characters.Length +

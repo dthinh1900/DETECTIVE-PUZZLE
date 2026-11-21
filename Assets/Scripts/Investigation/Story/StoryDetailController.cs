@@ -458,20 +458,25 @@ public class StoryDetailController : MonoBehaviour
 
         storyFinished = true;
 
-        // Chi cap nhat Statement khi xem het hoi thoai.
-        ApplyStatementUpdates();
-
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
 
         if (nextDialogueButton != null)
             nextDialogueButton.gameObject.SetActive(false);
 
-        if (endPanel != null)
-            endPanel.SetActive(true);
-
         if (endText != null)
             endText.text = "KẾT THÚC CÂU CHUYỆN";
+
+        // Chỉ cập nhật nếu EndPanel thực sự tồn tại và đã được bật.
+        if (endPanel != null)
+        {
+            endPanel.SetActive(true);
+            ApplyStatementUpdates();
+        }
+        else
+        {
+            Debug.LogError("StoryDetailController: Chưa gán EndPanel; bỏ qua cập nhật lời khai.");
+        }
     }
 
     private void ApplyStatementUpdates()
@@ -490,6 +495,8 @@ public class StoryDetailController : MonoBehaviour
         int chapterId =
             GameManager.Instance.SelectedChapter;
 
+        // Tất cả Story đều được đánh dấu hoàn thành để không tự mở lại.
+        // Nhưng chỉ Story đặc biệt mới được phép cập nhật lời khai.
         string branchId = selectedBranchId;
 
         string completionKey =
@@ -507,8 +514,17 @@ public class StoryDetailController : MonoBehaviour
             return;
         }
 
-        if (currentStory.statementUpdates == null)
+        if (!string.Equals(currentStory.storyType, "special", StringComparison.OrdinalIgnoreCase))
+        {
+            Debug.Log("Story thường hoàn thành; không cập nhật lời khai: " + currentStory.storyId);
             return;
+        }
+
+        if (currentStory.statementUpdates == null || currentStory.statementUpdates.Length == 0)
+        {
+            Debug.LogWarning("Story đặc biệt chưa có statementUpdates: " + currentStory.storyId);
+            return;
+        }
 
         foreach (
             StatementUpdateData update

@@ -11,7 +11,13 @@
           "requiredEvidenceId": "A016",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "BAO",
+              "question": "Anh đã ở đâu khi vụ án xảy ra?",
+              "answer": "[TEST] Tôi nói mình ở phòng khách, nhưng thực ra đã đi xuống khu bếp lấy nước. Tôi không muốn mọi người biết vì lúc đó tôi nghe thấy tiếng động lạ."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -41,7 +47,13 @@
             "A001",
             "A002",
             "A003",
-            "A004"
+            "A004",
+            "A005",
+            "D002",
+            "D005",
+            "D008",
+            "D011",
+            "D014"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -65,7 +77,13 @@
           "requiredEvidenceId": "B002",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "CHI",
+              "question": "Cô có thấy ai đi vào phòng không?",
+              "answer": "[TEST] Tôi có thấy một người đi vào phòng, nhưng lúc đầu không dám nói vì không nhìn rõ mặt. Người đó có cầm một chiếc bật lửa kim loại."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -95,7 +113,13 @@
             "B001",
             "B006",
             "B011",
-            "B016"
+            "B016",
+            "B020",
+            "D005",
+            "D008",
+            "D002",
+            "D011",
+            "D014"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -119,7 +143,13 @@
           "requiredEvidenceId": "C005",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "DUNG",
+              "question": "Anh có biết ai đã sử dụng quyển sổ tay này không?",
+              "answer": "[TEST] Tôi từng thấy quyển sổ này trên bàn của nạn nhân. Có vẻ người đó thường ghi lại những cuộc hẹn quan trọng."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -149,7 +179,13 @@
             "C004",
             "C009",
             "C014",
-            "C018"
+            "C018",
+            "C019",
+            "D011",
+            "D014",
+            "D002",
+            "D005",
+            "D008"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -165,60 +201,6 @@
             }
           ],
           "caseNumber": 3
-        },
-        {
-          "storyId": "C1_CASE4_BR01_SPECIAL",
-          "title": "Vụ án 4 - Story đặc biệt",
-          "storyType": "special",
-          "requiredEvidenceId": "D017",
-          "requiredEvidenceCount": 1,
-          "candidateEvidenceIds": [],
-          "statementUpdates": [],
-          "dialogues": [
-            {
-              "speaker": "Người dẫn chuyện",
-              "text": "Sau khi trở về nhà nghỉ, mọi người bắt đầu chuẩn bị cho buổi tối.",
-              "backgroundIndex": 0
-            },
-            {
-              "speaker": "Bảo",
-              "text": "Mọi người cứ nghỉ ngơi đi. Tôi sẽ kiểm tra lại đồ đạc.",
-              "backgroundIndex": -1
-            },
-            {
-              "speaker": "ChatGPT",
-              "text": "Có điều gì đó không ổn. Mình cần quan sát kỹ hơn.",
-              "backgroundIndex": 1
-            }
-          ],
-          "caseNumber": 4
-        },
-        {
-          "storyId": "C1_CASE4_BR01_NORMAL",
-          "title": "Vụ án 4 - Story thường",
-          "storyType": "normal",
-          "requiredEvidenceId": "",
-          "requiredEvidenceCount": 3,
-          "candidateEvidenceIds": [
-            "D002",
-            "D005",
-            "D008",
-            "D011"
-          ],
-          "statementUpdates": [],
-          "dialogues": [
-            {
-              "speaker": "Người dẫn chuyện",
-              "text": "Điện thoại của mọi người đồng loạt nhận được một tin nhắn ẩn danh.",
-              "backgroundIndex": 0
-            },
-            {
-              "speaker": "Giang",
-              "text": "Tin nhắn này là sao? Ai gửi nó cho chúng ta?",
-              "backgroundIndex": -1
-            }
-          ],
-          "caseNumber": 4
         }
       ]
     },
@@ -232,7 +214,13 @@
           "requiredEvidenceId": "A001",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "HAI",
+              "question": "Anh có từng nhìn thấy chiếc đồng hồ này trước đây không?",
+              "answer": "[TEST] Tôi từng thấy chiếc đồng hồ này trong một buổi gặp mặt. Người đeo nó có vẻ rất vội vàng khi rời đi."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -262,7 +250,13 @@
             "A006",
             "A007",
             "A008",
-            "A009"
+            "A009",
+            "A010",
+            "D003",
+            "D006",
+            "D009",
+            "D012",
+            "D015"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -286,7 +280,13 @@
           "requiredEvidenceId": "B003",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "BAO",
+              "question": "Anh có nghe thấy tiếng động gì không?",
+              "answer": "[TEST] Tôi có nghe thấy tiếng kim loại rơi xuống sàn. Khi kiểm tra lại, tôi nhận ra âm thanh đó có thể phát ra từ chiếc chìa khóa."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -316,7 +316,13 @@
             "B002",
             "B007",
             "B012",
-            "B017"
+            "B017",
+            "B018",
+            "D009",
+            "D003",
+            "D006",
+            "D012",
+            "D015"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -340,7 +346,13 @@
           "requiredEvidenceId": "C006",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "CHI",
+              "question": "Lần cuối cô gặp nạn nhân là khi nào?",
+              "answer": "[TEST] Tôi gặp nạn nhân muộn hơn thời điểm tôi đã khai. Khi đó tôi thấy nạn nhân đang nói chuyện với một người đeo găng tay."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -370,7 +382,13 @@
             "C005",
             "C010",
             "C015",
-            "C016"
+            "C016",
+            "C017",
+            "D012",
+            "D015",
+            "D003",
+            "D006",
+            "D009"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -386,60 +404,6 @@
             }
           ],
           "caseNumber": 3
-        },
-        {
-          "storyId": "C1_CASE4_BR02_SPECIAL",
-          "title": "Vụ án 4 - Story đặc biệt",
-          "storyType": "special",
-          "requiredEvidenceId": "D018",
-          "requiredEvidenceCount": 1,
-          "candidateEvidenceIds": [],
-          "statementUpdates": [],
-          "dialogues": [
-            {
-              "speaker": "Người dẫn chuyện",
-              "text": "Sau khi trở về nhà nghỉ, mọi người bắt đầu chuẩn bị cho buổi tối.",
-              "backgroundIndex": 0
-            },
-            {
-              "speaker": "Bảo",
-              "text": "Mọi người cứ nghỉ ngơi đi. Tôi sẽ kiểm tra lại đồ đạc.",
-              "backgroundIndex": -1
-            },
-            {
-              "speaker": "ChatGPT",
-              "text": "Có điều gì đó không ổn. Mình cần quan sát kỹ hơn.",
-              "backgroundIndex": 1
-            }
-          ],
-          "caseNumber": 4
-        },
-        {
-          "storyId": "C1_CASE4_BR02_NORMAL",
-          "title": "Vụ án 4 - Story thường",
-          "storyType": "normal",
-          "requiredEvidenceId": "",
-          "requiredEvidenceCount": 3,
-          "candidateEvidenceIds": [
-            "D003",
-            "D006",
-            "D009",
-            "D012"
-          ],
-          "statementUpdates": [],
-          "dialogues": [
-            {
-              "speaker": "Người dẫn chuyện",
-              "text": "Điện thoại của mọi người đồng loạt nhận được một tin nhắn ẩn danh.",
-              "backgroundIndex": 0
-            },
-            {
-              "speaker": "Giang",
-              "text": "Tin nhắn này là sao? Ai gửi nó cho chúng ta?",
-              "backgroundIndex": -1
-            }
-          ],
-          "caseNumber": 4
         }
       ]
     },
@@ -453,7 +417,13 @@
           "requiredEvidenceId": "A020",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "GIANG",
+              "question": "Cô có biết ai đã đọc cuốn tạp chí này không?",
+              "answer": "[TEST] Tôi thấy cuốn tạp chí trên bàn vào buổi tối. Có một trang được gấp lại, dường như ai đó muốn đánh dấu một thông tin."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -483,7 +453,13 @@
             "A011",
             "A012",
             "A013",
-            "A014"
+            "A014",
+            "A015",
+            "D001",
+            "D004",
+            "D007",
+            "D010",
+            "D013"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -507,7 +483,13 @@
           "requiredEvidenceId": "B004",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "HAI",
+              "question": "Anh có nhận ra chiếc cốc thủy tinh này không?",
+              "answer": "[TEST] Tôi nhận ra chiếc cốc vì nó từng được dùng trong buổi gặp mặt. Tôi đã thấy một người cầm nó rời khỏi phòng."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -537,7 +519,13 @@
             "B003",
             "B008",
             "B013",
-            "B019"
+            "B019",
+            "B020",
+            "D007",
+            "D010",
+            "D001",
+            "D004",
+            "D013"
           ],
           "statementUpdates": [],
           "dialogues": [
@@ -561,7 +549,13 @@
           "requiredEvidenceId": "C008",
           "requiredEvidenceCount": 1,
           "candidateEvidenceIds": [],
-          "statementUpdates": [],
+          "statementUpdates": [
+            {
+              "characterId": "BAO",
+              "question": "Anh gặp nạn nhân lần cuối khi nào?",
+              "answer": "[TEST] Tôi gặp nạn nhân sau buổi chiều, không phải vào buổi chiều như lời khai ban đầu. Chúng tôi đã nói chuyện về một chiếc điện thoại cũ."
+            }
+          ],
           "dialogues": [
             {
               "speaker": "Người dẫn chuyện",
@@ -591,57 +585,9 @@
             "C001",
             "C007",
             "C012",
-            "C018"
-          ],
-          "statementUpdates": [],
-          "dialogues": [
-            {
-              "speaker": "Người dẫn chuyện",
-              "text": "Điện thoại của mọi người đồng loạt nhận được một tin nhắn ẩn danh.",
-              "backgroundIndex": 0
-            },
-            {
-              "speaker": "Giang",
-              "text": "Tin nhắn này là sao? Ai gửi nó cho chúng ta?",
-              "backgroundIndex": -1
-            }
-          ],
-          "caseNumber": 3
-        },
-        {
-          "storyId": "C1_CASE4_BR03_SPECIAL",
-          "title": "Vụ án 4 - Story đặc biệt",
-          "storyType": "special",
-          "requiredEvidenceId": "D019",
-          "requiredEvidenceCount": 1,
-          "candidateEvidenceIds": [],
-          "statementUpdates": [],
-          "dialogues": [
-            {
-              "speaker": "Người dẫn chuyện",
-              "text": "Sau khi trở về nhà nghỉ, mọi người bắt đầu chuẩn bị cho buổi tối.",
-              "backgroundIndex": 0
-            },
-            {
-              "speaker": "Bảo",
-              "text": "Mọi người cứ nghỉ ngơi đi. Tôi sẽ kiểm tra lại đồ đạc.",
-              "backgroundIndex": -1
-            },
-            {
-              "speaker": "ChatGPT",
-              "text": "Có điều gì đó không ổn. Mình cần quan sát kỹ hơn.",
-              "backgroundIndex": 1
-            }
-          ],
-          "caseNumber": 4
-        },
-        {
-          "storyId": "C1_CASE4_BR03_NORMAL",
-          "title": "Vụ án 4 - Story thường",
-          "storyType": "normal",
-          "requiredEvidenceId": "",
-          "requiredEvidenceCount": 3,
-          "candidateEvidenceIds": [
+            "C018",
+            "C019",
+            "D013",
             "D001",
             "D004",
             "D007",
@@ -660,7 +606,7 @@
               "backgroundIndex": -1
             }
           ],
-          "caseNumber": 4
+          "caseNumber": 3
         }
       ]
     }

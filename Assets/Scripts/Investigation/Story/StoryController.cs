@@ -139,14 +139,7 @@ public class StoryController : MonoBehaviour
             return false;
         }
 
-        if (selectedBranch.stories == null ||
-            selectedBranch.stories.Length != 8)
-        {
-            Debug.LogError(
-                "Moi Branch cua Chapter 01 phai co dung 8 Story (4 Case x 2 Story)."
-            );
-            return false;
-        }
+
 
         Debug.Log(
             "Da tai " + selectedBranch.stories.Length +
@@ -269,11 +262,11 @@ public class StoryController : MonoBehaviour
                 icons[i] = questionMarkSprite;
 
             if (story.candidateEvidenceIds == null ||
-                story.candidateEvidenceIds.Length != 4)
+                story.candidateEvidenceIds.Length == 0)
             {
                 Debug.LogWarning(
                     story.storyId +
-                    ": Can khai bao dung 4 candidateEvidenceIds."
+                    ": Chua khai bao candidateEvidenceIds."
                 );
 
                 return icons;

@@ -53,6 +53,12 @@ public class CaseIntroController : MonoBehaviour
     [SerializeField] private Sprite dungPortrait;
     [SerializeField] private Sprite haiPortrait;
 
+    [Header("Intro Cipher Reward UI - xuất hiện sau hội thoại Intro")]
+    [SerializeField] private GameObject introCipherRewardPanel;
+    [SerializeField] private Image introCipherRewardImage;
+    [SerializeField] private TMP_Text introCipherRewardTitleText;
+    [SerializeField] private TMP_Text introCipherRewardDescriptionText;
+
     [Header("Case Summary UI")]
     [SerializeField] private GameObject caseSummaryPanel;
     [SerializeField] private TMP_Text caseSummaryText;
@@ -71,56 +77,87 @@ public class CaseIntroController : MonoBehaviour
 
     private void Start()
     {
-
-        selectedChapter = GameManager.Instance.SelectedChapter;
-
-        Debug.Log(
-            "CaseIntro đang chạy Chapter: "
-            + selectedChapter
-        );
-
-
-        LoadIntroData();
-
-        if (dialogueData == null ||
-            dialogueData.dialogues == null ||
-            dialogueData.dialogues.Length == 0)
+        if (GameManager.Instance == null)
         {
-            Debug.LogError(
-                "Không có dữ liệu Intro cho Chapter "
-                + selectedChapter
-            );
-
+            Debug.LogError("[INTRO] Không tìm thấy GameManager.");
             return;
         }
 
+        selectedChapter = GameManager.Instance.SelectedChapter;
+        Debug.Log("CaseIntro đang chạy Chapter: " + selectedChapter);
+
+        LoadIntroData();
+        if (dialogueData == null || dialogueData.dialogues == null || dialogueData.dialogues.Length == 0)
+        {
+            Debug.LogError("Không có dữ liệu Intro cho Chapter " + selectedChapter);
+            return;
+        }
 
         LoadSummaryData();
-
-
         dialogueIndex = 0;
 
-
-        if (dialoguePanel != null)
-        {
-            dialoguePanel.SetActive(false);
-        }
-
-        if (caseSummaryPanel != null)
-        {
-            caseSummaryPanel.SetActive(false);
-        }
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        if (caseSummaryPanel != null) caseSummaryPanel.SetActive(false);
+        if (introCipherRewardPanel != null) introCipherRewardPanel.SetActive(false);
 
         if (dialogueGroup != null)
+            dialogueGroupOriginalPosition = dialogueGroup.anchoredPosition;
+
+        // Chapter 1: tự random Branch ngay khi mở Intro.
+        // Branch và hung thủ được lưu trước hội thoại để mật mã Intro lấy đúng dữ liệu.
+        // Nếu phiên chơi đã được khởi tạo (ví dụ quay lại/reload Intro), giữ nguyên Branch cũ.
+        if (selectedChapter == 1 && !CaseSessionData.IsSessionStarted)
         {
-            dialogueGroupOriginalPosition =
-                dialogueGroup.anchoredPosition;
+            ChapterDataLoader loader = GameManager.Instance.GetComponent<ChapterDataLoader>();
+            if (loader == null)
+            {
+                Debug.LogError("[INTRO] GameManager chưa có ChapterDataLoader.");
+                return;
+            }
+
+            ChapterData chapter = loader.LoadCase(1, 1);
+            if (chapter == null)
+            {
+                Debug.LogError("[INTRO] Không tải được dữ liệu Chapter 1 - Case 1 để random Branch.");
+                return;
+            }
+
+            CaseSessionData.StartNewSession(chapter, 1);
+            if (!CaseSessionData.IsSessionStarted ||
+                string.IsNullOrWhiteSpace(CaseSessionData.SelectedBranchId))
+            {
+                Debug.LogError("[INTRO] Không thể random và khởi tạo Branch cho Chapter 1.");
+                return;
+            }
+
+            Debug.Log("[INTRO] Đã random Branch khi mở Intro: " +
+                CaseSessionData.SelectedBranchId +
+                " | Hung thủ: " + CaseSessionData.SelectedKillerCharacterId);
         }
 
-        if (dialoguePanel != null)
+        if (selectedChapter == 1 &&
+            (!CaseSessionData.IsSessionStarted ||
+             CaseSessionData.CurrentCaseNumber != 1 ||
+             string.IsNullOrWhiteSpace(CaseSessionData.SelectedBranchId)))
         {
-            dialoguePanel.SetActive(true);
+            Debug.LogError("[INTRO] Trạng thái Branch Chapter 1 không hợp lệ.");
+            return;
         }
+
+        // Sau khi random (hoặc khôi phục) Branch, bắt đầu hội thoại Intro ngay.
+        // Các Chapter khác tiếp tục dùng luồng Intro hiện tại.
+        BeginIntroDialogue();
+    }
+
+    private void BeginIntroDialogue()
+    {
+        dialogueIndex = 0;
+        if (caseSummaryPanel != null)
+            caseSummaryPanel.SetActive(false);
+        if (introCipherRewardPanel != null)
+            introCipherRewardPanel.SetActive(false);
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(true);
 
         ShowDialogue();
     }
@@ -300,7 +337,7 @@ public class CaseIntroController : MonoBehaviour
         if (dialogueIndex >=
             dialogueData.dialogues.Length)
         {
-            ShowCaseSummary();
+            ShowIntroCipherRewardPanel();
 
             return;
         }
@@ -432,8 +469,75 @@ public class CaseIntroController : MonoBehaviour
         PlayDialogueGroupAnimation();
     }
 
+    private void ShowIntroCipherRewardPanel()
+    {
+        // Chapter 2 chưa có cấu hình mật mã; giữ nguyên luồng Intro hiện tại.
+        if (selectedChapter != 1)
+        {
+            ShowCaseSummary();
+            return;
+        }
+
+        if (!CaseSessionData.IsSessionStarted || string.IsNullOrWhiteSpace(CaseSessionData.SelectedBranchId))
+        {
+            Debug.LogError("[CIPHER INTRO] Branch chưa được random/lưu khi mở Intro.");
+            return;
+        }
+
+        CipherEntryData cipher = CipherDataLoader.GetIntroCipher(CaseSessionData.SelectedBranchId);
+
+        if (cipher == null)
+        {
+            Debug.LogError("[CIPHER INTRO] Không tải được mật mã đầu tiên cho Branch " + CaseSessionData.SelectedBranchId + ".");
+            ShowCaseSummary();
+            return;
+        }
+
+        // Ghi nhận ngay khi Panel phần thưởng xuất hiện, không chờ nút Tiếp tục.
+        GameSessionData.CollectCipher(cipher.cipherId);
+
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
+        if (caseSummaryPanel != null)
+            caseSummaryPanel.SetActive(false);
+
+        Sprite sprite = CipherDataLoader.LoadCipherImage(cipher);
+        if (introCipherRewardImage != null)
+        {
+            introCipherRewardImage.sprite = sprite;
+            introCipherRewardImage.preserveAspect = true;
+            introCipherRewardImage.gameObject.SetActive(sprite != null);
+        }
+
+        if (introCipherRewardTitleText != null)
+            introCipherRewardTitleText.text = "ĐÃ NHẶT ĐƯỢC MẬT MÃ ĐẦU TIÊN!";
+
+        if (introCipherRewardDescriptionText != null)
+            introCipherRewardDescriptionText.text = cipher.description;
+
+        if (introCipherRewardPanel == null)
+        {
+            Debug.LogError("[CIPHER INTRO] Chưa gán Intro Cipher Reward Panel trong Inspector.");
+            ShowCaseSummary();
+            return;
+        }
+
+        introCipherRewardPanel.SetActive(true);
+        Debug.Log("[CIPHER INTRO] Đã nhận mật mã đầu tiên: " + cipher.cipherId);
+    }
+
+    // Gắn vào nút TIẾP TỤC trên Intro Cipher Reward Panel.
+    public void OnContinueFromIntroCipherReward()
+    {
+        if (introCipherRewardPanel != null)
+            introCipherRewardPanel.SetActive(false);
+        ShowCaseSummary();
+    }
+
     private void ShowCaseSummary()
     {
+        if (introCipherRewardPanel != null)
+            introCipherRewardPanel.SetActive(false);
 
         if (dialoguePanel != null)
         {
@@ -466,7 +570,8 @@ public class CaseIntroController : MonoBehaviour
 
     public void OnSkipDialogue()
     {
-        ShowCaseSummary();
+        // Skip chỉ bỏ qua lời thoại; vẫn phải nhận mật mã đầu tiên như luồng bình thường.
+        ShowIntroCipherRewardPanel();
     }
 
 
@@ -481,65 +586,54 @@ public class CaseIntroController : MonoBehaviour
         }
 
         int chapterNumber = GameManager.Instance.SelectedChapter;
-
-        // Phiên chơi luôn bắt đầu từ Vụ án 1.
         int caseNumber = 1;
 
-        ChapterDataLoader loader =
-            GameManager.Instance.GetComponent<ChapterDataLoader>();
-
+        ChapterDataLoader loader = GameManager.Instance.GetComponent<ChapterDataLoader>();
         if (loader == null)
         {
-            Debug.LogError(
-                "GameManager chưa có ChapterDataLoader."
-            );
+            Debug.LogError("GameManager chưa có ChapterDataLoader.");
             return;
         }
 
-        // Tải dữ liệu Vụ án 1.
-        ChapterData chapter = loader.LoadCase(
-            chapterNumber,
-            caseNumber
-        );
-
+        ChapterData chapter = loader.LoadCase(chapterNumber, caseNumber);
         if (chapter == null)
         {
-            Debug.LogError(
-                "Không thể tải dữ liệu Vụ án 1."
-            );
+            Debug.LogError("Không thể tải dữ liệu Vụ án 1.");
             return;
         }
 
-        // Dữ liệu đã được reset tại ChapterSelect khi người chơi chọn New Game.
-        // Không xóa dữ liệu tại Intro để tránh mất Save khi Continue hoặc chuyển cảnh.
-
-        // Xóa trạng thái phiên cũ và chọn Branch mới.
-        CaseSessionData.StartNewSession(
-            chapter,
-            caseNumber
-        );
-
-        if (!CaseSessionData.IsSessionStarted)
+        if (chapterNumber == 1)
         {
-            Debug.LogError(
-                "Không thể khởi tạo phiên chơi."
-            );
-            return;
+            // Chapter 1 đã random và lưu Branch ngay khi mở Intro.
+            // Tuyệt đối không random lại khi bấm nút bắt đầu điều tra.
+            if (!CaseSessionData.IsSessionStarted ||
+                CaseSessionData.CurrentCaseNumber != 1 ||
+                string.IsNullOrWhiteSpace(CaseSessionData.SelectedBranchId))
+            {
+                Debug.LogError("[INTRO] Không tìm thấy Branch đã random khi mở Intro Chapter 1.");
+                return;
+            }
+        }
+        else
+        {
+            // Chapter khác giữ nguyên cơ chế hiện có.
+            CaseSessionData.StartNewSession(chapter, caseNumber);
+            if (!CaseSessionData.IsSessionStarted)
+            {
+                Debug.LogError("Không thể khởi tạo phiên chơi.");
+                return;
+            }
         }
 
-        // Bắt đầu timer cho Vụ án 1.
         GameManager.Instance.StartNewTimer();
 
         Debug.Log(
-            $"Bắt đầu Chapter {chapterNumber} - " +
-            $"Vụ án {CaseSessionData.CurrentCaseNumber} - " +
-            $"Branch {CaseSessionData.SelectedBranchId}"
+            $"Bắt đầu Chapter {chapterNumber} - Vụ án {CaseSessionData.CurrentCaseNumber} - " +
+            $"Branch {CaseSessionData.SelectedBranchId} - Hung thủ {CaseSessionData.SelectedKillerCharacterId}"
         );
 
         SceneManager.LoadScene("Investigation");
     }
-
-
 
     private Coroutine dialogueAnimationCoroutine;
     private Vector2 dialogueGroupOriginalPosition;

@@ -1,0 +1,140 @@
+﻿{
+  "chapterId": 1,
+  "branches": [
+    {
+      "branchId": "BR01",
+      "ciphers": [
+        {
+          "cipherId": "C1_BR01_CIPHER_01",
+          "caseNumber": 0,
+          "title": "MẬT MÃ HIỆN TRƯỜNG",
+          "description": "Mật mã đầu tiên được tìm thấy tại hiện trường vụ án.",
+          "targetCharacterId": "GIANG",
+          "imageResourcePath": "CipherImages/C1/C1_BR01_CIPHER_01",
+          "answer": "Giang",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR01_CIPHER_02",
+          "caseNumber": 1,
+          "title": "MẬT MÃ 02",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ nhất khép lại.",
+          "targetCharacterId": "HAI",
+          "imageResourcePath": "CipherImages/C1/C1_BR01_CIPHER_02",
+          "answer": "Hải",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR01_CIPHER_03",
+          "caseNumber": 2,
+          "title": "MẬT MÃ 03",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ hai khép lại.",
+          "targetCharacterId": "DUNG",
+          "imageResourcePath": "CipherImages/C1/C1_BR01_CIPHER_03",
+          "answer": "Dũng",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR01_CIPHER_04",
+          "caseNumber": 3,
+          "title": "MẬT MÃ 04",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ ba khép lại.",
+          "targetCharacterId": "CHI",
+          "imageResourcePath": "CipherImages/C1/C1_BR01_CIPHER_04",
+          "answer": "Chi",
+          "acceptedAnswers": []
+        }
+      ]
+    },
+    {
+      "branchId": "BR02",
+      "ciphers": [
+        {
+          "cipherId": "C1_BR02_CIPHER_01",
+          "caseNumber": 0,
+          "title": "MẬT MÃ HIỆN TRƯỜNG",
+          "description": "Mật mã đầu tiên được tìm thấy tại hiện trường vụ án.",
+          "targetCharacterId": "BAO",
+          "imageResourcePath": "CipherImages/C1/C1_BR02_CIPHER_01",
+          "answer": "Bảo",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR02_CIPHER_02",
+          "caseNumber": 1,
+          "title": "MẬT MÃ 02",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ nhất khép lại.",
+          "targetCharacterId": "GIANG",
+          "imageResourcePath": "CipherImages/C1/C1_BR02_CIPHER_02",
+          "answer": "Giang",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR02_CIPHER_03",
+          "caseNumber": 2,
+          "title": "MẬT MÃ 03",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ hai khép lại.",
+          "targetCharacterId": "CHI",
+          "imageResourcePath": "CipherImages/C1/C1_BR02_CIPHER_03",
+          "answer": "Chi",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR02_CIPHER_04",
+          "caseNumber": 3,
+          "title": "MẬT MÃ 04",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ ba khép lại.",
+          "targetCharacterId": "HAI",
+          "imageResourcePath": "CipherImages/C1/C1_BR02_CIPHER_04",
+          "answer": "Hải",
+          "acceptedAnswers": []
+        }
+      ]
+    },
+    {
+      "branchId": "BR03",
+      "ciphers": [
+        {
+          "cipherId": "C1_BR03_CIPHER_01",
+          "caseNumber": 0,
+          "title": "MẬT MÃ HIỆN TRƯỜNG",
+          "description": "Mật mã đầu tiên được tìm thấy tại hiện trường vụ án.",
+          "targetCharacterId": "BAO",
+          "imageResourcePath": "CipherImages/C1/C1_BR03_CIPHER_01",
+          "answer": "Bảo",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR03_CIPHER_02",
+          "caseNumber": 1,
+          "title": "MẬT MÃ 02",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ nhất khép lại.",
+          "targetCharacterId": "HAI",
+          "imageResourcePath": "CipherImages/C1/C1_BR03_CIPHER_02",
+          "answer": "Hải",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR03_CIPHER_03",
+          "caseNumber": 2,
+          "title": "MẬT MÃ 03",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ hai khép lại.",
+          "targetCharacterId": "GIANG",
+          "imageResourcePath": "CipherImages/C1/C1_BR03_CIPHER_03",
+          "answer": "Giang",
+          "acceptedAnswers": []
+        },
+        {
+          "cipherId": "C1_BR03_CIPHER_04",
+          "caseNumber": 3,
+          "title": "MẬT MÃ 04",
+          "description": "Mật mã mới được tìm thấy sau khi vụ án thứ ba khép lại.",
+          "targetCharacterId": "DUNG",
+          "imageResourcePath": "CipherImages/C1/C1_BR03_CIPHER_04",
+          "answer": "Dũng",
+          "acceptedAnswers": []
+        }
+      ]
+    }
+  ]
+}

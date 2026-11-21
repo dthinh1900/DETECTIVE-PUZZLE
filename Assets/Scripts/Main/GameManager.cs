@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [Header("Timer")]
     [SerializeField] private float defaultTimerSeconds = 600f;
+    // Giới hạn thời gian tối đa được cấp cho MỖI giai đoạn điều tra.
+    // Giá trị này giảm một nửa sau mỗi đáp án mật mã sai và được giữ xuyên các giai đoạn.
+    private float maxTimerPerStageSeconds;
     private float remainingTime;
     private bool timerRunning;
     private bool timeUpHandled;
@@ -14,13 +17,21 @@ public class GameManager : MonoBehaviour
     private int storyDialogueIndex;
     private bool finalChancePending;
     private bool gameLost;
+    private bool gameWon;
+    private bool cipherVictoryPending;
+    private bool resumeTimerAfterCipherWrongAnswer;
+    // Đang ở màn chọn Chapter sau khi người chơi bấm Chơi mới.
+    // Tạm ngăn autosave ghi đè Save cũ trước khi Chapter mới thực sự bắt đầu.
+    private bool newGameSelectionPending;
     private string lastGameplayScene = "Investigation";
 
     public float RemainingTime => remainingTime;
+    public float MaxTimerPerStageSeconds => maxTimerPerStageSeconds;
     public bool IsTimerRunning => timerRunning;
     public int SelectedChapter => selectedChapter;
     public int StoryDialogueIndex => storyDialogueIndex;
     public bool IsFinalChancePending => finalChancePending;
+    public bool IsCipherVictoryPending => cipherVictoryPending;
     public event Action<float> OnTimerUpdated;
     public event Action OnTimeUp;
 
@@ -29,7 +40,8 @@ public class GameManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        remainingTime = defaultTimerSeconds;
+        maxTimerPerStageSeconds = Mathf.Max(0f, defaultTimerSeconds);
+        remainingTime = maxTimerPerStageSeconds;
     }
 
     private void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
@@ -64,9 +76,34 @@ public class GameManager : MonoBehaviour
 
     public void SelectChapter(int chapter) { selectedChapter = chapter; }
 
+    // Được gọi ngay khi người chơi nhấn nút Chơi mới ở MainMenu.
+    // Reset giới hạn suy luận về mặc định ngay lập tức, trước khi vào ChapterSelect.
+    // Không xóa Save cũ tại đây; nếu người chơi quay lại và chọn Continue,
+    // ContinueGame sẽ khôi phục lại đúng giới hạn đã lưu của lượt chơi cũ.
+    public void PrepareForNewGameSelection()
+    {
+        newGameSelectionPending = true;
+        maxTimerPerStageSeconds = Mathf.Max(0f, defaultTimerSeconds);
+        remainingTime = maxTimerPerStageSeconds;
+        timerRunning = false;
+        timeUpHandled = false;
+        resumeTimerAfterCipherWrongAnswer = false;
+        OnTimerUpdated?.Invoke(remainingTime);
+
+        Debug.Log("[NEW GAME] Đã reset giới hạn thời gian suy luận về " +
+            maxTimerPerStageSeconds.ToString("F1") + " giây khi nhấn Chơi mới.");
+    }
+
     public void StartNewTimer()
     {
-        remainingTime = defaultTimerSeconds; timerRunning = true; timeUpHandled = false; OnTimerUpdated?.Invoke(remainingTime); SaveGame();
+        // Mỗi giai đoạn bắt đầu bằng mức tối đa hiện tại.
+        // Không quay lại 10 phút nếu người chơi đã từng trả lời sai trong cùng lượt chơi.
+        remainingTime = Mathf.Max(0f, maxTimerPerStageSeconds);
+        timerRunning = true;
+        timeUpHandled = false;
+        resumeTimerAfterCipherWrongAnswer = false;
+        OnTimerUpdated?.Invoke(remainingTime);
+        SaveGame();
     }
 
     public float LoadSavedTime() => remainingTime;
@@ -84,7 +121,10 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame(string sceneOverride = null)
     {
-        if (gameLost || !CaseSessionData.IsSessionStarted || CaseSessionData.CurrentCaseNumber < 1) return;
+        // Người chơi đã chọn Chơi mới nhưng chưa xác nhận Chapter.
+        // Không ghi trạng thái timer vừa reset đè lên Save của lượt chơi cũ.
+        if (newGameSelectionPending) return;
+        if (gameLost || gameWon || !CaseSessionData.IsSessionStarted || CaseSessionData.CurrentCaseNumber < 1) return;
         string activeScene = SceneManager.GetActiveScene().name;
         if (activeScene == "Investigation" || activeScene == "Story" ||
             activeScene == "MainStory" || activeScene == "Deduction")
@@ -100,12 +140,14 @@ public class GameManager : MonoBehaviour
         {
             chapterId = selectedChapter,
             selectedBranchId = CaseSessionData.SelectedBranchId,
+            selectedKillerCharacterId = CaseSessionData.SelectedKillerCharacterId,
             currentCaseNumber = CaseSessionData.CurrentCaseNumber,
             viewingCaseNumber = CaseSessionData.ViewingCaseNumber > 0
                 ? CaseSessionData.ViewingCaseNumber
                 : CaseSessionData.CurrentCaseNumber,
             currentSceneName = targetScene,
             remainingTime = remainingTime,
+            maxTimerPerStageSeconds = maxTimerPerStageSeconds,
             storyDialogueIndex = storyDialogueIndex,
             finalChancePending = finalChancePending
         };
@@ -115,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     public bool ContinueGame()
     {
-        if (gameLost) return false;
+        if (gameLost || gameWon) return false;
 
         GameSaveData data = GameSaveManager.Load();
         if (data == null) return false;
@@ -125,10 +167,15 @@ public class GameManager : MonoBehaviour
         if (chapter == null) return false;
 
         selectedChapter = data.chapterId;
-        if (!CaseSessionData.RestoreSession(chapter, data.selectedBranchId, data.currentCaseNumber))
+        if (!CaseSessionData.RestoreSession(
+                chapter,
+                data.selectedBranchId,
+                data.currentCaseNumber,
+                data.selectedKillerCharacterId))
             return false;
 
         GameSessionData.RestoreFromSave(data);
+        newGameSelectionPending = false;
 
         int viewingCase = data.viewingCaseNumber;
         if (viewingCase < 1 || viewingCase > data.currentCaseNumber)
@@ -145,7 +192,11 @@ public class GameManager : MonoBehaviour
                 return false;
         }
 
-        remainingTime = Mathf.Max(0f, data.remainingTime);
+        // Save cũ (Version 3/4) chưa có mức thời gian tối đa; dùng lại cấu hình mặc định.
+        maxTimerPerStageSeconds = data.maxTimerPerStageSeconds > 0f
+            ? data.maxTimerPerStageSeconds
+            : Mathf.Max(0f, defaultTimerSeconds);
+        remainingTime = Mathf.Clamp(data.remainingTime, 0f, maxTimerPerStageSeconds);
         timerRunning = remainingTime > 0f;
         timeUpHandled = remainingTime <= 0f;
         storyDialogueIndex = Mathf.Max(0, data.storyDialogueIndex);
@@ -158,6 +209,67 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    // Đáp án mật mã sai: giảm một nửa GIỚI HẠN TỐI ĐA cho mỗi giai đoạn.
+    // Đồng hồ hiện tại không bị chia đôi theo số giây còn lại; nó chỉ bị giới hạn
+    // nếu số giây đang còn lớn hơn mức tối đa mới. Các giai đoạn sau sẽ nhận đủ mức mới.
+    public void ApplyCipherWrongAnswerPenaltyAndPause()
+    {
+        if (gameLost || gameWon)
+            return;
+
+        resumeTimerAfterCipherWrongAnswer = timerRunning;
+        timerRunning = false;
+
+        float previousLimit = maxTimerPerStageSeconds;
+        maxTimerPerStageSeconds = Mathf.Max(0f, maxTimerPerStageSeconds * 0.5f);
+        remainingTime = Mathf.Min(Mathf.Max(0f, remainingTime), maxTimerPerStageSeconds);
+
+        OnTimerUpdated?.Invoke(remainingTime);
+        SaveGame("Investigation");
+
+        Debug.Log(
+            "[CIPHER] Đáp án sai. Giới hạn mỗi giai đoạn giảm từ " +
+            previousLimit.ToString("F1") + "s xuống " +
+            maxTimerPerStageSeconds.ToString("F1") + "s. Thời gian giai đoạn hiện tại: " +
+            remainingTime.ToString("F1") + "s. Đồng hồ tạm dừng chờ người chơi xác nhận."
+        );
+    }
+
+    // Gọi khi người chơi đóng Panel báo sai.
+    // Chỉ tiếp tục đồng hồ nếu trước lúc báo sai đồng hồ đang chạy.
+    public void ResumeTimerAfterCipherWrongAnswer()
+    {
+        bool shouldResume = resumeTimerAfterCipherWrongAnswer;
+        resumeTimerAfterCipherWrongAnswer = false;
+
+        if (shouldResume && remainingTime > 0f && !timeUpHandled && !gameLost && !gameWon)
+            timerRunning = true;
+
+        OnTimerUpdated?.Invoke(remainingTime);
+        SaveGame("Investigation");
+    }
+
+    // Giải đúng bất kỳ mật mã hiện tại nào sẽ kết thúc game ngay bằng chiến thắng.
+    public void WinImmediatelyFromCipher()
+    {
+        if (gameLost || gameWon)
+            return;
+
+        gameWon = true;
+        cipherVictoryPending = true;
+        timerRunning = false;
+        timeUpHandled = true;
+        finalChancePending = false;
+        storyDialogueIndex = 0;
+        resumeTimerAfterCipherWrongAnswer = false;
+
+        OnTimerUpdated?.Invoke(remainingTime);
+        GameSaveManager.DeleteSave();
+
+        Debug.Log("[GAME WIN] Người chơi giải đúng mật mã. Chuyển đến Panel_Win.");
+        SceneManager.LoadScene("Deduction");
+    }
+
     // Kết thúc ván ngay khi người chơi đưa ra suy luận sai.
     // Không trừ thêm thời gian; dừng timer và xóa Save để không thể Continue ván đã thua.
     public void LoseImmediately()
@@ -165,10 +277,13 @@ public class GameManager : MonoBehaviour
         if (gameLost) return;
 
         gameLost = true;
+        gameWon = false;
+        cipherVictoryPending = false;
         timerRunning = false;
         timeUpHandled = true;
         finalChancePending = false;
         storyDialogueIndex = 0;
+        resumeTimerAfterCipherWrongAnswer = false;
         GameSaveManager.DeleteSave();
         OnTimerUpdated?.Invoke(remainingTime);
         Debug.Log("[GAME OVER] Người chơi đã thua do suy luận sai. Save đã bị xóa.");
@@ -217,12 +332,18 @@ public class GameManager : MonoBehaviour
 
     public void BeginNewGame(int chapter)
     {
+        newGameSelectionPending = false;
         gameLost = false;
+        gameWon = false;
+        cipherVictoryPending = false;
+        resumeTimerAfterCipherWrongAnswer = false;
         selectedChapter = chapter;
         GameSaveManager.DeleteSave();
         GameSessionData.ClearAllSessionData();
         CaseSessionData.ClearSession();
-        remainingTime = defaultTimerSeconds;
+        // New Game / chơi lại / chuyển sang Chapter mới: khôi phục giới hạn ban đầu.
+        maxTimerPerStageSeconds = Mathf.Max(0f, defaultTimerSeconds);
+        remainingTime = maxTimerPerStageSeconds;
         timerRunning = false;
         timeUpHandled = false;
         storyDialogueIndex = 0;

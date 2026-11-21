@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -7,11 +6,7 @@ public class MainStoryData
 {
     public int chapterId;
     public string chapterName;
-
-    // Nội dung dùng chung cho cả 3 Branch: Vụ án 1, 2 và hội thoại cơ hội cuối số 5.
     public List<MainStoryCaseData> commonCases;
-
-    // Nội dung riêng của từng Branch.
     public List<MainStoryBranchData> branches;
 }
 
@@ -19,6 +14,14 @@ public class MainStoryData
 public class MainStoryBranchData
 {
     public string branchId;
+
+    // Kết quả cố định của từng Branch trong Chapter 1.
+    public string killerCharacterId;
+    public string deadAfterCase1CharacterId;
+    public string deadAfterCase2CharacterId;
+    public string deadAfterCase3CharacterId;
+    public string deadAfterCase4CharacterId;
+
     public List<MainStoryCaseData> cases;
 }
 

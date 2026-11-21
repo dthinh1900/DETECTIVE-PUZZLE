@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class DeductionController : MonoBehaviour
 {
-    [Header("Màn hình thua")]
+    [Header("Màn hình kết quả")]
+    [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
 
     private bool isGameOver;
@@ -11,12 +12,24 @@ public class DeductionController : MonoBehaviour
     private void Start()
     {
         isGameOver = false;
+
+        if (winPanel != null)
+            winPanel.SetActive(false);
         if (losePanel != null)
             losePanel.SetActive(false);
+
+        // CipherController chuyển sang Scene Deduction khi đáp án mật mã đúng.
+        if (GameManager.Instance != null && GameManager.Instance.IsCipherVictoryPending)
+        {
+            isGameOver = true;
+            if (winPanel != null)
+                winPanel.SetActive(true);
+            else
+                Debug.LogError("[DEDUCTION] Chưa gán Win Panel trong Inspector.");
+        }
     }
 
-    // Gắn hàm này vào lựa chọn suy luận sai (hoặc gọi từ hàm kiểm tra đáp án khi đáp án sai).
-    // Không trừ thời gian. Người chơi thua ngay và không thể quay lại để thử tiếp.
+    // Gắn vào lựa chọn suy luận sai.
     public void OnWrongDeductionAnswer()
     {
         if (isGameOver)
@@ -30,13 +43,9 @@ public class DeductionController : MonoBehaviour
             Debug.LogError("[DEDUCTION] Không tìm thấy GameManager để kết thúc ván.");
 
         if (losePanel != null)
-        {
             losePanel.SetActive(true);
-        }
         else
-        {
-            Debug.LogError("[DEDUCTION] Chưa gán Lose Panel trong Inspector. Ván đã được đánh dấu thua, nhưng chưa có panel để hiển thị.");
-        }
+            Debug.LogError("[DEDUCTION] Chưa gán Lose Panel trong Inspector.");
     }
 
     public void BackToInvestigation()
